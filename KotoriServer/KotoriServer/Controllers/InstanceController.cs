@@ -1,7 +1,8 @@
 ﻿using System;
+
 namespace KotoriServer.Controllers
 {
-    public class InstanceController
+    public class InstanceController : BaseController
     {
         public InstanceController()
         {
