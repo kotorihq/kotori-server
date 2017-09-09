@@ -22,6 +22,8 @@ namespace KotoriServer
 			services.AddSwaggerGen(c =>
 			{
 				c.SwaggerDoc("v1", new Info { Title = "Kotori", Version = "v1" });
+                c.IgnoreObsoleteActions();
+                c.IgnoreObsoleteProperties();
 			});
         }
 
@@ -34,6 +36,11 @@ namespace KotoriServer
 
             app.UseMvc();
             app.UseSwagger();
+
+			app.UseSwaggerUI(c =>
+			{
+				c.SwaggerEndpoint("/swagger/v1/swagger.json", "Kotori");
+			});
         }
     }
 }
