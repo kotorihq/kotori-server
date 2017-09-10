@@ -30,8 +30,7 @@ namespace KotoriServer.Controllers
         [ProducesResponseType(typeof(void), 500)]
         public string Get()
         {
-            return "?";
-            //return _kotori.Instance;
+            return _kotori.Instance;
         }
     }
 }

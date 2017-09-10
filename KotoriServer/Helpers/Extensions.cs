@@ -11,7 +11,14 @@ namespace KotoriServer
         /// <param name="configuration">Configuration.</param>
         public static KotoriCore.Configuration.Kotori ToKotoriConfiguration(this IConfiguration configuration)
         {
-            return configuration.GetSection("Kotori").GetValue<KotoriCore.Configuration.Kotori>("Configuration");
+            var section = configuration.GetSection("Kotori").GetSection("Configuration");
+
+            var kotori = new KotoriCore.Configuration.Kotori
+            {
+                Instance = section.GetValue<string>("Instance")
+            };
+
+            return kotori;
         }
     }
 }
