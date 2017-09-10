@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System.Linq;
+using Microsoft.Extensions.Configuration;
 
 namespace KotoriServer
 {
@@ -15,7 +16,8 @@ namespace KotoriServer
 
             var kotori = new KotoriCore.Configuration.Kotori
             {
-                Instance = section.GetValue<string>("Instance")
+                Instance = section.GetValue<string>("Instance"),
+                MasterKeys = section.GetSection("MasterKeys").GetChildren().Select(x => x.Get<KotoriCore.Configuration.MasterKey>())
             };
 
             return kotori;
