@@ -6,7 +6,7 @@ namespace KotoriServer.Controllers
 {
     [Route("api/[controller]")]
     [Obsolete]
-    public class ValuesController : BaseController
+    public class ValuesController 
     {
         // GET api/values
         [HttpGet]

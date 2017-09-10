@@ -19,12 +19,12 @@ namespace KotoriServer
         {
             services.AddMvc();
 
-			services.AddSwaggerGen(c =>
-			{
-				c.SwaggerDoc("v1", new Info { Title = "Kotori", Version = "v1" });
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "Kotori", Version = "v1" });
                 c.IgnoreObsoleteActions();
                 c.IgnoreObsoleteProperties();
-			});
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -37,10 +37,10 @@ namespace KotoriServer
             app.UseMvc();
             app.UseSwagger();
 
-			app.UseSwaggerUI(c =>
-			{
-				c.SwaggerEndpoint("/swagger/v1/swagger.json", "Kotori");
-			});
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Kotori");
+            });
         }
     }
 }
