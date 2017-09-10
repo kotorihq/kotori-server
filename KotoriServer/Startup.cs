@@ -24,7 +24,7 @@ namespace KotoriServer
 			services.AddIdentityServer()
 				.AddInMemoryClients(AuthServer.Config.Clients())
 				.AddInMemoryApiResources(AuthServer.Config.ApiResources())
-				.AddInMemoryUsers(AuthServer.Config.Users())
+				//.AddInMemoryUsers(AuthServer.Config.Users())
 				.AddTemporarySigningCredential();
             
             services.AddSwaggerGen(c =>

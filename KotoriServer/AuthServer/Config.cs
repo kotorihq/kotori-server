@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using IdentityServer4.Models;
-using IdentityServer4.Services.InMemory;
+using KotoriServer.Security;
 
 namespace KotoriServer.AuthServer
 {
@@ -34,17 +34,11 @@ namespace KotoriServer.AuthServer
             };
         }
 
-        internal static List<InMemoryUser> Users()
+        internal static List<KeyUser> Users()
         {
-            return new List<InMemoryUser>
+            return new List<KeyUser>
             {
-                new InMemoryUser
-                {
-                    Subject = "joebloggs",
-                    Username = "joebloggs",
-                    Password = "pass123",
-                    Enabled = true
-                }
+                new KeyUser("xxx", Helpers.Enums.KeyUserType.Master)
             };
         }
     }
