@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System.Collections.Generic;
+using KotoriServer.Security;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,11 +21,30 @@ namespace KotoriServer
         {
             services.AddMvc();
 
+			services.AddIdentityServer()
+				.AddInMemoryClients(AuthServer.Config.Clients())
+				.AddInMemoryApiResources(AuthServer.Config.ApiResources())
+				.AddInMemoryUsers(AuthServer.Config.Users())
+				.AddTemporarySigningCredential();
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "Kotori", Version = "v1" });
                 c.IgnoreObsoleteActions();
                 c.IgnoreObsoleteProperties();
+				c.AddSecurityDefinition("oauth2", new OAuth2Scheme
+				{
+					Type = "oauth2",
+					Flow = "implicit",
+					AuthorizationUrl = "http://petstore.swagger.io/oauth/dialog",
+					Scopes = new Dictionary<string, string>
+		{
+			{ "readAccess", "Access read operations" },
+			{ "writeAccess", "Access write operations" }
+		}
+				});
+				// Assign scope requirements to operations based on AuthorizeAttribute
+				c.OperationFilter<SecurityRequirementsOperationFilter>();
             });
         }
 

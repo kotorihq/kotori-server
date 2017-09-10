@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
 namespace KotoriServer.Controllers
@@ -26,8 +27,9 @@ namespace KotoriServer.Controllers
         /// <returns>The instance name.</returns>
         [HttpGet]
         [ProducesResponseType(typeof(string), 200)]
-        [ProducesResponseType(typeof(void), 401)]
+        //[ProducesResponseType(typeof(void), 401)]
         [ProducesResponseType(typeof(void), 500)]
+        [Authorize("readAccess")]
         public string Get()
         {
             return _kotori.Instance;
