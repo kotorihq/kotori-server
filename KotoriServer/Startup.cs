@@ -21,11 +21,11 @@ namespace KotoriServer
         {
             services.AddMvc();
 
-			services.AddIdentityServer()
+			/*services.AddIdentityServer()
 				.AddInMemoryClients(AuthServer.Config.Clients())
 				.AddInMemoryApiResources(AuthServer.Config.ApiResources())
 				//.AddInMemoryUsers(AuthServer.Config.Users())
-				.AddTemporarySigningCredential();
+				.AddTemporarySigningCredential();*/
             
             services.AddSwaggerGen(c =>
             {

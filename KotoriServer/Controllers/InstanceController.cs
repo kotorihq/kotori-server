@@ -29,7 +29,7 @@ namespace KotoriServer.Controllers
         [ProducesResponseType(typeof(string), 200)]
         //[ProducesResponseType(typeof(void), 401)]
         [ProducesResponseType(typeof(void), 500)]
-        [Authorize("readAccess")]
+        //[Authorize("readAccess")]
         public string Get()
         {
             return _kotori.Instance;
