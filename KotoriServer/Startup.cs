@@ -35,7 +35,7 @@ namespace KotoriServer
                 });
                 
                 // Assign scope requirements to operations based on AuthorizeAttribute
-                c.OperationFilter<SecurityRequirementsOperationFilter>();
+                //c.OperationFilter<SecurityRequirementsOperationFilter>();
             });
 
             services.AddAuthorization(options => options.AddPolicy("master", policy => policy.Requirements.Add(new MasterRequirement())));
@@ -58,6 +58,7 @@ namespace KotoriServer
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Kotori");
+                c.ShowRequestHeaders();
             });
         }
     }
