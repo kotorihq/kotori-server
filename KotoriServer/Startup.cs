@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using KotoriServer.Security;
+﻿using KotoriServer.Security;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -19,33 +19,30 @@ namespace KotoriServer
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
-
-			/*services.AddIdentityServer()
-				.AddInMemoryClients(AuthServer.Config.Clients())
-				.AddInMemoryApiResources(AuthServer.Config.ApiResources())
-				//.AddInMemoryUsers(AuthServer.Config.Users())
-				.AddTemporarySigningCredential();*/
+            services.AddMvc();		
             
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "Kotori", Version = "v1" });
                 c.IgnoreObsoleteActions();
                 c.IgnoreObsoleteProperties();
-				c.AddSecurityDefinition("oauth2", new OAuth2Scheme
-				{
-					Type = "oauth2",
-					Flow = "implicit",
-					AuthorizationUrl = "http://petstore.swagger.io/oauth/dialog",
-					Scopes = new Dictionary<string, string>
-		{
-			{ "readAccess", "Access read operations" },
-			{ "writeAccess", "Access write operations" }
-		}
-				});
-				// Assign scope requirements to operations based on AuthorizeAttribute
-				c.OperationFilter<SecurityRequirementsOperationFilter>();
+                c.AddSecurityDefinition("apiKey", new ApiKeyScheme
+                {
+                    Type = "apiKey",
+                    Description = "API Key Authentication",
+                    Name = "apiKey",
+                    In = "header"
+                });
+                
+                // Assign scope requirements to operations based on AuthorizeAttribute
+                c.OperationFilter<SecurityRequirementsOperationFilter>();
             });
+
+            services.AddAuthorization(options => options.AddPolicy("master", policy => policy.Requirements.Add(new MasterRequirement())));
+            services.AddAuthorization(options => options.AddPolicy("project", policy => policy.Requirements.Add(new ProjectRequirement())));
+
+            services.AddSingleton<IAuthorizationHandler, MasterHandler>();
+            services.AddSingleton<IAuthorizationHandler, ProjectHandler>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
