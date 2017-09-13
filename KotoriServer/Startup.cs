@@ -33,9 +33,7 @@ namespace KotoriServer
                     Name = "apiKey",
                     In = "header"
                 });
-                
-                // Assign scope requirements to operations based on AuthorizeAttribute
-                //c.OperationFilter<SecurityRequirementsOperationFilter>();
+                               
             });
 
             services.AddAuthorization(options => options.AddPolicy("master", policy => policy.Requirements.Add(new MasterRequirement())));
