@@ -17,15 +17,10 @@ namespace KotoriServer.Security
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, MasterRequirement requirement)
         {            
             if (context.Resource is Microsoft.AspNetCore.Mvc.Filters.AuthorizationFilterContext mvcContext)
-            {
-                var header = ((Microsoft.AspNetCore.Http.Internal.DefaultHttpRequest)((Microsoft.AspNetCore.Http.DefaultHttpContext)mvcContext.HttpContext).Request).Headers;
-
-                if (!header.Keys.Contains("apiKey"))
-                    context.Fail();
-
-                var val = header["apiKey"].ToString();
+            {            
+                var apiKey = mvcContext.ToHttpHeaderValue("apiKey");
                 
-                if (_kotori.MasterKeys.Any(key => key.Key.Equals(val)))
+                if (_kotori.MasterKeys.Any(key => key.Key.Equals(apiKey)))
                     context.Succeed(requirement);
                 else
                     context.Fail();
