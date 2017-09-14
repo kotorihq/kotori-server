@@ -10,7 +10,7 @@ namespace KotoriServer.Controllers
     [Route("api/instance")]
     public class InstanceController
     {
-        private KotoriCore.Configuration.Kotori _kotori;
+        KotoriCore.Configuration.Kotori _kotori;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:KotoriServer.Controllers.InstanceController"/> class.

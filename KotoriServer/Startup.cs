@@ -19,8 +19,8 @@ namespace KotoriServer
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();		
-            
+            services.AddMvc();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "Kotori", Version = "v1" });
@@ -33,7 +33,7 @@ namespace KotoriServer
                     Name = "apiKey",
                     In = "header"
                 });
-                               
+
             });
 
             services.AddAuthorization(options => options.AddPolicy("master", policy => policy.Requirements.Add(new MasterRequirement())));
@@ -48,9 +48,22 @@ namespace KotoriServer
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseBrowserLink();
+            }
+            else
+            {
+                app.UseExceptionHandler("/error");
             }
 
-            app.UseMvc();
+            app.UseStaticFiles();
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute("index", "", new { controller = "Site", action = "Index" });
+                routes.MapRoute("error", "error", new { controller = "Site", action = "Error" });                
+            }
+            );
+
             app.UseSwagger();
 
             app.UseSwaggerUI(c =>
