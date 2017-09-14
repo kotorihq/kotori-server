@@ -1,6 +1,6 @@
 namespace KotoriServer.Models
 {
-    public class ErrorViewModel
+    public class SiteError
     {
         public string RequestId { get; set; }
 

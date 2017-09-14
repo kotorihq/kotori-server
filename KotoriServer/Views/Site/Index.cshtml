@@ -1,4 +1,32 @@
-﻿@{
+﻿@model KotoriServer.Models.SiteIndex
+@{
     Layout = null;
 }
-<h1>kotori</h1>
+<!doctype html>
+<html>
+<head>
+	<title>kotori</title>
+    <link href="https://fonts.googleapis.com/css?family=Space+Mono" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">    
+    <style type="text/css">
+        html { height: 100%; }
+         body { height: 100%;width: 100%; font-family: 'Space Mono', monospace; display: table; position: absolute; }
+        .jumbotron { display: table-cell; vertical-align: middle;color: #000; background-color: #FFF; }
+        img { width: 250px; height: 250px;}
+    </style>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <meta charset="utf-8">   
+</head>
+<body>
+<div class="jumbotron text-center">
+    <img src="/images/kotori.png" />    
+    <h1>⌁</h1>
+    <p>VERSION: <strong>@Model.Kotori.Version</strong></p>
+    <p>INSTANCE: <strong>@Model.Kotori.Instance</strong></p>   
+    <h1>⌁</h1>
+    <p>
+        <small>made with everlastin' kinky 💙 by none others than<br/><a href="http://frohikey.com">frohikey</a> + <a href="http://orbu.co">scoorf</a></small>
+    </p>
+</div>
+</body>
+</html>

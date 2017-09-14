@@ -20,14 +20,13 @@ namespace KotoriServer.Controllers
 
         [HttpGet]                
         public IActionResult Index()
-        {
-            //return _kotori.Instance;
-            return View();            
+        {            
+            return View(new SiteIndex(_kotori));            
         }
         
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new SiteError { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

@@ -19,7 +19,8 @@ namespace KotoriServer
             var kotori = new KotoriCore.Configuration.Kotori
             {
                 Instance = section.GetValue<string>("Instance"),
-                MasterKeys = section.GetSection("MasterKeys").GetChildren().Select(x => x.Get<KotoriCore.Configuration.MasterKey>())
+                Version = section.GetValue<string>("Version"),
+                MasterKeys = section.GetSection("MasterKeys").GetChildren().Select(x => x.Get<KotoriCore.Configuration.MasterKey>()),                
             };
 
             return kotori;
