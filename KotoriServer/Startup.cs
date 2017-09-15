@@ -1,4 +1,5 @@
-﻿using KotoriServer.Security;
+﻿using KotoriServer.Middleware;
+using KotoriServer.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -56,6 +57,8 @@ namespace KotoriServer
             }
 
             app.UseStaticFiles();
+
+            app.UseMiddleware(typeof(ErrorHandling));
 
             app.UseMvc(routes =>
             {
