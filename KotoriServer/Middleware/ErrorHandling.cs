@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using KotoriServer.Exceptions;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System;
 using System.Net;
@@ -29,12 +30,16 @@ namespace KotoriServer.Middleware
 
         static Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
-            var code = HttpStatusCode.InternalServerError; // 500 if unexpected
+            var code = HttpStatusCode.InternalServerError;
 
-            //if (exception is MyNotFoundException) code = HttpStatusCode.NotFound;
-            //else if (exception is MyUnauthorizedException) code = HttpStatusCode.Unauthorized;
-            //else if (exception is MyException) code = HttpStatusCode.BadRequest;
-
+            if (exception is KotoriAuthException kae)
+            {
+                if (kae.EmptyKey)
+                    code = HttpStatusCode.Unauthorized;
+                else
+                    code = HttpStatusCode.Forbidden;
+            }
+                        
             var result = JsonConvert.SerializeObject(new { error = exception.Message });
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)code;
