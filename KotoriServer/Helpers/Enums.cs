@@ -6,16 +6,16 @@
     public sealed class Enums
     {
         /// <summary>
-        /// Key user types.
+        /// Claim types.
         /// </summary>
-        public enum KeyUserType
+        public enum ClaimType
         {
             /// <summary>
-            /// The master user.
+            /// The master.
             /// </summary>
             Master = 0,
             /// <summary>
-            /// The project user.
+            /// The project.
             /// </summary>
             Project = 1
         }
