@@ -33,7 +33,7 @@ namespace KotoriServer
                     Name = "apiKey",
                     In = "header"
                 });
-
+                c.OperationFilter<AuthResponsesOperationFilter>();
             });
 
             services.AddAuthorization(options => options.AddPolicy("master", policy => policy.Requirements.Add(new MasterRequirement())));
