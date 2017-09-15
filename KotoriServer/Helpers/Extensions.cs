@@ -2,6 +2,9 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
+using KotoriServer.Helpers;
+using System.Collections.Generic;
+using Sushi2;
 
 namespace KotoriServer
 {
@@ -47,5 +50,12 @@ namespace KotoriServer
 
             return header[foundKey].ToString();
         }
+
+        /// <summary>
+        /// Get scope string from <paramref name="claimType">the claim type</paramref>.
+        /// </summary>
+        /// <param name="claimType">The claim type.</param>
+        /// <returns>Scope string.</returns>
+        public static string ToClaimString(this Enums.ClaimType claimType) => claimType.ToString().ToLower();       
     }
 }

@@ -32,8 +32,8 @@ namespace KotoriServer
                     Description = "API Key Authentication",
                     Name = "apiKey",
                     In = "header"
-                });
-                c.OperationFilter<AuthResponsesOperationFilter>();
+                });                
+                c.OperationFilter<SecurityRequirementsOperationFilter>();
             });
 
             services.AddAuthorization(options => options.AddPolicy("master", policy => policy.Requirements.Add(new MasterRequirement())));
