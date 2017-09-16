@@ -7,15 +7,27 @@ using System.Linq;
 
 namespace KotoriServer.Security
 {
+    /// <summary>
+    /// Security requirements operation filter.
+    /// </summary>
     public class SecurityRequirementsOperationFilter : IOperationFilter
     {
         readonly IOptions<AuthorizationOptions> _authorizationOptions;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:KotoriServer.Security.SecurityRequirementsOperationFilter"/> class.
+        /// </summary>
+        /// <param name="authorizationOptions">Authorization options.</param>
         public SecurityRequirementsOperationFilter(IOptions<AuthorizationOptions> authorizationOptions)
         {
             _authorizationOptions = authorizationOptions;
         }
 
+        /// <summary>
+        /// Apply the specified operation and context.
+        /// </summary>
+        /// <param name="operation">Operation.</param>
+        /// <param name="context">Context.</param>
         public void Apply(Operation operation, OperationFilterContext context)
         {
             var controllerPolicies = context.ApiDescription.ControllerAttributes()
@@ -31,17 +43,19 @@ namespace KotoriServer.Security
                 .OfType<MasterRequirement>()
                 .Select(x => x.ClaimType);
 
+            // any required claims? inject 401 + 403 reponses
             if (requiredClaimTypes.Any())
             {
                 operation.Responses.Add("401", new Response { Description = "Unauthorized" });
                 operation.Responses.Add("403", new Response { Description = "Forbidden" });
 
-                operation.Security = new List<IDictionary<string, IEnumerable<string>>>();
-                operation.Security.Add(
+                operation.Security = new List<IDictionary<string, IEnumerable<string>>>
+                {
                     new Dictionary<string, IEnumerable<string>>
                     {
-                    { "apiKey", requiredClaimTypes.Select(x => x.ToClaimString()) }
-                    });
+                        { "apiKey", requiredClaimTypes.Select(x => x.ToClaimString()) }
+                    }
+                };
             }
         }
     }
