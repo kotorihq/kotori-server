@@ -6,15 +6,27 @@ using KotoriServer.Exceptions;
 
 namespace KotoriServer.Security
 {
+    /// <summary>
+    /// Handler of master keys.
+    /// </summary>
     public class MasterHandler : AuthorizationHandler<MasterRequirement>
     {
         KotoriCore.Configuration.Kotori _kotori;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:KotoriServer.Security.MasterHandler"/> class.
+        /// </summary>
+        /// <param name="config">Config.</param>
         public MasterHandler(IConfiguration config)
         {
             _kotori = config.ToKotoriConfiguration();
         }
 
+        /// <summary>
+        /// Handles the requirement async.
+        /// </summary>
+        /// <param name="context">Context.</param>
+        /// <param name="requirement">Requirement.</param>
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, MasterRequirement requirement)
         {            
             if (context.Resource is Microsoft.AspNetCore.Mvc.Filters.AuthorizationFilterContext mvcContext)
