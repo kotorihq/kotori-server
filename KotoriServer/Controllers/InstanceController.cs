@@ -27,12 +27,11 @@ namespace KotoriServer.Controllers
         /// <returns>The instance name.</returns>
         [HttpGet]
         [ProducesResponseType(typeof(string), 200)]
-        //[ProducesResponseType(typeof(void), 401)]
         [ProducesResponseType(typeof(void), 500)]
         [Authorize("master")]
         public string Get()
         {
-            return _kotori.Instance;
+            return _kotori.DocumentDb.EndPoint;
         }
     }
 }

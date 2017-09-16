@@ -3,8 +3,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
 using KotoriServer.Helpers;
-using System.Collections.Generic;
-using Sushi2;
 
 namespace KotoriServer
 {
@@ -17,13 +15,14 @@ namespace KotoriServer
         /// <param name="configuration">Configuration.</param>
         public static KotoriCore.Configuration.Kotori ToKotoriConfiguration(this IConfiguration configuration)
         {
-            var section = configuration.GetSection("Kotori").GetSection("Configuration");
+            var configurationSection = configuration.GetSection("Kotori").GetSection("Configuration");
 
             var kotori = new KotoriCore.Configuration.Kotori
             {
-                Instance = section.GetValue<string>("Instance"),
-                Version = section.GetValue<string>("Version"),
-                MasterKeys = section.GetSection("MasterKeys").GetChildren().Select(x => x.Get<KotoriCore.Configuration.MasterKey>()),                
+                Instance = configurationSection.GetValue<string>("Instance"),
+                Version = configurationSection.GetValue<string>("Version"),
+                MasterKeys = configurationSection.GetSection("MasterKeys").GetChildren().Select(x => x.Get<KotoriCore.Configuration.MasterKey>()),
+                DocumentDb = configuration.GetValue<KotoriCore.Configuration.DocumentDb>("DocumentDb")
             };
 
             return kotori;
