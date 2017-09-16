@@ -30,7 +30,7 @@ namespace KotoriServer.Controllers
         [Authorize("master")]
         public string Get()
         {
-            return _kotori.DocumentDb.EndPoint;
+            return _kotori.Instance;
         }
     }
 }
