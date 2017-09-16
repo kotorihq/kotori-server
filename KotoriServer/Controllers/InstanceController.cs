@@ -27,7 +27,6 @@ namespace KotoriServer.Controllers
         /// <returns>The instance name.</returns>
         [HttpGet]
         [ProducesResponseType(typeof(string), 200)]
-        [ProducesResponseType(typeof(void), 500)]
         [Authorize("master")]
         public string Get()
         {

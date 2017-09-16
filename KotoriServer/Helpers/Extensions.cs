@@ -22,7 +22,7 @@ namespace KotoriServer
                 Instance = configurationSection.GetValue<string>("Instance"),
                 Version = configurationSection.GetValue<string>("Version"),
                 MasterKeys = configurationSection.GetSection("MasterKeys").GetChildren().Select(x => x.Get<KotoriCore.Configuration.MasterKey>()),
-                DocumentDb = configuration.GetValue<KotoriCore.Configuration.DocumentDb>("DocumentDb")
+                DocumentDb = configuration.GetSection("Kotori").GetValue<KotoriCore.Configuration.DocumentDb>("DocumentDb")
             };
 
             return kotori;

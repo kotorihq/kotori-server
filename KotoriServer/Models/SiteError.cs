@@ -3,7 +3,7 @@ namespace KotoriServer.Models
     /// <summary>
     /// Site error.
     /// </summary>
-    /// <remarks>Maybe not neede?</remarks>
+    /// <remarks>Maybe not needed?</remarks>
     public class SiteError
     {
         public string RequestId { get; set; }

@@ -4,8 +4,9 @@ using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Collections.Generic;
 using System.Linq;
+using KotoriServer.Security;
 
-namespace KotoriServer.Security
+namespace KotoriServer.Filters
 {
     /// <summary>
     /// Security requirements operation filter.

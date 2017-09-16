@@ -1,4 +1,5 @@
-﻿using KotoriServer.Middleware;
+﻿using KotoriServer.Filters;
+using KotoriServer.Middleware;
 using KotoriServer.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -35,6 +36,7 @@ namespace KotoriServer
                     In = "header"
                 });                
                 c.OperationFilter<SecurityRequirementsOperationFilter>();
+                c.OperationFilter<InternalServerErrorOperationFilter>();
             });
 
             services.AddAuthorization(options => options.AddPolicy("master", policy => policy.Requirements.Add(new MasterRequirement())));
