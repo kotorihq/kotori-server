@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
 using KotoriServer.Helpers;
@@ -8,26 +7,6 @@ namespace KotoriServer
 {
     public static class Extensions
     {
-        /// <summary>
-        /// Convert configuration to the kotori configuration.
-        /// </summary>
-        /// <returns>The kotori configuration.</returns>
-        /// <param name="configuration">Configuration.</param>
-        public static KotoriCore.Configuration.Kotori ToKotoriConfiguration(this IConfiguration configuration)
-        {
-            var configurationSection = configuration.GetSection("Kotori").GetSection("Configuration");
-
-            var kotori = new KotoriCore.Configuration.Kotori
-            {
-                Instance = configurationSection.GetValue<string>("Instance"),
-                Version = configurationSection.GetValue<string>("Version"),
-                MasterKeys = configurationSection.GetSection("MasterKeys").GetChildren().Select(x => x.Get<KotoriCore.Configuration.MasterKey>()),
-                DocumentDb = configuration.GetSection("Kotori:DocumentDb").Get<KotoriCore.Configuration.DocumentDb>()
-            };
-
-            return kotori;
-        }
-
         /// <summary>
         /// Convert auth filter context to a header value of particular field.
         /// </summary>
@@ -55,6 +34,6 @@ namespace KotoriServer
         /// </summary>
         /// <param name="claimType">The claim type.</param>
         /// <returns>Scope string.</returns>
-        public static string ToClaimString(this Enums.ClaimType claimType) => claimType.ToString().ToLower();       
+        public static string ToClaimString(this Enums.ClaimType claimType) => claimType.ToString().ToLower();
     }
 }

@@ -2,12 +2,13 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.Diagnostics;
+using KotoriCore;
 
 namespace KotoriServer.Controllers
 {
     public class SiteController : Controller
     {
-        KotoriCore.Configuration.Kotori _kotori;
+        Kotori _kotori;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:KotoriServer.Controllers.PresentationController"/> class.
@@ -15,7 +16,7 @@ namespace KotoriServer.Controllers
         /// <param name="config">Config.</param>
         public SiteController(IConfiguration config)
         {
-            _kotori = config.ToKotoriConfiguration();
+            _kotori = new Kotori(config);
         }
 
         [HttpGet]                

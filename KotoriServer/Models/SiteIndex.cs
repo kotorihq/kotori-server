@@ -1,4 +1,4 @@
-﻿using KotoriCore.Configuration;
+﻿using KotoriCore;
 
 namespace KotoriServer.Models
 {

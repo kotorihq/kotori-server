@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
 using System.Linq;
 using KotoriServer.Exceptions;
+using KotoriCore;
 
 namespace KotoriServer.Security
 {
@@ -11,7 +12,7 @@ namespace KotoriServer.Security
     /// </summary>
     public class MasterHandler : AuthorizationHandler<MasterRequirement>
     {
-        KotoriCore.Configuration.Kotori _kotori;
+        Kotori _kotori;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:KotoriServer.Security.MasterHandler"/> class.
@@ -19,7 +20,7 @@ namespace KotoriServer.Security
         /// <param name="config">Config.</param>
         public MasterHandler(IConfiguration config)
         {
-            _kotori = config.ToKotoriConfiguration();
+            _kotori = new Kotori(config);
         }
 
         /// <summary>
@@ -33,7 +34,8 @@ namespace KotoriServer.Security
             {            
                 var apiKey = mvcContext.ToHttpHeaderValue("apiKey");
 
-                if (_kotori.MasterKeys.Any(key => key.Key.Equals(apiKey)))
+                // TODO: call command in kotori
+                if (_kotori.Configuration.MasterKeys.Any(key => key.Key.Equals(apiKey)))
                     context.Succeed(requirement);
                 else
                 {

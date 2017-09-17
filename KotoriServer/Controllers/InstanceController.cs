@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using KotoriCore;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
@@ -10,7 +11,7 @@ namespace KotoriServer.Controllers
     [Route("api/instance")]
     public class InstanceController
     {
-        KotoriCore.Configuration.Kotori _kotori;
+        Kotori _kotori;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:KotoriServer.Controllers.InstanceController"/> class.
@@ -18,7 +19,7 @@ namespace KotoriServer.Controllers
         /// <param name="config">Config.</param>
         public InstanceController(IConfiguration config)
         {
-            _kotori = config.ToKotoriConfiguration();
+            _kotori = new Kotori(config);
         }
 
         /// <summary>
@@ -30,7 +31,8 @@ namespace KotoriServer.Controllers
         [Authorize("master")]
         public string Get()
         {
-            return _kotori.Instance;
+            // command in _kotori
+            return _kotori.Configuration.Instance;
         }
     }
 }
