@@ -28,7 +28,7 @@ namespace KotoriServer.Controllers
         }
 
 		[HttpPost]
-        [ProducesResponseType(typeof(string), 200)]
+        [ProducesResponseType(typeof(void), 200)]
         [Authorize("master")]
 		public void Post(string instance, string name, string identifier, [FromBody]List<ProjectKey> projectKeys)
 		{
