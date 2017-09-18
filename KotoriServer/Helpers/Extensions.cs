@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
-using KotoriServer.Helpers;
 
 namespace KotoriServer
 {
@@ -34,6 +33,6 @@ namespace KotoriServer
         /// </summary>
         /// <param name="claimType">The claim type.</param>
         /// <returns>Scope string.</returns>
-        public static string ToClaimString(this Enums.ClaimType claimType) => claimType.ToString().ToLower();
+        public static string ToClaimString(this KotoriCore.Helpers.Enums.ClaimType claimType) => claimType.ToString().ToLower();
     }
 }

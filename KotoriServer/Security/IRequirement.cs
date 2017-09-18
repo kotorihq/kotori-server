@@ -1,6 +1,4 @@
-﻿using KotoriServer.Helpers;
-
-namespace KotoriServer.Security
+﻿namespace KotoriServer.Security
 {
     /// <summary>
     /// Requirement inteface.
@@ -11,6 +9,6 @@ namespace KotoriServer.Security
         /// Gets the type of the claim.
         /// </summary>
         /// <value>The type of the claim.</value>
-        Enums.ClaimType ClaimType { get; }
+        KotoriCore.Helpers.Enums.ClaimType ClaimType { get; }
     }
 }

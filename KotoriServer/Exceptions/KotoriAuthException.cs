@@ -11,7 +11,7 @@ namespace KotoriServer.Exceptions
         /// Gets the type of the claim.
         /// </summary>
         /// <value>The type of the claim.</value>
-        public Enums.ClaimType ClaimType { get; }
+        public KotoriCore.Helpers.Enums.ClaimType ClaimType { get; }
 
         /// <summary>
         /// Gets a value indicating whether this <see cref="T:KotoriServer.Exceptions.KotoriAuthException"/> has empty key.
@@ -25,7 +25,7 @@ namespace KotoriServer.Exceptions
         /// <param name="claimType">Claim type.</param>
         /// <param name="message">Message.</param>
         /// <param name="emptyKey">If set to <c>true</c> key has not been provided.</param>
-        public KotoriAuthException(Enums.ClaimType claimType, string message, bool emptyKey) : base(message)
+        public KotoriAuthException(KotoriCore.Helpers.Enums.ClaimType claimType, string message, bool emptyKey) : base(message)
         {
             EmptyKey = emptyKey;
             ClaimType = claimType;

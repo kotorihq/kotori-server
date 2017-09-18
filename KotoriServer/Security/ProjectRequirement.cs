@@ -12,6 +12,6 @@ namespace KotoriServer.Security
         /// Gets the type of the claim.
         /// </summary>
         /// <value>The type of the claim.</value>
-        public Enums.ClaimType ClaimType => Enums.ClaimType.Project;
+        public KotoriCore.Helpers.Enums.ClaimType ClaimType => KotoriCore.Helpers.Enums.ClaimType.Project;
     }
 }

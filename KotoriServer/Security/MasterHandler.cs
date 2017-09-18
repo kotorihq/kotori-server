@@ -43,7 +43,7 @@ namespace KotoriServer.Security
 
                     var emptyKey = string.IsNullOrEmpty(apiKey);
 
-                    throw new KotoriAuthException(Helpers.Enums.ClaimType.Master, emptyKey ? "No master key provided." : "Invalid master key.", emptyKey);
+                    throw new KotoriAuthException(KotoriCore.Helpers.Enums.ClaimType.Master, emptyKey ? "No master key provided." : "Invalid master key.", emptyKey);
                 }
             }
             else
