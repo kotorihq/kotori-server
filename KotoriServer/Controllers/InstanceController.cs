@@ -1,5 +1,4 @@
 ﻿using KotoriCore;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
@@ -28,10 +27,9 @@ namespace KotoriServer.Controllers
         /// <returns>The instance name.</returns>
         [HttpGet]
         [ProducesResponseType(typeof(string), 200)]
-        [Authorize("master")]
         public string Get()
         {
-            // command in _kotori
+            // TODO: command in kotori core
             return _kotori.Configuration.Instance;
         }
     }

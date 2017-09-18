@@ -55,6 +55,11 @@ namespace KotoriServer.Middleware
                 else
                     code = HttpStatusCode.Forbidden;
             }
+
+            if (exception is KotoriException)
+            {
+                // TODO: do I need to do anything? :D
+            }
                         
             var result = JsonConvert.SerializeObject(new { error = exception.Message });
             context.Response.ContentType = "application/json";
