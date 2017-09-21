@@ -1,14 +1,11 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using KotoriCore;
 using KotoriCore.Commands;
 using KotoriCore.Configurations;
-using KotoriCore.Exceptions;
+using KotoriCore.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Sushi2;
-using KotoriCore.Helpers;
 
 namespace KotoriServer.Controllers
 {
