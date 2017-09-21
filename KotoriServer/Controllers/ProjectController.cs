@@ -7,6 +7,8 @@ using KotoriCore.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Sushi2;
+using KotoriCore.Helpers;
 
 namespace KotoriServer.Controllers
 {
@@ -28,14 +30,23 @@ namespace KotoriServer.Controllers
         }
 
 		[HttpPost]
-        [ProducesResponseType(typeof(void), 200)]
+        [ProducesResponseType(typeof(string), 200)]
         [Authorize("master")]
-		public void Post(string instance, string name, string identifier, [FromBody]List<ProjectKey> projectKeys)
+		public string Post(string name, string identifier, [FromBody]List<ProjectKey> projectKeys = null)
 		{
-            var result = _kotori.Process(new CreateProject(instance, name, identifier, projectKeys));
+            var result = _kotori.Process(new CreateProject(_kotori.Configuration.Instance, name, identifier, projectKeys));
 
-            if (result.Any(r => !r.IsValid))
-                throw new KotoriException("Damn");
+            return result.Message;
 		}
+
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<KotoriCore.Domains.Project>), 200)]
+        [Authorize("master")]
+        public IEnumerable<KotoriCore.Domains.Project> Get()
+        {
+            var result = _kotori.Process(new GetProjects(_kotori.Configuration.Instance));
+
+            return result.ToDataList<KotoriCore.Domains.Project>();
+        }
     }
 }
