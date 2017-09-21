@@ -7,7 +7,7 @@
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="2.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="1.0.0" />
-    <PackageReference Include="kotori-core" Version="1.0.0-CI-2017819-114739" />
+    <PackageReference Include="kotori-core" Version="1.0.0-CI-20170921-121108" />
     <PackageReference Include="Sushi2" Version="1.0.4" />
   </ItemGroup>
   <ItemGroup>
