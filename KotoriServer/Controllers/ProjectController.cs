@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using KotoriCore;
 using KotoriCore.Commands;
@@ -25,6 +25,7 @@ namespace KotoriServer.Controllers
         /// </summary>
         /// <param name="config">Config.</param>
         public ProjectController(IConfiguration config)
+<<<<<<< HEAD
         {
             _kotori = new Kotori(config);
         }
@@ -50,3 +51,21 @@ namespace KotoriServer.Controllers
         }
     }
 }
+=======
+        {
+            _kotori = new Kotori(config);
+        }
+
+        [HttpPost]
+        [ProducesResponseType(typeof(void), 200)]
+        [Authorize("master")]
+        public void Post(string instance, string name, string identifier, [FromBody]List<ProjectKey> projectKeys)
+        {
+            var result = _kotori.Process(new CreateProject(instance, name, identifier, projectKeys));
+
+            if (result.Any(r => !r.IsValid))
+                throw new KotoriException("Damn");
+        }
+    }
+}
+>>>>>>> e1c4c9f... Merge
