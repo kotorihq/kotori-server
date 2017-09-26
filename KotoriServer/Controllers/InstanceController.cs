@@ -29,7 +29,6 @@ namespace KotoriServer.Controllers
         [ProducesResponseType(typeof(string), 200)]
         public string Get()
         {
-            // TODO: command in kotori core
             return _kotori.Configuration.Instance;
         }
     }

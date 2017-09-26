@@ -10,10 +10,10 @@ using Microsoft.Extensions.Configuration;
 namespace KotoriServer.Controllers
 {
     /// <summary>
-    /// Project controller.
+    /// Projects controller.
     /// </summary>
-    [Route("api/project")]
-    public class ProjectController
+    [Route("api/projects")]
+    public class ProjectsController
     {
         Kotori _kotori;
 
