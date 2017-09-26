@@ -37,13 +37,13 @@ namespace KotoriServer.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<KotoriCore.Domains.Project>), 200)]
+        [ProducesResponseType(typeof(IEnumerable<KotoriCore.Domains.SimpleProject>), 200)]
         [Authorize("master")]
-        public IEnumerable<KotoriCore.Domains.Project> Get()
+        public IEnumerable<KotoriCore.Domains.SimpleProject> Get()
         {
             var result = _kotori.Process(new GetProjects(_kotori.Configuration.Instance));
 
-            return result.ToDataList<KotoriCore.Domains.Project>();
+            return result.ToDataList<KotoriCore.Domains.SimpleProject>();
         }
     }
 }
