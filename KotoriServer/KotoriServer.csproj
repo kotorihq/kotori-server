@@ -17,8 +17,5 @@
   <ItemGroup>
     <Folder Include="Helpers\" />
     <Folder Include="Filters\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="Exceptions\KotoriException.cs" />
-  </ItemGroup>
+  </ItemGroup>  
 </Project>
