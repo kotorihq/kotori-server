@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
 using System.Linq;
-using KotoriServer.Exceptions;
 using KotoriCore;
+using KotoriCore.Exceptions;
 
 namespace KotoriServer.Security
 {
