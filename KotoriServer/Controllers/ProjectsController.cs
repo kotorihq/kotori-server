@@ -14,10 +14,10 @@ namespace KotoriServer.Controllers
     [Route("api/projects")]
     public class ProjectsController
     {
-        Kotori _kotori;
+        readonly Kotori _kotori;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:KotoriServer.Controllers.ProjectController"/> class.
+        /// Initializes a new instance of the <see cref="T:KotoriServer.Controllers.ProjectsController"/> class.
         /// </summary>
         /// <param name="config">Config.</param>
         public ProjectsController(IConfiguration config)

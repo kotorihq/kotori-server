@@ -12,7 +12,7 @@ namespace KotoriServer.Security
     /// </summary>
     public class MasterHandler : AuthorizationHandler<MasterRequirement>
     {
-        Kotori _kotori;
+        readonly Kotori _kotori;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:KotoriServer.Security.MasterHandler"/> class.
