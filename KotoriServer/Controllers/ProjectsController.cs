@@ -26,7 +26,7 @@ namespace KotoriServer.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(string), 200)]
+        [ProducesResponseType(typeof(string), 202)]
         [Authorize("master")]
         public async Task<string> Post(string name, string identifier, [FromBody]List<ProjectKey> projectKeys = null)
         {
