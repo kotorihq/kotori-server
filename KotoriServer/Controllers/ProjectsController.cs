@@ -5,6 +5,7 @@ using KotoriCore.Configurations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 
 namespace KotoriServer.Controllers
 {
