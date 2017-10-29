@@ -42,6 +42,16 @@ namespace KotoriServer.Controllers
             return result;
         }
 
+        [Route("projects/{projectId}")]
+        [HttpGet]
+        [ProducesResponseType(typeof(SimpleProject), 200)]
+        public async Task<SimpleProject> GetProject(string projectId)
+        {
+            var project = await _kotori.GetProjectAsync(_kotori.Configuration.Instance, projectId);
+
+            return project;
+        }
+
         [Route("projects/{projectId}/project-keys")]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<ProjectKey>), 200)]

@@ -25,15 +25,6 @@ namespace KotoriServer.Controllers
             _instance = kotori.Configuration.Instance;
         }
 
-        [HttpGet]
-        [ProducesResponseType(typeof(SimpleProject), 200)]
-        public async Task<SimpleProject> GetProjects(string projectId)
-        {
-            var project = await _kotori.GetProjectAsync(_kotori.Configuration.Instance, projectId);
-
-            return project;
-        }
-
         [Route("document-types")]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<SimpleDocumentType>), 200)]
