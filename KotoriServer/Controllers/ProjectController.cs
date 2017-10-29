@@ -81,6 +81,48 @@ namespace KotoriServer.Controllers
             return document;
         }
 
+        [Authorize("readonlyproject")]
+        [Route("document-types/{documentTypeId}/documents/{documentId}")]
+        [HttpGet]
+        [ProducesResponseType(typeof(SimpleDocument), 200)]
+        [ProducesResponseType(typeof(string), 404)]
+        public async Task<SimpleDocument> GetDocument(string projectId, string documentTypeId, string documentId, [FromQuery]long? version, [FromQuery]string format)
+        {
+            var df = KotoriCore.Helpers.Enums.DocumentFormat.Markdown;
+
+            if (!string.IsNullOrEmpty(format) &&
+               !format.Equals("html", System.StringComparison.OrdinalIgnoreCase))
+                df = KotoriCore.Helpers.Enums.DocumentFormat.Markdown;
+
+            var document = await _kotori.GetDocumentAsync(_instance, projectId, (documentTypeId ?? "") + "/" + documentId, version, df);
+
+            return document;
+        }
+
+        [Authorize("readonlyproject")]
+        [Route("document-types/{documentTypeId}/documents/{documentId}/versions")]
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<SimpleDocumentVersion>), 200)]
+        [ProducesResponseType(typeof(string), 404)]
+        public async Task<IEnumerable<SimpleDocumentVersion>> GetDocumentVersions(string projectId, string documentTypeId, string documentId)
+        {
+            var documentVersions = await _kotori.GetDocumentVersionsAsync(_instance, projectId, (documentTypeId ?? "") + "/" + documentId);
+
+            return documentVersions;
+        }
+
+        [Authorize("readonlyproject")]
+        [Route("document-types/{documentTypeId}/documents/{documentId}/{index}/versions")]
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<SimpleDocumentVersion>), 200)]
+        [ProducesResponseType(typeof(string), 404)]
+        public async Task<IEnumerable<SimpleDocumentVersion>> GetDocumentVersions(string projectId, string documentTypeId, string documentId, string index)
+        {
+            var documentVersions = await _kotori.GetDocumentVersionsAsync(_instance, projectId, (documentTypeId ?? "") + "/" + documentId + (index != null ? "?" + index : ""));
+
+            return documentVersions;
+        }
+
         [Authorize("project")]
         [Route("document-types/{documentTypeId}/documents/{documentId}/{index?}")]
         [HttpDelete]
@@ -89,6 +131,18 @@ namespace KotoriServer.Controllers
         public async Task<string> DeleteDocument(string projectId, string documentTypeId, string documentId, string index)
         {
             var result = await _kotori.DeleteDocumentAsync(_instance, projectId, (documentTypeId ?? "") + "/" + documentId + (index != null ? "?" + index : ""));
+
+            return result;
+        }
+
+        [Authorize("project")]
+        [Route("document-types/{documentTypeId}/documents/{documentId}")]
+        [HttpDelete]
+        [ProducesResponseType(typeof(CountResult), 200)]
+        [ProducesResponseType(typeof(string), 404)]
+        public async Task<string> DeleteDocument(string projectId, string documentTypeId, string documentId)
+        {
+            var result = await _kotori.DeleteDocumentAsync(_instance, projectId, (documentTypeId ?? "") + "/" + documentId);
 
             return result;
         }
