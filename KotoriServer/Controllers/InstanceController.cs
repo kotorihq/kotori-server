@@ -1,6 +1,6 @@
 ﻿using KotoriCore;
+using KotoriServer.Tokens;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 
 namespace KotoriServer.Controllers
 {
@@ -10,15 +10,13 @@ namespace KotoriServer.Controllers
     [Route("api/instance")]
     public class InstanceController
     {
-        Kotori _kotori;
+        readonly Kotori _kotori;
+        readonly string _instance;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="T:KotoriServer.Controllers.InstanceController"/> class.
-        /// </summary>
-        /// <param name="config">Config.</param>
-        public InstanceController(IConfiguration config)
+        public InstanceController(IKotori kotori)
         {
-            _kotori = new Kotori(config);
+            _kotori = kotori as Kotori;
+            _instance = _kotori.Configuration.Instance;
         }
 
         /// <summary>
@@ -26,10 +24,10 @@ namespace KotoriServer.Controllers
         /// </summary>
         /// <returns>The instance name.</returns>
         [HttpGet]
-        [ProducesResponseType(typeof(string), 200)]
-        public string Get()
+        [ProducesResponseType(typeof(InstanceResult), 200)]
+        public InstanceResult Get()
         {
-            return _kotori.Configuration.Instance;
+            return new InstanceResult(_instance);
         }
     }
 }
