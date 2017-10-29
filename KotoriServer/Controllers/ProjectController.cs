@@ -3,6 +3,7 @@ using KotoriCore;
 using KotoriCore.Domains;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace KotoriServer.Controllers
 {
@@ -25,10 +26,11 @@ namespace KotoriServer.Controllers
             _instance = kotori.Configuration.Instance;
         }
 
-        [Authorize("master")]
+        [Authorize("readonlyproject")]
         [Route("document-types")]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<SimpleDocumentType>), 200)]
+        [ProducesResponseType(typeof(string), 404)]
         public async Task<IEnumerable<SimpleDocumentType>> GetDocumentTypes(string projectId)
         {
             var documentTypes = await _kotori.GetDocumentTypesAsync(_kotori.Configuration.Instance, projectId);

@@ -43,7 +43,8 @@ namespace KotoriServer
             });
 
             services.AddAuthorization(options => options.AddPolicy("master", policy => policy.Requirements.Add(new MasterRequirement())));
-            services.AddAuthorization(options => options.AddPolicy("project", policy => policy.Requirements.Add(new ProjectRequirement())));
+            services.AddAuthorization(options => options.AddPolicy("project", policy => policy.Requirements.Add(new ProjectRequirement(KotoriCore.Helpers.Enums.ClaimType.Project))));
+            services.AddAuthorization(options => options.AddPolicy("readonlyproject", policy => policy.Requirements.Add(new ProjectRequirement(KotoriCore.Helpers.Enums.ClaimType.ReadonlyProject))));
 
             services.AddSingleton<IAuthorizationHandler, MasterHandler>();
             services.AddSingleton<IAuthorizationHandler, ProjectHandler>();
