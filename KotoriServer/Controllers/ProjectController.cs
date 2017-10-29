@@ -4,6 +4,7 @@ using KotoriCore.Domains;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
+using KotoriServer.Tokens;
 
 namespace KotoriServer.Controllers
 {
@@ -33,9 +34,21 @@ namespace KotoriServer.Controllers
         [ProducesResponseType(typeof(string), 404)]
         public async Task<IEnumerable<SimpleDocumentType>> GetDocumentTypes(string projectId)
         {
-            var documentTypes = await _kotori.GetDocumentTypesAsync(_kotori.Configuration.Instance, projectId);
+            var documentTypes = await _kotori.GetDocumentTypesAsync(_instance, projectId);
 
             return documentTypes;
+        }
+
+        [Authorize("readonlyproject")]
+        [Route("document-types/{documentTypeId}/count")]
+        [HttpGet]
+        [ProducesResponseType(typeof(CountResult), 200)]
+        [ProducesResponseType(typeof(string), 404)]
+        public async Task<CountResult> CountDocuments(string projectId, string documentTypeId, [FromQuery]string filter, [FromQuery]bool drafts, [FromQuery]bool future)
+        {
+            var count = await _kotori.CountDocumentsAsync(_instance, projectId, documentTypeId, filter, drafts, future);
+
+            return new CountResult(count);
         }
     }
 }
