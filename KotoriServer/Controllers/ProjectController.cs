@@ -40,6 +40,18 @@ namespace KotoriServer.Controllers
         }
 
         [Authorize("readonlyproject")]
+        [Route("document-types/{documentTypeId}")]
+        [HttpGet]
+        [ProducesResponseType(typeof(SimpleDocumentType), 200)]
+        [ProducesResponseType(typeof(string), 404)]
+        public async Task<SimpleDocumentType> GetDocumentType(string projectId, string documentTypeId)
+        {
+            var documentType = await _kotori.GetDocumentTypeAsync(_instance, projectId, documentTypeId);
+
+            return documentType;
+        }
+
+        [Authorize("readonlyproject")]
         [Route("document-types/{documentTypeId}/count")]
         [HttpGet]
         [ProducesResponseType(typeof(CountResult), 200)]
