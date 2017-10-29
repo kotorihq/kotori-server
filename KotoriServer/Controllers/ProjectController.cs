@@ -51,6 +51,18 @@ namespace KotoriServer.Controllers
             return new CountResult(count);
         }
 
+        [Authorize("readonlyproject")]
+        [Route("document-types/{documentTypeId}/documents/{documentId}/{index?}")]
+        [HttpGet]
+        [ProducesResponseType(typeof(SimpleDocument), 200)]
+        [ProducesResponseType(typeof(string), 404)]
+        public async Task<SimpleDocument> GetDocument(string projectId, string documentTypeId, string documentId, string index)
+        {
+            var document = await _kotori.GetDocumentAsync(_instance, projectId, (documentTypeId ?? "") + "/" + documentId + (index != null ? "?" + index : ""));
+
+            return document;
+        }
+
         [Authorize("project")]
         [Route("document-types/{documentTypeId}/documents/{documentId}/{index?}")]
         [HttpDelete]
