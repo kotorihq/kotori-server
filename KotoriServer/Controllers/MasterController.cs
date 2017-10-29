@@ -27,18 +27,20 @@ namespace KotoriServer.Controllers
         [Route("projects")]
         [HttpPost]
         [ProducesResponseType(typeof(string), 201)]
-        public async Task<string> Post(string name, string identifier)
+        public async Task<string> CreateProject(string name, string identifier)
         {
             var result = await _kotori.CreateProjectAsync(_instance, name, identifier, null);
+
             return result;
         }
 
         [Route("projects")]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<SimpleProject>), 200)]
-        public async Task<IEnumerable<SimpleProject>> Get()
+        public async Task<IEnumerable<SimpleProject>> GetProjects()
         {
             var result = await _kotori.GetProjectsAsync(_instance);
+
             return result;
         }
 
@@ -47,9 +49,19 @@ namespace KotoriServer.Controllers
         [ProducesResponseType(typeof(SimpleProject), 200)]
         public async Task<SimpleProject> GetProject(string projectId)
         {
-            var project = await _kotori.GetProjectAsync(_kotori.Configuration.Instance, projectId);
+            var result = await _kotori.GetProjectAsync(_instance, projectId);
 
-            return project;
+            return result;
+        }
+
+        [Route("projects/{projectId}")]
+        [HttpPut]
+        [ProducesResponseType(typeof(string), 201)]
+        public async Task<string> UpdateProject(string projectId, [FromQuery]string name)
+        {
+            var result = await _kotori.UpdateProjectAsync(_instance, projectId, name);
+
+            return result;
         }
 
         [Route("projects/{projectId}/project-keys")]
@@ -58,9 +70,9 @@ namespace KotoriServer.Controllers
         [ProducesResponseType(typeof(string), 404)]
         public async Task<IEnumerable<ProjectKey>> GetProjectKeys(string projectId)
         {
-            var result = await _kotori.GetProjectKeysAsync(_kotori.Configuration.Instance, projectId);
+            var projectKeys = await _kotori.GetProjectKeysAsync(_instance, projectId);
 
-            return result;
+            return projectKeys;
         }
 
         [Route("projects/{projectId}/project-keys/{key}")]
@@ -69,7 +81,7 @@ namespace KotoriServer.Controllers
         [ProducesResponseType(typeof(string), 404)]
         public async Task<string> PostProjectKey(string projectId, string key, [FromQuery]bool isReadonly = false)
         {
-            var result = await _kotori.CreateProjectKeyAsync(_kotori.Configuration.Instance, projectId, new KotoriCore.Configurations.ProjectKey { Key = key, IsReadonly = isReadonly });
+            var result = await _kotori.CreateProjectKeyAsync(_instance, projectId, new KotoriCore.Configurations.ProjectKey { Key = key, IsReadonly = isReadonly });
 
             return result;
         }
@@ -80,7 +92,7 @@ namespace KotoriServer.Controllers
         [ProducesResponseType(typeof(string), 404)]
         public async Task<string> DeleteProjectKey(string projectId, string key)
         {
-            var result = await _kotori.DeleteProjectKeyAsync(_kotori.Configuration.Instance, projectId, key);
+            var result = await _kotori.DeleteProjectKeyAsync(_instance, projectId, key);
 
             return result;
         }
@@ -91,7 +103,7 @@ namespace KotoriServer.Controllers
         [ProducesResponseType(typeof(string), 404)]
         public async Task<string> UpdateProjectKey(string projectId, string key, [FromQuery]bool isReadonly = false)
         {
-            var result = await _kotori.UpdateProjectKeyAsync(_kotori.Configuration.Instance, projectId, new KotoriCore.Configurations.ProjectKey { Key = key, IsReadonly = isReadonly });
+            var result = await _kotori.UpdateProjectKeyAsync(_instance, projectId, new KotoriCore.Configurations.ProjectKey { Key = key, IsReadonly = isReadonly });
 
             return result;
         }
