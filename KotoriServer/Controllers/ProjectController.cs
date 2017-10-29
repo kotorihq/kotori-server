@@ -68,9 +68,15 @@ namespace KotoriServer.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(SimpleDocument), 200)]
         [ProducesResponseType(typeof(string), 404)]
-        public async Task<SimpleDocument> GetDocument(string projectId, string documentTypeId, string documentId, string index)
+        public async Task<SimpleDocument> GetDocument(string projectId, string documentTypeId, string documentId, string index, [FromQuery]long? version, [FromQuery]string format)
         {
-            var document = await _kotori.GetDocumentAsync(_instance, projectId, (documentTypeId ?? "") + "/" + documentId + (index != null ? "?" + index : ""));
+            var df = KotoriCore.Helpers.Enums.DocumentFormat.Markdown;
+
+            if (!string.IsNullOrEmpty(format) &&
+               !format.Equals("html", System.StringComparison.OrdinalIgnoreCase))
+                df = KotoriCore.Helpers.Enums.DocumentFormat.Markdown;
+
+            var document = await _kotori.GetDocumentAsync(_instance, projectId, (documentTypeId ?? "") + "/" + documentId + (index != null ? "?" + index : ""), version, df);
 
             return document;
         }
@@ -96,7 +102,7 @@ namespace KotoriServer.Controllers
                                                 [FromQuery]string filter, [FromQuery]string orderBy, [FromQuery]bool drafts = false,
                                                 [FromQuery]bool future = false, [FromQuery]int? skip = null, [FromQuery]string format = null)
         {
-            KotoriCore.Helpers.Enums.DocumentFormat df = KotoriCore.Helpers.Enums.DocumentFormat.Markdown;
+            var df = KotoriCore.Helpers.Enums.DocumentFormat.Markdown;
 
             if (!string.IsNullOrEmpty(format) &&
                !format.Equals("html", System.StringComparison.OrdinalIgnoreCase))
