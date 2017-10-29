@@ -44,7 +44,7 @@ namespace KotoriServer.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(CountResult), 200)]
         [ProducesResponseType(typeof(string), 404)]
-        public async Task<CountResult> CountDocuments(string projectId, string documentTypeId, [FromQuery]string filter, [FromQuery]bool drafts, [FromQuery]bool future)
+        public async Task<CountResult> CountDocuments(string projectId, string documentTypeId, [FromQuery]string filter, [FromQuery]bool drafts = false, [FromQuery]bool future = false)
         {
             var count = await _kotori.CountDocumentsAsync(_instance, projectId, documentTypeId, filter, drafts, future);
 
@@ -52,8 +52,8 @@ namespace KotoriServer.Controllers
         }
 
         [Authorize("project")]
-        [Route("document-types/{documentTypeId}/{documentId}/{index?}")]
-        [HttpGet]
+        [Route("document-types/{documentTypeId}/documents/{documentId}/{index?}")]
+        [HttpDelete]
         [ProducesResponseType(typeof(CountResult), 200)]
         [ProducesResponseType(typeof(string), 404)]
         public async Task<string> DeleteDocument(string projectId, string documentTypeId, string documentId, string index)
@@ -61,6 +61,26 @@ namespace KotoriServer.Controllers
             var result = await _kotori.DeleteDocumentAsync(_instance, projectId, (documentTypeId ?? "") + "/" + documentId + (index != null ? "?" + index : ""));
 
             return result;
+        }
+
+        [Authorize("readonlyproject")]
+        [Route("document-types/{documentTypeId}/find")]
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<SimpleDocument>), 200)]
+        [ProducesResponseType(typeof(string), 404)]
+        public async Task<IEnumerable<SimpleDocument>> FindDocuments(string projectId, string documentTypeId, [FromQuery]int? top, [FromQuery]string select,
+                                                [FromQuery]string filter, [FromQuery]string orderBy, [FromQuery]bool drafts = false,
+                                                [FromQuery]bool future = false, [FromQuery]int? skip = null, [FromQuery]string format = null)
+        {
+            KotoriCore.Helpers.Enums.DocumentFormat df = KotoriCore.Helpers.Enums.DocumentFormat.Markdown;
+
+            if (!string.IsNullOrEmpty(format) &&
+               !format.Equals("html", System.StringComparison.OrdinalIgnoreCase))
+                df = KotoriCore.Helpers.Enums.DocumentFormat.Markdown;
+
+            var documents = await _kotori.FindDocumentsAsync(_instance, projectId, documentTypeId, top, select, filter, orderBy, drafts, future, skip, df);
+
+            return documents;
         }
     }
 }
