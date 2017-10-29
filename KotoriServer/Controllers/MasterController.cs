@@ -26,7 +26,7 @@ namespace KotoriServer.Controllers
 
         [Route("projects")]
         [HttpPost]
-        [ProducesResponseType(typeof(string), 202)]
+        [ProducesResponseType(typeof(string), 201)]
         public async Task<string> Post(string name, string identifier)
         {
             var result = await _kotori.CreateProjectAsync(_instance, name, identifier, null);
@@ -55,7 +55,7 @@ namespace KotoriServer.Controllers
 
         [Route("projects/{projectId}/project-keys/{key}")]
         [HttpPost]
-        [ProducesResponseType(typeof(string), 200)]
+        [ProducesResponseType(typeof(string), 201)]
         [ProducesResponseType(typeof(string), 404)]
         public async Task<string> PostProjectKey(string projectId, string key, [FromQuery]bool isReadonly = false)
         {
@@ -71,6 +71,17 @@ namespace KotoriServer.Controllers
         public async Task<string> DeleteProjectKey(string projectId, string key)
         {
             var result = await _kotori.DeleteProjectKeyAsync(_kotori.Configuration.Instance, projectId, key);
+
+            return result;
+        }
+
+        [Route("projects/{projectId}/project-keys/{key}")]
+        [HttpPut]
+        [ProducesResponseType(typeof(string), 200)]
+        [ProducesResponseType(typeof(string), 404)]
+        public async Task<string> UpdateProjectKey(string projectId, string key, [FromQuery]bool isReadonly = false)
+        {
+            var result = await _kotori.UpdateProjectKeyAsync(_kotori.Configuration.Instance, projectId, new KotoriCore.Configurations.ProjectKey { Key = key, IsReadonly = isReadonly });
 
             return result;
         }
