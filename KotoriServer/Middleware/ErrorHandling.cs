@@ -56,10 +56,13 @@ namespace KotoriServer.Middleware
                     code = HttpStatusCode.Forbidden;
             }
 
-            //if (exception is KotoriValidationException)
-            //{
-            //    exception.
-            //}
+            if (exception is KotoriException kotori)
+            {
+                var resultk = JsonConvert.SerializeObject(new { error = exception.Message });
+                context.Response.ContentType = "application/json";
+                context.Response.StatusCode = (int)kotori.StatusCode;
+                return context.Response.WriteAsync(resultk);
+            }
                         
             var result = JsonConvert.SerializeObject(new { error = exception.Message });
             context.Response.ContentType = "application/json";

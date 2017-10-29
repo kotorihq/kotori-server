@@ -1,9 +1,11 @@
-﻿using KotoriServer.Filters;
+﻿using Daifuku.Extensions;
+using KotoriServer.Filters;
 using KotoriServer.Middleware;
 using KotoriServer.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
@@ -55,8 +57,20 @@ namespace KotoriServer
             }
             else
             {
+                // force https
+                var options = new RewriteOptions().AddRedirectToHttpsPermanent();
+                app.UseRewriter(options);
+
+                //app.RedirectDomains(new System.Collections.Generic.Dictionary<string, string>
+                //{
+                //    { "from", "to" },
+                //});
+
                 app.UseExceptionHandler("/error");
             }
+
+            app.UseDaifuku();
+            app.UseServerHeader("WE <3 KOTORI");
 
             app.UseStaticFiles();
 

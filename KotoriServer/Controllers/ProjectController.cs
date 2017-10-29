@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using Microsoft.Extensions.Configuration;
 using KotoriCore.Exceptions;
+using System.Collections.Generic;
 
 namespace KotoriServer.Controllers
 {
@@ -28,17 +29,21 @@ namespace KotoriServer.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(SimpleProject), 200)]
-        [Authorize("master")]
-        public async Task<SimpleProject> Get(string projectId)
+        public async Task<SimpleProject> GetProjects(string projectId)
         {
-            var result = await _kotori.GetProjectsAsync(_kotori.Configuration.Instance);
+            var project = await _kotori.GetProjectAsync(_kotori.Configuration.Instance, projectId);
 
-            var project = result.FirstOrDefault(p => p.Identifier.Equals(projectId));
-
-            if (project == null)
-                throw new KotoriProjectException(projectId, "Project not found.");
-            
             return project;
+        }
+
+        [Route("document-types")]
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<SimpleDocumentType>), 200)]
+        public async Task<IEnumerable<SimpleDocumentType>> GetDocumentTypes(string projectId)
+        {
+            var documentTypes = await _kotori.GetDocumentTypesAsync(_kotori.Configuration.Instance, projectId);
+
+            return documentTypes;
         }
     }
 }
