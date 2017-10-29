@@ -63,5 +63,16 @@ namespace KotoriServer.Controllers
 
             return result;
         }
+
+        [Route("projects/{projectId}/project-keys/{key}")]
+        [HttpDelete]
+        [ProducesResponseType(typeof(string), 200)]
+        [ProducesResponseType(typeof(string), 404)]
+        public async Task<string> DeleteProjectKey(string projectId, string key)
+        {
+            var result = await _kotori.DeleteProjectKeyAsync(_kotori.Configuration.Instance, projectId, key);
+
+            return result;
+        }
     }
 }
