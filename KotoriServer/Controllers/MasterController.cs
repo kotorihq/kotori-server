@@ -64,6 +64,16 @@ namespace KotoriServer.Controllers
             return result;
         }
 
+        [Route("projects/{projectId}")]
+        [HttpDelete]
+        [ProducesResponseType(typeof(string), 200)]
+        public async Task<string> DeleteProject(string projectId)
+        {
+            var result = await _kotori.DeleteProjectAsync(_instance, projectId);
+
+            return result;
+        }
+
         [Route("projects/{projectId}/project-keys")]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<ProjectKey>), 200)]
