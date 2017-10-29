@@ -4,7 +4,6 @@ using KotoriCore;
 using KotoriCore.Domains;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 
 namespace KotoriServer.Controllers
 {
@@ -13,10 +12,12 @@ namespace KotoriServer.Controllers
     public class MasterController
     {
         readonly Kotori _kotori;
+        readonly string _instance;
 
-        public MasterController(IConfiguration config)
+        public MasterController(IKotori kotori)
         {
-            _kotori = new Kotori(config);
+            _kotori = kotori as Kotori;
+            _instance = kotori.Configuration.Instance;
         }
 
         [Route("projects")]
@@ -24,7 +25,7 @@ namespace KotoriServer.Controllers
         [ProducesResponseType(typeof(string), 202)]
         public async Task<string> Post(string name, string identifier, [FromBody]IEnumerable<KotoriCore.Configurations.ProjectKey> projectKeys = null)
         {
-            var result = await _kotori.CreateProjectAsync(_kotori.Configuration.Instance, name, identifier, projectKeys);
+            var result = await _kotori.CreateProjectAsync(_instance, name, identifier, projectKeys);
             return result;
         }
 
@@ -33,7 +34,7 @@ namespace KotoriServer.Controllers
         [ProducesResponseType(typeof(IEnumerable<SimpleProject>), 200)]
         public async Task<IEnumerable<SimpleProject>> Get()
         {
-            var result = await _kotori.GetProjectsAsync(_kotori.Configuration.Instance);
+            var result = await _kotori.GetProjectsAsync(_instance);
             return result;
         }
 

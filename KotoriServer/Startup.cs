@@ -1,4 +1,5 @@
 ﻿using Daifuku.Extensions;
+using KotoriCore;
 using KotoriServer.Filters;
 using KotoriServer.Middleware;
 using KotoriServer.Security;
@@ -46,6 +47,7 @@ namespace KotoriServer
 
             services.AddSingleton<IAuthorizationHandler, MasterHandler>();
             services.AddSingleton<IAuthorizationHandler, ProjectHandler>();
+            services.AddSingleton<IKotori, Kotori>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
