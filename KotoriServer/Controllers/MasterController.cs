@@ -14,6 +14,10 @@ namespace KotoriServer.Controllers
         readonly Kotori _kotori;
         readonly string _instance;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:KotoriServer.Controllers.MasterController"/> class.
+        /// </summary>
+        /// <param name="kotori">Kotori.</param>
         public MasterController(IKotori kotori)
         {
             _kotori = kotori as Kotori;
@@ -23,9 +27,9 @@ namespace KotoriServer.Controllers
         [Route("projects")]
         [HttpPost]
         [ProducesResponseType(typeof(string), 202)]
-        public async Task<string> Post(string name, string identifier, [FromBody]IEnumerable<KotoriCore.Configurations.ProjectKey> projectKeys = null)
+        public async Task<string> Post(string name, string identifier)
         {
-            var result = await _kotori.CreateProjectAsync(_instance, name, identifier, projectKeys);
+            var result = await _kotori.CreateProjectAsync(_instance, name, identifier, null);
             return result;
         }
 
@@ -41,6 +45,7 @@ namespace KotoriServer.Controllers
         [Route("projects/{projectId}/project-keys/{key}")]
         [HttpPost]
         [ProducesResponseType(typeof(string), 200)]
+        [ProducesResponseType(typeof(string), 404)]
         public async Task<string> PostProjectKey(string projectId, string key, [FromQuery]bool isReadonly = false)
         {
             var result = await _kotori.CreateProjectKeyAsync(_kotori.Configuration.Instance, projectId, new KotoriCore.Configurations.ProjectKey { Key = key, IsReadonly = isReadonly });

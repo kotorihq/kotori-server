@@ -1,11 +1,7 @@
 ﻿using System.Threading.Tasks;
 using KotoriCore;
 using KotoriCore.Domains;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
-using Microsoft.Extensions.Configuration;
-using KotoriCore.Exceptions;
 using System.Collections.Generic;
 
 namespace KotoriServer.Controllers
@@ -17,14 +13,16 @@ namespace KotoriServer.Controllers
     public class ProjectController
     {
         readonly Kotori _kotori;
+        readonly string _instance;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:KotoriServer.Controllers.ProjectController"/> class.
         /// </summary>
-        /// <param name="config">Config.</param>
-        public ProjectController(IConfiguration config)
+        /// <param name="kotori">Kotori.</param>
+        public ProjectController(IKotori kotori)
         {
-            _kotori = new Kotori(config);
+            _kotori = kotori as Kotori;
+            _instance = kotori.Configuration.Instance;
         }
 
         [HttpGet]
