@@ -1,5 +1,4 @@
-﻿using KotoriServer.Helpers;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 
 namespace KotoriServer.Security
 {

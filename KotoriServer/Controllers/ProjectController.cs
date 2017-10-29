@@ -25,6 +25,7 @@ namespace KotoriServer.Controllers
             _instance = kotori.Configuration.Instance;
         }
 
+        [Authorize("master")]
         [Route("document-types")]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<SimpleDocumentType>), 200)]
