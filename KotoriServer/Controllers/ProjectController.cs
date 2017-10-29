@@ -50,5 +50,17 @@ namespace KotoriServer.Controllers
 
             return new CountResult(count);
         }
+
+        [Authorize("project")]
+        [Route("document-types/{documentTypeId}/{documentId}/{index?}")]
+        [HttpGet]
+        [ProducesResponseType(typeof(CountResult), 200)]
+        [ProducesResponseType(typeof(string), 404)]
+        public async Task<string> DeleteDocument(string projectId, string documentTypeId, string documentId, string index)
+        {
+            var result = await _kotori.DeleteDocumentAsync(_instance, projectId, (documentTypeId ?? "") + "/" + documentId + (index != null ? "?" + index : ""));
+
+            return result;
+        }
     }
 }
