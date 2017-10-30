@@ -40,35 +40,37 @@ namespace KotoriServer.Controllers
         }
 
         [Authorize("readonlyproject")]
-        [Route("document-types/{documentTypeId}")]
+        [Route("document-types/{documentType}/{documentTypeId}")]
         [HttpGet]
         [ProducesResponseType(typeof(SimpleDocumentType), 200)]
         [ProducesResponseType(typeof(string), 404)]
-        public async Task<SimpleDocumentType> GetDocumentType(string projectId, string documentTypeId)
+        public async Task<SimpleDocumentType> GetDocumentType(string projectId, string documentType, string documentTypeId)
         {
-            var documentType = await _kotori.GetDocumentTypeAsync(_instance, projectId, documentTypeId);
+            var docType = await _kotori.GetDocumentTypeAsync(_instance, projectId, documentType + "/" + documentTypeId);
 
-            return documentType;
+            return docType;
         }
 
         [Authorize("readonlyproject")]
-        [Route("document-types/{documentTypeId}/count")]
+        [Route("document-types/{documentType}/{documentTypeId}/count")]
         [HttpGet]
         [ProducesResponseType(typeof(CountResult), 200)]
         [ProducesResponseType(typeof(string), 404)]
-        public async Task<CountResult> CountDocuments(string projectId, string documentTypeId, [FromQuery]string filter, [FromQuery]bool drafts = false, [FromQuery]bool future = false)
+        public async Task<CountResult> CountDocuments(string projectId, string documentType, string documentTypeId, 
+                                                      [FromQuery]string filter, [FromQuery]bool drafts = false, [FromQuery]bool future = false)
         {
-            var count = await _kotori.CountDocumentsAsync(_instance, projectId, documentTypeId, filter, drafts, future);
+            var count = await _kotori.CountDocumentsAsync(_instance, projectId, documentType + "/" + documentTypeId, filter, drafts, future);
 
             return new CountResult(count);
         }
 
         [Authorize("readonlyproject")]
-        [Route("document-types/{documentTypeId}/documents/{documentId}/{index?}")]
+        [Route("document-types/{documentType}/{documentTypeId}/documents/{documentId}/{index:long}/versions/{version:long}")]
         [HttpGet]
         [ProducesResponseType(typeof(SimpleDocument), 200)]
         [ProducesResponseType(typeof(string), 404)]
-        public async Task<SimpleDocument> GetDocument(string projectId, string documentTypeId, string documentId, string index, [FromQuery]long? version, [FromQuery]string format)
+        public async Task<SimpleDocument> GetDocument(string projectId, string documentType, string documentTypeId,
+                                                      string documentId, long index, long version, [FromQuery]string format)
         {
             var df = KotoriCore.Helpers.Enums.DocumentFormat.Markdown;
 
@@ -76,17 +78,25 @@ namespace KotoriServer.Controllers
                !format.Equals("html", System.StringComparison.OrdinalIgnoreCase))
                 df = KotoriCore.Helpers.Enums.DocumentFormat.Markdown;
 
-            var document = await _kotori.GetDocumentAsync(_instance, projectId, (documentTypeId ?? "") + "/" + documentId + (index != null ? "?" + index : ""), version, df);
+            var document = await _kotori.GetDocumentAsync
+            (
+                _instance, 
+                projectId, 
+                documentType + "/" + documentTypeId + "/" + documentId + "?" + index,
+                version, 
+                df
+            );
 
             return document;
         }
 
         [Authorize("readonlyproject")]
-        [Route("document-types/{documentTypeId}/documents/{documentId}")]
+        [Route("document-types/{documentType}/{documentTypeId}/documents/{documentId}/{index:long?}")]
         [HttpGet]
         [ProducesResponseType(typeof(SimpleDocument), 200)]
         [ProducesResponseType(typeof(string), 404)]
-        public async Task<SimpleDocument> GetDocument(string projectId, string documentTypeId, string documentId, [FromQuery]long? version, [FromQuery]string format)
+        public async Task<SimpleDocument> GetDocument(string projectId, string documentType, string documentTypeId, 
+                                                      string documentId, long? index, [FromQuery]string format)
         {
             var df = KotoriCore.Helpers.Enums.DocumentFormat.Markdown;
 
@@ -94,66 +104,79 @@ namespace KotoriServer.Controllers
                !format.Equals("html", System.StringComparison.OrdinalIgnoreCase))
                 df = KotoriCore.Helpers.Enums.DocumentFormat.Markdown;
 
-            var document = await _kotori.GetDocumentAsync(_instance, projectId, (documentTypeId ?? "") + "/" + documentId, version, df);
+            var document = await _kotori.GetDocumentAsync
+            (
+                _instance, 
+                projectId, 
+                documentType + "/" + documentTypeId + "/" + documentId + (index != null ? "?" + index : ""),
+                null, 
+                df
+            );
 
             return document;
         }
 
         [Authorize("readonlyproject")]
-        [Route("document-types/{documentTypeId}/documents/{documentId}/versions")]
+        [Route("document-types/{documentType}/{documentTypeId}/documents/{documentId}/versions")]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<SimpleDocumentVersion>), 200)]
         [ProducesResponseType(typeof(string), 404)]
-        public async Task<IEnumerable<SimpleDocumentVersion>> GetDocumentVersions(string projectId, string documentTypeId, string documentId)
+        public async Task<IEnumerable<SimpleDocumentVersion>> GetDocumentVersions(string projectId, string documentType,
+                                                                                  string documentTypeId, string documentId)
         {
-            var documentVersions = await _kotori.GetDocumentVersionsAsync(_instance, projectId, (documentTypeId ?? "") + "/" + documentId);
+            var documentVersions = await _kotori.GetDocumentVersionsAsync
+            (
+                _instance, 
+                projectId, 
+                documentType + "/" + documentTypeId + "/" + documentId
+            );
 
             return documentVersions;
         }
 
         [Authorize("readonlyproject")]
-        [Route("document-types/{documentTypeId}/documents/{documentId}/{index}/versions")]
+        [Route("document-types/{documentType}/{documentTypeId}/documents/{documentId}/{index:long}/versions")]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<SimpleDocumentVersion>), 200)]
         [ProducesResponseType(typeof(string), 404)]
-        public async Task<IEnumerable<SimpleDocumentVersion>> GetDocumentVersions(string projectId, string documentTypeId, string documentId, string index)
+        public async Task<IEnumerable<SimpleDocumentVersion>> GetDocumentVersions(string projectId, string documentType,
+                                                                                  string documentTypeId, string documentId, 
+                                                                                  long index)
         {
-            var documentVersions = await _kotori.GetDocumentVersionsAsync(_instance, projectId, (documentTypeId ?? "") + "/" + documentId + (index != null ? "?" + index : ""));
+            var documentVersions = await _kotori.GetDocumentVersionsAsync
+            (
+                _instance, 
+                projectId, 
+                documentType + "/" + documentTypeId + "/" + documentId + "?" + index
+            );
 
             return documentVersions;
         }
 
         [Authorize("project")]
-        [Route("document-types/{documentTypeId}/documents/{documentId}/{index?}")]
+        [Route("document-types/{documentType}/{documentTypeId}/documents/{documentId}/{index:long?}")]
         [HttpDelete]
         [ProducesResponseType(typeof(CountResult), 200)]
         [ProducesResponseType(typeof(string), 404)]
-        public async Task<string> DeleteDocument(string projectId, string documentTypeId, string documentId, string index)
+        public async Task<string> DeleteDocument(string projectId, string documentType, string documentTypeId, string documentId, long? index)
         {
-            var result = await _kotori.DeleteDocumentAsync(_instance, projectId, (documentTypeId ?? "") + "/" + documentId + (index != null ? "?" + index : ""));
-
-            return result;
-        }
-
-        [Authorize("project")]
-        [Route("document-types/{documentTypeId}/documents/{documentId}")]
-        [HttpDelete]
-        [ProducesResponseType(typeof(CountResult), 200)]
-        [ProducesResponseType(typeof(string), 404)]
-        public async Task<string> DeleteDocument(string projectId, string documentTypeId, string documentId)
-        {
-            var result = await _kotori.DeleteDocumentAsync(_instance, projectId, (documentTypeId ?? "") + "/" + documentId);
+            var result = await _kotori.DeleteDocumentAsync
+            (
+                  _instance, 
+                  projectId, 
+                  documentType + "/" + documentTypeId + "/" + documentId + (index != null ? "?" + index : "")
+            );
 
             return result;
         }
 
         [Authorize("readonlyproject")]
-        [Route("document-types/{documentTypeId}/find")]
+        [Route("document-types/{documentType}/{documentTypeId}/find")]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<SimpleDocument>), 200)]
         [ProducesResponseType(typeof(string), 404)]
-        public async Task<IEnumerable<SimpleDocument>> FindDocuments(string projectId, string documentTypeId, [FromQuery]int? top, [FromQuery]string select,
-                                                [FromQuery]string filter, [FromQuery]string orderBy, [FromQuery]bool drafts = false,
+        public async Task<IEnumerable<SimpleDocument>> FindDocuments(string projectId, string documentType, string documentTypeId, [FromQuery]int? top, 
+                                                [FromQuery]string select, [FromQuery]string filter, [FromQuery]string orderBy, [FromQuery]bool drafts = false,
                                                 [FromQuery]bool future = false, [FromQuery]int? skip = null, [FromQuery]string format = null)
         {
             var df = KotoriCore.Helpers.Enums.DocumentFormat.Markdown;
@@ -162,7 +185,7 @@ namespace KotoriServer.Controllers
                !format.Equals("html", System.StringComparison.OrdinalIgnoreCase))
                 df = KotoriCore.Helpers.Enums.DocumentFormat.Markdown;
 
-            var documents = await _kotori.FindDocumentsAsync(_instance, projectId, documentTypeId, top, select, filter, orderBy, drafts, future, skip, df);
+            var documents = await _kotori.FindDocumentsAsync(_instance, projectId, documentType + "/" + documentTypeId, top, select, filter, orderBy, drafts, future, skip, df);
 
             return documents;
         }
