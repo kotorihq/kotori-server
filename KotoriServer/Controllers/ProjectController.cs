@@ -189,5 +189,24 @@ namespace KotoriServer.Controllers
 
             return documents;
         }
+
+        [Authorize("project")]
+        [Route("document-types/{documentType}/{documentTypeId}/documents/{documentId}/{index:long?}")]
+        [HttpPost]
+        [ProducesResponseType(typeof(string), 201)]
+        [ProducesResponseType(typeof(string), 404)]
+        public async Task<string> UpsertDocument(string projectId, string documentType, string documentTypeId,
+                                                 string documentId, long? index, [FromBody]string content)
+        {
+            var result = await _kotori.UpsertDocumentAsync
+            (
+                _instance,
+                projectId,
+                documentType + "/" + documentTypeId + "/" + documentId + (index == null ? "" : "?" + index),
+                content
+            );
+
+            return result;
+        }
     }
 }
