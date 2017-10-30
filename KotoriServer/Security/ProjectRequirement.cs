@@ -1,5 +1,4 @@
-﻿using KotoriServer.Helpers;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 
 namespace KotoriServer.Security
 {
@@ -12,6 +11,11 @@ namespace KotoriServer.Security
         /// Gets the type of the claim.
         /// </summary>
         /// <value>The type of the claim.</value>
-        public KotoriCore.Helpers.Enums.ClaimType ClaimType => KotoriCore.Helpers.Enums.ClaimType.Project;
+        public KotoriCore.Helpers.Enums.ClaimType ClaimType { get; private set; }
+
+        public ProjectRequirement(KotoriCore.Helpers.Enums.ClaimType claimType)
+        {
+            ClaimType = claimType;
+        }
     }
 }

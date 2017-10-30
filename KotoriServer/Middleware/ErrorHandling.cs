@@ -1,9 +1,8 @@
-﻿using KotoriServer.Exceptions;
-using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
+﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.Net;
 using System.Threading.Tasks;
+using KotoriCore.Exceptions;
 
 namespace KotoriServer.Middleware
 {
@@ -54,17 +53,17 @@ namespace KotoriServer.Middleware
                     code = HttpStatusCode.Unauthorized;
                 else
                     code = HttpStatusCode.Forbidden;
-            }
-
-            if (exception is KotoriException)
+            } 
+            else if (exception is KotoriException kotori)
             {
-                // TODO: do I need to do anything? :D
+                context.Response.ContentType = "text/plain";
+                context.Response.StatusCode = (int)kotori.StatusCode;
+                return context.Response.WriteAsync(exception.Message);
             }
                         
-            var result = JsonConvert.SerializeObject(new { error = exception.Message });
-            context.Response.ContentType = "application/json";
+            context.Response.ContentType = "text/plain";
             context.Response.StatusCode = (int)code;
-            return context.Response.WriteAsync(result);
+            return context.Response.WriteAsync(exception.Message);
         }
     }
 }

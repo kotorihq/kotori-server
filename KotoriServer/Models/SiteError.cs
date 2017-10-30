@@ -1,9 +1,9 @@
 namespace KotoriServer.Models
 {
+    // TODO: Maybe not needed?
     /// <summary>
     /// Site error.
     /// </summary>
-    /// <remarks>Maybe not needed?</remarks>
     public class SiteError
     {
         public string RequestId { get; set; }
