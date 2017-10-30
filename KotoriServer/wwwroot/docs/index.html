@@ -26,7 +26,7 @@
             <a href="#tag-Instance">Instance</a>
             <ul>
               <li>
-                <a href="#operation--api-instance-get"> GET /api/instance </a>
+                <a href="#operation--api-instance-get"> Get instance name </a>
               </li>
             </ul>
           </section>
@@ -81,6 +81,9 @@
                 <a href="#operation--api-projects--projectId--document-types--documentType---documentTypeId--documents--documentId---index--get"> GET /api/projects/{projectId}/document-types/{documentType}/{documentTypeId}/documents/{documentId}/{index} </a>
               </li>
               <li>
+                <a href="#operation--api-projects--projectId--document-types--documentType---documentTypeId--documents--documentId---index--put"> PUT /api/projects/{projectId}/document-types/{documentType}/{documentTypeId}/documents/{documentId}/{index} </a>
+              </li>
+              <li>
                 <a href="#operation--api-projects--projectId--document-types--documentType---documentTypeId--documents--documentId---index--post"> POST /api/projects/{projectId}/document-types/{documentType}/{documentTypeId}/documents/{documentId}/{index} </a>
               </li>
               <li>
@@ -98,13 +101,13 @@
             </ul>
           </section>
           <h5>Schema Definitions</h5>
-          <a href="#definition-InstanceResult"> InstanceResult </a>
-          <a href="#definition-SimpleProject"> SimpleProject </a>
-          <a href="#definition-ProjectKey"> ProjectKey </a>
-          <a href="#definition-SimpleDocumentType"> SimpleDocumentType </a>
-          <a href="#definition-CountResult"> CountResult </a>
-          <a href="#definition-SimpleDocument"> SimpleDocument </a>
-          <a href="#definition-SimpleDocumentVersion"> SimpleDocumentVersion </a>
+          <a href="#definition-Instance"> Instance </a>
+          <a href="#definition-KotoriCore.Domains.SimpleProject"> KotoriCore.Domains.SimpleProject </a>
+          <a href="#definition-KotoriCore.Domains.ProjectKey"> KotoriCore.Domains.ProjectKey </a>
+          <a href="#definition-KotoriCore.Domains.SimpleDocumentType"> KotoriCore.Domains.SimpleDocumentType </a>
+          <a href="#definition-KotoriServer.Tokens.CountResult"> KotoriServer.Tokens.CountResult </a>
+          <a href="#definition-KotoriCore.Domains.SimpleDocument"> KotoriCore.Domains.SimpleDocument </a>
+          <a href="#definition-KotoriCore.Domains.SimpleDocumentVersion"> KotoriCore.Domains.SimpleDocumentVersion </a>
         </nav>
       </div>
       <div id="docs" class="row collapse expanded drawer" data-drawer>
@@ -118,9 +121,14 @@
               <span>API Reference</span>
             </h1>
             <div class="doc-row">
-              <div class="doc-copy"> undefined </div>
+              <div class="doc-copy">
+                <p>REST API for Kotori</p>
+              </div>
               <div class="doc-examples">
                 <section>
+                  <h5>Contact:
+                    <a href="mailto:frohikey@gmail.com">frohikey@gmail.com</a>
+                  </h5>
                   <h5>Version:
                     <span>v1</span>
                   </h5>
@@ -173,11 +181,23 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">GET</span>
-                <span class="operation-path">/api/instance</span>
-              </span>
+              <span class="operation-summary">Get instance name</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/api/instance</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Just a simple method for testing purposes. It returns information about instance which you already know :)</p>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy"> </div>
               <div class="doc-examples"></div>
@@ -190,13 +210,13 @@
                       <div class="prop-title">200 OK</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/InstanceResult">InstanceResult</a>
+                          <a class="json-schema-ref" href="#/definitions/Instance">Instance</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>Success</p>
+                      <p>Instance information</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -254,7 +274,7 @@
                       <div class="prop-title">200 OK</div>
                       <div class="prop-ref">
                         <span class="json-schema-ref-array">
-                          <a class="json-schema-ref" href="#/definitions/SimpleProject">SimpleProject</a>
+                          <a class="json-schema-ref" href="#/definitions/KotoriCore.Domains.SimpleProject">KotoriCore.Domains.SimpleProject</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -517,7 +537,7 @@
                       <div class="prop-title">200 OK</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/SimpleProject">SimpleProject</a>
+                          <a class="json-schema-ref" href="#/definitions/KotoriCore.Domains.SimpleProject">KotoriCore.Domains.SimpleProject</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -897,7 +917,7 @@
                       <div class="prop-title">200 OK</div>
                       <div class="prop-ref">
                         <span class="json-schema-ref-array">
-                          <a class="json-schema-ref" href="#/definitions/ProjectKey">ProjectKey</a>
+                          <a class="json-schema-ref" href="#/definitions/KotoriCore.Domains.ProjectKey">KotoriCore.Domains.ProjectKey</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -1549,7 +1569,7 @@
                       <div class="prop-title">200 OK</div>
                       <div class="prop-ref">
                         <span class="json-schema-ref-array">
-                          <a class="json-schema-ref" href="#/definitions/SimpleDocumentType">SimpleDocumentType</a>
+                          <a class="json-schema-ref" href="#/definitions/KotoriCore.Domains.SimpleDocumentType">KotoriCore.Domains.SimpleDocumentType</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -1696,7 +1716,7 @@
                       <div class="prop-title">200 OK</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/SimpleDocumentType">SimpleDocumentType</a>
+                          <a class="json-schema-ref" href="#/definitions/KotoriCore.Domains.SimpleDocumentType">KotoriCore.Domains.SimpleDocumentType</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -1898,7 +1918,7 @@
                       <div class="prop-title">200 OK</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/CountResult">CountResult</a>
+                          <a class="json-schema-ref" href="#/definitions/KotoriServer.Tokens.CountResult">KotoriServer.Tokens.CountResult</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -2123,7 +2143,7 @@
                       <div class="prop-title">200 OK</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/SimpleDocument">SimpleDocument</a>
+                          <a class="json-schema-ref" href="#/definitions/KotoriCore.Domains.SimpleDocument">KotoriCore.Domains.SimpleDocument</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -2334,7 +2354,7 @@
                       <div class="prop-title">200 OK</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/SimpleDocument">SimpleDocument</a>
+                          <a class="json-schema-ref" href="#/definitions/KotoriCore.Domains.SimpleDocument">KotoriCore.Domains.SimpleDocument</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -2382,6 +2402,195 @@
   <span class="hljs-attr">&quot;version&quot;</span>: <span class="hljs-string">&quot;integer (int64)&quot;</span>,
   <span class="hljs-attr">&quot;filename&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
 }
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(404 Not Found)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json"><span class="hljs-string">&quot;string&quot;</span>
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--api-projects--projectId--document-types--documentType---documentTypeId--documents--documentId---index--put" class="operation panel" data-traverse-target="operation--api-projects--projectId--document-types--documentType---documentTypeId--documents--documentId---index--put">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Project">Project</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-name">
+                <span class="operation-name">PUT</span>
+                <span class="operation-path">/api/projects/{projectId}/document-types/{documentType}/{documentTypeId}/documents/{documentId}/{index}</span>
+              </span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body"> </section>
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">projectId</div>
+                      <span class="json-property-required"></span>
+                    </div>
+                    <div class="prop-value">
+                      <p class="no-description">(no description)</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">in</div>
+                    <div class="prop-value">path</div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">documentType</div>
+                      <span class="json-property-required"></span>
+                    </div>
+                    <div class="prop-value">
+                      <p class="no-description">(no description)</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">in</div>
+                    <div class="prop-value">path</div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">documentTypeId</div>
+                      <span class="json-property-required"></span>
+                    </div>
+                    <div class="prop-value">
+                      <p class="no-description">(no description)</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">in</div>
+                    <div class="prop-value">path</div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">documentId</div>
+                      <span class="json-property-required"></span>
+                    </div>
+                    <div class="prop-value">
+                      <p class="no-description">(no description)</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">in</div>
+                    <div class="prop-value">path</div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">index</div>
+                    </div>
+                    <div class="prop-value">
+                      <p class="no-description">(no description)</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-format">(int64)</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">in</div>
+                    <div class="prop-value">query</div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Content-Types:
+                    <span>application/json-patch+json, application/json, text/json, application/*+json</span>
+                  </h5>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json"><span class="hljs-string">&quot;string&quot;</span>
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">201 Created</div>
+                      <div class="prop-ref"></div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Success</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                      <div class="prop-ref"></div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Not Found</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">500 Internal Server Error</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Internal server error</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>text/plain, application/json, text/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(201 Created)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json"><span class="hljs-string">&quot;string&quot;</span>
 </code></pre>
                   <!-- </div> -->
                 </section>
@@ -2498,7 +2707,6 @@
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">index</div>
-                      <span class="json-property-required"></span>
                     </div>
                     <div class="prop-value">
                       <p class="no-description">(no description)</p>
@@ -2514,7 +2722,7 @@
                   </div>
                   <div class="prop-row prop-inner">
                     <div class="prop-name param-label">in</div>
-                    <div class="prop-value">path</div>
+                    <div class="prop-value">query</div>
                   </div>
                 </section>
               </div>
@@ -2716,7 +2924,7 @@
                       <div class="prop-title">200 OK</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/CountResult">CountResult</a>
+                          <a class="json-schema-ref" href="#/definitions/KotoriServer.Tokens.CountResult">KotoriServer.Tokens.CountResult</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -2880,7 +3088,7 @@
                       <div class="prop-title">200 OK</div>
                       <div class="prop-ref">
                         <span class="json-schema-ref-array">
-                          <a class="json-schema-ref" href="#/definitions/SimpleDocumentVersion">SimpleDocumentVersion</a>
+                          <a class="json-schema-ref" href="#/definitions/KotoriCore.Domains.SimpleDocumentVersion">KotoriCore.Domains.SimpleDocumentVersion</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -3069,7 +3277,7 @@
                       <div class="prop-title">200 OK</div>
                       <div class="prop-ref">
                         <span class="json-schema-ref-array">
-                          <a class="json-schema-ref" href="#/definitions/SimpleDocumentVersion">SimpleDocumentVersion</a>
+                          <a class="json-schema-ref" href="#/definitions/KotoriCore.Domains.SimpleDocumentVersion">KotoriCore.Domains.SimpleDocumentVersion</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -3371,7 +3579,7 @@
                       <div class="prop-title">200 OK</div>
                       <div class="prop-ref">
                         <span class="json-schema-ref-array">
-                          <a class="json-schema-ref" href="#/definitions/SimpleDocument">SimpleDocument</a>
+                          <a class="json-schema-ref" href="#/definitions/KotoriCore.Domains.SimpleDocument">KotoriCore.Domains.SimpleDocument</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -3436,9 +3644,9 @@
             </div>
           </div>
           <h1>Schema Definitions</h1>
-          <div id="definition-InstanceResult" class="definition panel" data-traverse-target="definition-InstanceResult">
+          <div id="definition-Instance" class="definition panel" data-traverse-target="definition-Instance">
             <h2 class="panel-title">
-              <a name="/definitions/InstanceResult"></a>InstanceResult: object
+              <a name="/definitions/Instance"></a>Instance: object
               <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -3447,13 +3655,19 @@
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Instance result.</p>
+                </section>
                 <section class="json-schema-properties">
                   <dl>
-                    <dt data-property-name="instance">
+                    <dt data-property-name="instance" class="has-description">
                       <span class="json-property-name">instance:</span>
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
+                    <dd>
+                      <p>Gets or sets the instance.</p>
+                    </dd>
                   </dl>
                 </section>
               </div>
@@ -3469,9 +3683,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-SimpleProject" class="definition panel" data-traverse-target="definition-SimpleProject">
+          <div id="definition-KotoriCore.Domains.SimpleProject" class="definition panel" data-traverse-target="definition-KotoriCore.Domains.SimpleProject">
             <h2 class="panel-title">
-              <a name="/definitions/SimpleProject"></a>SimpleProject: object
+              <a name="/definitions/KotoriCore.Domains.SimpleProject"></a>KotoriCore.Domains.SimpleProject: object
               <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -3508,9 +3722,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-ProjectKey" class="definition panel" data-traverse-target="definition-ProjectKey">
+          <div id="definition-KotoriCore.Domains.ProjectKey" class="definition panel" data-traverse-target="definition-KotoriCore.Domains.ProjectKey">
             <h2 class="panel-title">
-              <a name="/definitions/ProjectKey"></a>ProjectKey: object
+              <a name="/definitions/KotoriCore.Domains.ProjectKey"></a>KotoriCore.Domains.ProjectKey: object
               <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -3547,9 +3761,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-SimpleDocumentType" class="definition panel" data-traverse-target="definition-SimpleDocumentType">
+          <div id="definition-KotoriCore.Domains.SimpleDocumentType" class="definition panel" data-traverse-target="definition-KotoriCore.Domains.SimpleDocumentType">
             <h2 class="panel-title">
-              <a name="/definitions/SimpleDocumentType"></a>SimpleDocumentType: object
+              <a name="/definitions/KotoriCore.Domains.SimpleDocumentType"></a>KotoriCore.Domains.SimpleDocumentType: object
               <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -3586,9 +3800,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-CountResult" class="definition panel" data-traverse-target="definition-CountResult">
+          <div id="definition-KotoriServer.Tokens.CountResult" class="definition panel" data-traverse-target="definition-KotoriServer.Tokens.CountResult">
             <h2 class="panel-title">
-              <a name="/definitions/CountResult"></a>CountResult: object
+              <a name="/definitions/KotoriServer.Tokens.CountResult"></a>KotoriServer.Tokens.CountResult: object
               <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -3597,14 +3811,20 @@
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Count result.</p>
+                </section>
                 <section class="json-schema-properties">
                   <dl>
-                    <dt data-property-name="count">
+                    <dt data-property-name="count" class="has-description">
                       <span class="json-property-name">count:</span>
                       <span class="json-property-type">integer</span>
                       <span class="json-property-format">(int64)</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
+                    <dd>
+                      <p>Gets or sets the count.</p>
+                    </dd>
                   </dl>
                 </section>
               </div>
@@ -3620,9 +3840,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-SimpleDocument" class="definition panel" data-traverse-target="definition-SimpleDocument">
+          <div id="definition-KotoriCore.Domains.SimpleDocument" class="definition panel" data-traverse-target="definition-KotoriCore.Domains.SimpleDocument">
             <h2 class="panel-title">
-              <a name="/definitions/SimpleDocument"></a>SimpleDocument: object
+              <a name="/definitions/KotoriCore.Domains.SimpleDocument"></a>KotoriCore.Domains.SimpleDocument: object
               <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -3704,9 +3924,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-SimpleDocumentVersion" class="definition panel" data-traverse-target="definition-SimpleDocumentVersion">
+          <div id="definition-KotoriCore.Domains.SimpleDocumentVersion" class="definition panel" data-traverse-target="definition-KotoriCore.Domains.SimpleDocumentVersion">
             <h2 class="panel-title">
-              <a name="/definitions/SimpleDocumentVersion"></a>SimpleDocumentVersion: object
+              <a name="/definitions/KotoriCore.Domains.SimpleDocumentVersion"></a>KotoriCore.Domains.SimpleDocumentVersion: object
               <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               

@@ -1,6 +1,8 @@
 ﻿using KotoriCore;
+using KotoriServer.Examples;
 using KotoriServer.Tokens;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Examples;
 
 namespace KotoriServer.Controllers
 {
@@ -20,11 +22,14 @@ namespace KotoriServer.Controllers
         }
 
         /// <summary>
-        /// Get instance name.
+        /// Get instance name
         /// </summary>
-        /// <returns>The instance name.</returns>
+        /// <returns>The instance name</returns>
+        /// <response code="200">Instance information</response>
+        /// <remarks>Just a simple method for testing purposes. It returns information about instance which you already know :)</remarks>
         [HttpGet]
         [ProducesResponseType(typeof(InstanceResult), 200)]
+        [SwaggerResponseExample(200, typeof(InstanceExample))]
         public InstanceResult Get()
         {
             return new InstanceResult(_instance);

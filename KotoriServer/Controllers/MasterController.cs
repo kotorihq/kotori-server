@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace KotoriServer.Controllers
 {
+    /// <summary>
+    /// Controller serving master operations.
+    /// </summary>
     [Route("api")]
     [Authorize("master")]
     public class MasterController
