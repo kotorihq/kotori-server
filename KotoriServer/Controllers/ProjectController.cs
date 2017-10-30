@@ -1,11 +1,7 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using KotoriCore;
-using KotoriCore.Commands;
-using KotoriCore.Configurations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using KotoriCore.Helpers;
 using System.Threading.Tasks;
 using KotoriCore.Domains;
 using KotoriServer.Tokens;
