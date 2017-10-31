@@ -31,4 +31,5 @@
     <Folder Include="Tokens\" />
     <Folder Include="Examples\" />
   </ItemGroup>
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JSONSchema="" /></VisualStudio></ProjectExtensions>
 </Project>
