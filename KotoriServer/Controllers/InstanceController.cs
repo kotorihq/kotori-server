@@ -15,6 +15,10 @@ namespace KotoriServer.Controllers
         readonly Kotori _kotori;
         readonly string _instance;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:KotoriServer.Controllers.InstanceController"/> class.
+        /// </summary>
+        /// <param name="kotori">Kotori.</param>
         public InstanceController(IKotori kotori)
         {
             _kotori = kotori as Kotori;
@@ -22,9 +26,9 @@ namespace KotoriServer.Controllers
         }
 
         /// <summary>
-        /// Get instance name
+        /// Get instance information
         /// </summary>
-        /// <returns>The instance name</returns>
+        /// <returns>The instance information</returns>
         /// <response code="200">Instance information</response>
         /// <remarks>Just a simple method for testing purposes. It returns information about instance which you already know :)</remarks>
         [HttpGet]

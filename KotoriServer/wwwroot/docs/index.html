@@ -26,7 +26,7 @@
             <a href="#tag-Instance">Instance</a>
             <ul>
               <li>
-                <a href="#operation--api-instance-get"> Get instance name </a>
+                <a href="#operation--api-instance-get"> Get instance information </a>
               </li>
             </ul>
           </section>
@@ -34,31 +34,31 @@
             <a href="#tag-Master">Master</a>
             <ul>
               <li>
-                <a href="#operation--api-projects-get"> GET /api/projects </a>
+                <a href="#operation--api-projects-get"> Get projects </a>
               </li>
               <li>
-                <a href="#operation--api-projects-post"> POST /api/projects </a>
+                <a href="#operation--api-projects-post"> Create project </a>
               </li>
               <li>
-                <a href="#operation--api-projects--projectId--get"> GET /api/projects/{projectId} </a>
+                <a href="#operation--api-projects--projectId--get"> Get project </a>
               </li>
               <li>
-                <a href="#operation--api-projects--projectId--put"> PUT /api/projects/{projectId} </a>
+                <a href="#operation--api-projects--projectId--put"> Update project </a>
               </li>
               <li>
-                <a href="#operation--api-projects--projectId--delete"> DELETE /api/projects/{projectId} </a>
+                <a href="#operation--api-projects--projectId--delete"> Delete project </a>
               </li>
               <li>
-                <a href="#operation--api-projects--projectId--project-keys-get"> GET /api/projects/{projectId}/project-keys </a>
+                <a href="#operation--api-projects--projectId--project-keys-get"> Get project keys </a>
               </li>
               <li>
-                <a href="#operation--api-projects--projectId--project-keys--key--put"> PUT /api/projects/{projectId}/project-keys/{key} </a>
+                <a href="#operation--api-projects--projectId--project-keys--key--put"> Update project key </a>
               </li>
               <li>
-                <a href="#operation--api-projects--projectId--project-keys--key--post"> POST /api/projects/{projectId}/project-keys/{key} </a>
+                <a href="#operation--api-projects--projectId--project-keys--key--post"> Create project key </a>
               </li>
               <li>
-                <a href="#operation--api-projects--projectId--project-keys--key--delete"> DELETE /api/projects/{projectId}/project-keys/{key} </a>
+                <a href="#operation--api-projects--projectId--project-keys--key--delete"> Delete project key </a>
               </li>
             </ul>
           </section>
@@ -102,8 +102,8 @@
           </section>
           <h5>Schema Definitions</h5>
           <a href="#definition-Instance"> Instance </a>
-          <a href="#definition-KotoriCore.Domains.SimpleProject"> KotoriCore.Domains.SimpleProject </a>
-          <a href="#definition-KotoriCore.Domains.ProjectKey"> KotoriCore.Domains.ProjectKey </a>
+          <a href="#definition-Project"> Project </a>
+          <a href="#definition-ProjectKey"> ProjectKey </a>
           <a href="#definition-KotoriCore.Domains.SimpleDocumentType"> KotoriCore.Domains.SimpleDocumentType </a>
           <a href="#definition-KotoriServer.Tokens.CountResult"> KotoriServer.Tokens.CountResult </a>
           <a href="#definition-KotoriCore.Domains.SimpleDocument"> KotoriCore.Domains.SimpleDocument </a>
@@ -126,9 +126,6 @@
               </div>
               <div class="doc-examples">
                 <section>
-                  <h5>Contact:
-                    <a href="mailto:frohikey@gmail.com">frohikey@gmail.com</a>
-                  </h5>
                   <h5>Version:
                     <span>v1</span>
                   </h5>
@@ -181,7 +178,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Get instance name</span>
+              <span class="operation-summary">Get instance information</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -257,11 +254,23 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">GET</span>
-                <span class="operation-path">/api/projects</span>
-              </span>
+              <span class="operation-summary">Get projects</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/api/projects</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Gets a collection of existing projects in the instance.</p>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy"> </div>
               <div class="doc-examples"></div>
@@ -274,13 +283,13 @@
                       <div class="prop-title">200 OK</div>
                       <div class="prop-ref">
                         <span class="json-schema-ref-array">
-                          <a class="json-schema-ref" href="#/definitions/KotoriCore.Domains.SimpleProject">KotoriCore.Domains.SimpleProject</a>
+                          <a class="json-schema-ref" href="#/definitions/Project">Project</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>Success</p>
+                      <p>A collection of the projects</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -361,11 +370,23 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">POST</span>
-                <span class="operation-path">/api/projects</span>
-              </span>
+              <span class="operation-summary">Create project</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/api/projects</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Creates the project with an unique identifier which should be a valid slug.</p>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-request-params">
@@ -374,7 +395,7 @@
                       <div class="prop-title">name</div>
                     </div>
                     <div class="prop-value">
-                      <p class="no-description">(no description)</p>
+                      <p>Name of the project</p>
                     </div>
                   </div>
                   <div class="prop-row prop-inner">
@@ -393,7 +414,7 @@
                       <div class="prop-title">identifier</div>
                     </div>
                     <div class="prop-value">
-                      <p class="no-description">(no description)</p>
+                      <p>Identifier of the project</p>
                     </div>
                   </div>
                   <div class="prop-row prop-inner">
@@ -421,7 +442,7 @@
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>Success</p>
+                      <p>The operation result message</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -497,11 +518,23 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">GET</span>
-                <span class="operation-path">/api/projects/{projectId}</span>
-              </span>
+              <span class="operation-summary">Get project</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/api/projects/{projectId}</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Gets just one project.</p>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-request-params">
@@ -511,7 +544,7 @@
                       <span class="json-property-required"></span>
                     </div>
                     <div class="prop-value">
-                      <p class="no-description">(no description)</p>
+                      <p>Project identifier</p>
                     </div>
                   </div>
                   <div class="prop-row prop-inner">
@@ -537,13 +570,13 @@
                       <div class="prop-title">200 OK</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/KotoriCore.Domains.SimpleProject">KotoriCore.Domains.SimpleProject</a>
+                          <a class="json-schema-ref" href="#/definitions/Project">Project</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>Success</p>
+                      <p>The project</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -622,11 +655,23 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">PUT</span>
-                <span class="operation-path">/api/projects/{projectId}</span>
-              </span>
+              <span class="operation-summary">Update project</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">PUT</span>
+                  <span class="operation-path">/api/projects/{projectId}</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Updates project. Identifier cannot by changed. You can only change a name at the moment.</p>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-request-params">
@@ -636,7 +681,7 @@
                       <span class="json-property-required"></span>
                     </div>
                     <div class="prop-value">
-                      <p class="no-description">(no description)</p>
+                      <p>Project identifier</p>
                     </div>
                   </div>
                   <div class="prop-row prop-inner">
@@ -655,7 +700,7 @@
                       <div class="prop-title">name</div>
                     </div>
                     <div class="prop-value">
-                      <p class="no-description">(no description)</p>
+                      <p>Name</p>
                     </div>
                   </div>
                   <div class="prop-row prop-inner">
@@ -683,7 +728,7 @@
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>Success</p>
+                      <p>The operation result message</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -759,11 +804,23 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">DELETE</span>
-                <span class="operation-path">/api/projects/{projectId}</span>
-              </span>
+              <span class="operation-summary">Delete project</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">DELETE</span>
+                  <span class="operation-path">/api/projects/{projectId}</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Deletes the project. Do not be worry too much. Non empty projects cannot be deleted.</p>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-request-params">
@@ -773,7 +830,7 @@
                       <span class="json-property-required"></span>
                     </div>
                     <div class="prop-value">
-                      <p class="no-description">(no description)</p>
+                      <p>Project identifier</p>
                     </div>
                   </div>
                   <div class="prop-row prop-inner">
@@ -801,7 +858,7 @@
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>Success</p>
+                      <p>The operation result message</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -877,11 +934,23 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">GET</span>
-                <span class="operation-path">/api/projects/{projectId}/project-keys</span>
-              </span>
+              <span class="operation-summary">Get project keys</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/api/projects/{projectId}/project-keys</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Gets project keys.</p>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-request-params">
@@ -891,7 +960,7 @@
                       <span class="json-property-required"></span>
                     </div>
                     <div class="prop-value">
-                      <p class="no-description">(no description)</p>
+                      <p>Project identifier</p>
                     </div>
                   </div>
                   <div class="prop-row prop-inner">
@@ -917,13 +986,13 @@
                       <div class="prop-title">200 OK</div>
                       <div class="prop-ref">
                         <span class="json-schema-ref-array">
-                          <a class="json-schema-ref" href="#/definitions/KotoriCore.Domains.ProjectKey">KotoriCore.Domains.ProjectKey</a>
+                          <a class="json-schema-ref" href="#/definitions/ProjectKey">ProjectKey</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>Success</p>
+                      <p>A collection of project keys</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -1022,11 +1091,23 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">PUT</span>
-                <span class="operation-path">/api/projects/{projectId}/project-keys/{key}</span>
-              </span>
+              <span class="operation-summary">Update project key</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">PUT</span>
+                  <span class="operation-path">/api/projects/{projectId}/project-keys/{key}</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Update an existing project key. You can just change if it&#39;s readonly or not.</p>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-request-params">
@@ -1036,7 +1117,7 @@
                       <span class="json-property-required"></span>
                     </div>
                     <div class="prop-value">
-                      <p class="no-description">(no description)</p>
+                      <p>Project identifier</p>
                     </div>
                   </div>
                   <div class="prop-row prop-inner">
@@ -1056,7 +1137,7 @@
                       <span class="json-property-required"></span>
                     </div>
                     <div class="prop-value">
-                      <p class="no-description">(no description)</p>
+                      <p>Key</p>
                     </div>
                   </div>
                   <div class="prop-row prop-inner">
@@ -1075,7 +1156,7 @@
                       <div class="prop-title">isReadonly</div>
                     </div>
                     <div class="prop-value">
-                      <p class="no-description">(no description)</p>
+                      <p>If set to {true} is readonly</p>
                     </div>
                   </div>
                   <div class="prop-row prop-inner">
@@ -1103,7 +1184,7 @@
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>Success</p>
+                      <p>The operation result message</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -1197,11 +1278,23 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">POST</span>
-                <span class="operation-path">/api/projects/{projectId}/project-keys/{key}</span>
-              </span>
+              <span class="operation-summary">Create project key</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/api/projects/{projectId}/project-keys/{key}</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Creates a new project key.</p>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-request-params">
@@ -1211,7 +1304,7 @@
                       <span class="json-property-required"></span>
                     </div>
                     <div class="prop-value">
-                      <p class="no-description">(no description)</p>
+                      <p>Project identifier</p>
                     </div>
                   </div>
                   <div class="prop-row prop-inner">
@@ -1231,7 +1324,7 @@
                       <span class="json-property-required"></span>
                     </div>
                     <div class="prop-value">
-                      <p class="no-description">(no description)</p>
+                      <p>Key</p>
                     </div>
                   </div>
                   <div class="prop-row prop-inner">
@@ -1250,7 +1343,7 @@
                       <div class="prop-title">isReadonly</div>
                     </div>
                     <div class="prop-value">
-                      <p class="no-description">(no description)</p>
+                      <p>If set to {true} is readonly</p>
                     </div>
                   </div>
                   <div class="prop-row prop-inner">
@@ -1278,7 +1371,7 @@
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>Success</p>
+                      <p>The operation result message</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -1372,11 +1465,23 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">DELETE</span>
-                <span class="operation-path">/api/projects/{projectId}/project-keys/{key}</span>
-              </span>
+              <span class="operation-summary">Delete project key</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">DELETE</span>
+                  <span class="operation-path">/api/projects/{projectId}/project-keys/{key}</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Deletes an existing project key.</p>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-request-params">
@@ -1386,7 +1491,7 @@
                       <span class="json-property-required"></span>
                     </div>
                     <div class="prop-value">
-                      <p class="no-description">(no description)</p>
+                      <p>Project identifier</p>
                     </div>
                   </div>
                   <div class="prop-row prop-inner">
@@ -1406,7 +1511,7 @@
                       <span class="json-property-required"></span>
                     </div>
                     <div class="prop-value">
-                      <p class="no-description">(no description)</p>
+                      <p>Key</p>
                     </div>
                   </div>
                   <div class="prop-row prop-inner">
@@ -1434,7 +1539,7 @@
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>Success</p>
+                      <p>The operation result message</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -3660,14 +3765,11 @@
                 </section>
                 <section class="json-schema-properties">
                   <dl>
-                    <dt data-property-name="instance" class="has-description">
+                    <dt data-property-name="instance">
                       <span class="json-property-name">instance:</span>
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
-                    <dd>
-                      <p>Gets or sets the instance.</p>
-                    </dd>
                   </dl>
                 </section>
               </div>
@@ -3683,9 +3785,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-KotoriCore.Domains.SimpleProject" class="definition panel" data-traverse-target="definition-KotoriCore.Domains.SimpleProject">
+          <div id="definition-Project" class="definition panel" data-traverse-target="definition-Project">
             <h2 class="panel-title">
-              <a name="/definitions/KotoriCore.Domains.SimpleProject"></a>KotoriCore.Domains.SimpleProject: object
+              <a name="/definitions/Project"></a>Project: object
               <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -3722,9 +3824,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-KotoriCore.Domains.ProjectKey" class="definition panel" data-traverse-target="definition-KotoriCore.Domains.ProjectKey">
+          <div id="definition-ProjectKey" class="definition panel" data-traverse-target="definition-ProjectKey">
             <h2 class="panel-title">
-              <a name="/definitions/KotoriCore.Domains.ProjectKey"></a>KotoriCore.Domains.ProjectKey: object
+              <a name="/definitions/ProjectKey"></a>ProjectKey: object
               <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               

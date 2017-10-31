@@ -25,6 +25,12 @@
     </ItemGroup>
     <Copy SourceFiles="@(DocFile)" DestinationFolder="$(PublishDir)" SkipUnchangedFiles="false" />
   </Target>
+  <Target Name="CopyToOut" BeforeTargets="BeforeBuild">
+    <ItemGroup>
+      <DocFile Include="KotoriServer.xml" />
+    </ItemGroup>
+    <Copy SourceFiles="@(DocFile)" DestinationFolder="$(PublishDir)" SkipUnchangedFiles="false" />
+  </Target>  
   <ItemGroup>
     <Folder Include="Helpers\" />
     <Folder Include="Filters\" />

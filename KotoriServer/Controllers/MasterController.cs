@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace KotoriServer.Controllers
 {
     /// <summary>
-    /// Controller serving master operations.
+    /// Controller for master operations
     /// </summary>
     [Route("api")]
     [Authorize("master")]
@@ -27,6 +27,14 @@ namespace KotoriServer.Controllers
             _instance = kotori.Configuration.Instance;
         }
 
+        /// <summary>
+        /// Create project
+        /// </summary>
+        /// <returns>The operation result message</returns>
+        /// <param name="name">Name of the project</param>
+        /// <param name="identifier">Identifier of the project</param>
+        /// <response code="201">The operation result message</response>
+        /// <remarks>Creates the project with an unique identifier which should be a valid slug.</remarks>
         [Route("projects")]
         [HttpPost]
         [ProducesResponseType(typeof(string), 201)]
@@ -37,6 +45,12 @@ namespace KotoriServer.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Get projects
+        /// </summary>
+        /// <returns>A collection of the projects</returns>
+        /// <response code="200">A collection of the projects</response>
+        /// <remarks>Gets a collection of existing projects in the instance.</remarks>
         [Route("projects")]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<SimpleProject>), 200)]
@@ -47,6 +61,13 @@ namespace KotoriServer.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Get project
+        /// </summary>
+        /// <returns>The project</returns>
+        /// <param name="projectId">Project identifier</param>
+        /// <response code="200">The project</response>
+        /// <remarks>Gets just one project.</remarks>
         [Route("projects/{projectId}")]
         [HttpGet]
         [ProducesResponseType(typeof(SimpleProject), 200)]
@@ -57,6 +78,14 @@ namespace KotoriServer.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Update project
+        /// </summary>
+        /// <param name="projectId">Project identifier</param>
+        /// <param name="name">Name</param>
+        /// <returns>The operation result message</returns>
+        /// <response code="201">The operation result message</response>
+        /// <remarks>Updates project. Identifier cannot by changed. You can only change a name at the moment.</remarks>
         [Route("projects/{projectId}")]
         [HttpPut]
         [ProducesResponseType(typeof(string), 201)]
@@ -67,6 +96,13 @@ namespace KotoriServer.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Delete project
+        /// </summary>
+        /// <returns>The operation result message</returns>
+        /// <response code="200">The operation result message</response>
+        /// <param name="projectId">Project identifier</param>
+        /// <remarks>Deletes the project. Do not be worry too much. Non empty projects cannot be deleted.</remarks>
         [Route("projects/{projectId}")]
         [HttpDelete]
         [ProducesResponseType(typeof(string), 200)]
@@ -77,6 +113,13 @@ namespace KotoriServer.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Get project keys
+        /// </summary>
+        /// <returns>A collection of project keys</returns>
+        /// <response code="200">A collection of project keys</response>
+        /// <param name="projectId">Project identifier</param>
+        /// <remarks>Gets project keys.</remarks>
         [Route("projects/{projectId}/project-keys")]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<ProjectKey>), 200)]
@@ -88,17 +131,34 @@ namespace KotoriServer.Controllers
             return projectKeys;
         }
 
+        /// <summary>
+        /// Create project key
+        /// </summary>
+        /// <returns>The operation result message</returns>
+        /// <param name="projectId">Project identifier</param>
+        /// <param name="key">Key</param>
+        /// <param name="isReadonly">If set to <c>true</c> is readonly</param>
+        /// <response code="201">The operation result message</response>
+        /// <remarks>Creates a new project key.</remarks>
         [Route("projects/{projectId}/project-keys/{key}")]
         [HttpPost]
         [ProducesResponseType(typeof(string), 201)]
         [ProducesResponseType(typeof(string), 404)]
-        public async Task<string> PostProjectKey(string projectId, string key, [FromQuery]bool isReadonly = false)
+        public async Task<string> CreateProjectKey(string projectId, string key, [FromQuery]bool isReadonly = false)
         {
             var result = await _kotori.CreateProjectKeyAsync(_instance, projectId, new KotoriCore.Configurations.ProjectKey { Key = key, IsReadonly = isReadonly });
 
             return result;
         }
 
+        /// <summary>
+        /// Delete project key
+        /// </summary>
+        /// <returns>The operation result message</returns>
+        /// <param name="projectId">Project identifier</param>
+        /// <param name="key">Key</param>
+        /// <response code="200">The operation result message</response>
+        /// <remarks>Deletes an existing project key.</remarks>
         [Route("projects/{projectId}/project-keys/{key}")]
         [HttpDelete]
         [ProducesResponseType(typeof(string), 200)]
@@ -110,6 +170,15 @@ namespace KotoriServer.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Update project key
+        /// </summary>
+        /// <returns>The operation result message</returns>
+        /// <param name="projectId">Project identifier</param>
+        /// <param name="key">Key</param>
+        /// <param name="isReadonly">If set to <c>true</c> is readonly</param>
+        /// <response code="200">The operation result message</response>
+        /// <remarks>Update an existing project key. You can just change if it's readonly or not.</remarks>
         [Route("projects/{projectId}/project-keys/{key}")]
         [HttpPut]
         [ProducesResponseType(typeof(string), 200)]

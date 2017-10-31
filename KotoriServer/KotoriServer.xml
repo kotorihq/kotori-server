@@ -9,17 +9,23 @@
             Instance controller.
             </summary>
         </member>
+        <member name="M:KotoriServer.Controllers.InstanceController.#ctor(KotoriCore.IKotori)">
+            <summary>
+            Initializes a new instance of the <see cref="T:KotoriServer.Controllers.InstanceController"/> class.
+            </summary>
+            <param name="kotori">Kotori.</param>
+        </member>
         <member name="M:KotoriServer.Controllers.InstanceController.Get">
             <summary>
-            Get instance name
+            Get instance information
             </summary>
-            <returns>The instance name</returns>
+            <returns>The instance information</returns>
             <response code="200">Instance information</response>
             <remarks>Just a simple method for testing purposes. It returns information about instance which you already know :)</remarks>
         </member>
         <member name="T:KotoriServer.Controllers.MasterController">
             <summary>
-            Controller serving master operations.
+            Controller for master operations
             </summary>
         </member>
         <member name="M:KotoriServer.Controllers.MasterController.#ctor(KotoriCore.IKotori)">
@@ -27,6 +33,93 @@
             Initializes a new instance of the <see cref="T:KotoriServer.Controllers.MasterController"/> class.
             </summary>
             <param name="kotori">Kotori.</param>
+        </member>
+        <member name="M:KotoriServer.Controllers.MasterController.CreateProject(System.String,System.String)">
+            <summary>
+            Create project
+            </summary>
+            <returns>The operation result message</returns>
+            <param name="name">Name of the project</param>
+            <param name="identifier">Identifier of the project</param>
+            <response code="201">The operation result message</response>
+            <remarks>Creates the project with an unique identifier which should be a valid slug.</remarks>
+        </member>
+        <member name="M:KotoriServer.Controllers.MasterController.GetProjects">
+            <summary>
+            Get projects
+            </summary>
+            <returns>A collection of the projects</returns>
+            <response code="200">A collection of the projects</response>
+            <remarks>Gets a collection of existing projects in the instance.</remarks>
+        </member>
+        <member name="M:KotoriServer.Controllers.MasterController.GetProject(System.String)">
+            <summary>
+            Get project
+            </summary>
+            <returns>The project</returns>
+            <param name="projectId">Project identifier</param>
+            <response code="200">The project</response>
+            <remarks>Gets just one project.</remarks>
+        </member>
+        <member name="M:KotoriServer.Controllers.MasterController.UpdateProject(System.String,System.String)">
+            <summary>
+            Update project
+            </summary>
+            <param name="projectId">Project identifier</param>
+            <param name="name">Name</param>
+            <returns>The operation result message</returns>
+            <response code="201">The operation result message</response>
+            <remarks>Updates project. Identifier cannot by changed. You can only change a name at the moment.</remarks>
+        </member>
+        <member name="M:KotoriServer.Controllers.MasterController.DeleteProject(System.String)">
+            <summary>
+            Delete project
+            </summary>
+            <returns>The operation result message</returns>
+            <response code="200">The operation result message</response>
+            <param name="projectId">Project identifier</param>
+            <remarks>Deletes the project. Do not be worry too much. Non empty projects cannot be deleted.</remarks>
+        </member>
+        <member name="M:KotoriServer.Controllers.MasterController.GetProjectKeys(System.String)">
+            <summary>
+            Get project keys
+            </summary>
+            <returns>A collection of project keys</returns>
+            <response code="200">A collection of project keys</response>
+            <param name="projectId">Project identifier</param>
+            <remarks>Gets project keys.</remarks>
+        </member>
+        <member name="M:KotoriServer.Controllers.MasterController.CreateProjectKey(System.String,System.String,System.Boolean)">
+            <summary>
+            Create project key
+            </summary>
+            <returns>The operation result message</returns>
+            <param name="projectId">Project identifier</param>
+            <param name="key">Key</param>
+            <param name="isReadonly">If set to <c>true</c> is readonly</param>
+            <response code="201">The operation result message</response>
+            <remarks>Creates a new project key.</remarks>
+        </member>
+        <member name="M:KotoriServer.Controllers.MasterController.DeleteProjectKey(System.String,System.String)">
+            <summary>
+            Delete project key
+            </summary>
+            <returns>The operation result message</returns>
+            <param name="projectId">Project identifier</param>
+            <param name="key">Key</param>
+            <response code="200">The operation result message</response>
+            <remarks>Deletes an existing project key.</remarks>
+        </member>
+        <member name="M:KotoriServer.Controllers.MasterController.UpdateProjectKey(System.String,System.String,System.Boolean)">
+            <summary>
+            Update project key
+            </summary>
+            <returns>The operation result message</returns>
+            <param name="projectId">Project identifier</param>
+            <param name="key">Key</param>
+            <param name="isReadonly">If set to <c>true</c> is readonly</param>
+            <response code="200">The operation result message</response>
+            <remarks>Update an existing project key. You can just change if it's readonly or not.</remarks>
         </member>
         <member name="T:KotoriServer.Controllers.ProjectController">
             <summary>
@@ -44,6 +137,17 @@
             Initializes a new instance of the <see cref="T:KotoriServer.Controllers.PresentationController"/> class.
             </summary>
             <param name="config">Config.</param>
+        </member>
+        <member name="T:KotoriServer.Examples.InstanceExample">
+            <summary>
+            Instance example.
+            </summary>
+        </member>
+        <member name="M:KotoriServer.Examples.InstanceExample.GetExamples">
+            <summary>
+            Gets the examples.
+            </summary>
+            <returns>The examples.</returns>
         </member>
         <member name="T:KotoriServer.Filters.SecurityRequirementsOperationFilter">
             <summary>
@@ -130,6 +234,24 @@
             </summary>
             <param name="kotori">Kotori configuration.</param>
         </member>
+        <member name="T:KotoriServer.Program">
+            <summary>
+            Program.
+            </summary>
+        </member>
+        <member name="M:KotoriServer.Program.Main(System.String[])">
+            <summary>
+            The entry point of the program, where the program control starts and ends.
+            </summary>
+            <param name="args">The command-line arguments.</param>
+        </member>
+        <member name="M:KotoriServer.Program.BuildWebHost(System.String[])">
+            <summary>
+            Builds the web host.
+            </summary>
+            <returns>The web host.</returns>
+            <param name="args">Arguments.</param>
+        </member>
         <member name="T:KotoriServer.Security.IRequirement">
             <summary>
             Requirement inteface.
@@ -194,6 +316,31 @@
             </summary>
             <value>The type of the claim.</value>
         </member>
+        <member name="T:KotoriServer.Startup">
+            <summary>
+            Startup.
+            </summary>
+        </member>
+        <member name="M:KotoriServer.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+            <summary>
+            Initializes a new instance of the <see cref="T:KotoriServer.Startup"/> class.
+            </summary>
+            <param name="configuration">Configuration.</param>
+            <param name="environment">Environment.</param>
+        </member>
+        <member name="M:KotoriServer.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Configures the services.
+            </summary>
+            <param name="services">A collection of services.</param>
+        </member>
+        <member name="M:KotoriServer.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+            <summary>
+            Configure the specified app and env.
+            </summary>
+            <param name="app">Application builder.</param>
+            <param name="env">Hosting environment.</param>
+        </member>
         <member name="T:KotoriServer.Tokens.CountResult">
             <summary>
             Count result.
@@ -222,10 +369,7 @@
             </summary>
         </member>
         <member name="P:KotoriServer.Tokens.InstanceResult.Instance">
-            <summary>
-            Gets or sets the instance.
-            </summary>
-            <value>The instance.</value>
+            <value>The instance name.</value>
         </member>
         <member name="M:KotoriServer.Tokens.InstanceResult.#ctor">
             <summary>
@@ -236,7 +380,7 @@
             <summary>
             Initializes a new instance of the <see cref="T:KotoriServer.Tokens.InstanceResult"/> class.
             </summary>
-            <param name="instance">Instance.</param>
+            <param name="instance">Instance name.</param>
         </member>
     </members>
 </doc>

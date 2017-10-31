@@ -11,23 +11,34 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.PlatformAbstractions;
 using Swashbuckle.AspNetCore.Examples;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace KotoriServer
 {
+    /// <summary>
+    /// Startup.
+    /// </summary>
     public class Startup
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:KotoriServer.Startup"/> class.
+        /// </summary>
+        /// <param name="configuration">Configuration.</param>
+        /// <param name="environment">Environment.</param>
         public Startup(IConfiguration configuration, IHostingEnvironment environment)
         {
             Configuration = configuration;
             Environment = environment;
         }
 
-        public IConfiguration Configuration { get; }
-        public IHostingEnvironment Environment { get; }
+        IConfiguration Configuration { get; }
+        IHostingEnvironment Environment { get; }
 
+        /// <summary>
+        /// Configures the services.
+        /// </summary>
+        /// <param name="services">A collection of services.</param>
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
@@ -45,8 +56,7 @@ namespace KotoriServer
                     Version = "v1",
                     Contact = new Contact
                     {
-                        Name = "frohikey",
-                        Email = "frohikey@gmail.com"
+                        Name = "frohikey"
                     },
                     License = new License
                     {
@@ -71,6 +81,12 @@ namespace KotoriServer
                     if (type == typeof(InstanceResult))
                         return "Instance";
 
+                    if (type == typeof(KotoriCore.Domains.SimpleProject))
+                        return "Project";
+
+                    if (type == typeof(KotoriCore.Domains.ProjectKey))
+                        return "ProjectKey";
+
                     return type.FullName;
                 }
                 );
@@ -93,6 +109,11 @@ namespace KotoriServer
             services.AddSingleton<IKotori, Kotori>();
         }
 
+        /// <summary>
+        /// Configure the specified app and env.
+        /// </summary>
+        /// <param name="app">Application builder.</param>
+        /// <param name="env">Hosting environment.</param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())

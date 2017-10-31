@@ -5,10 +5,7 @@
     /// </summary>
     public class InstanceResult
     {
-        /// <summary>
-        /// Gets or sets the instance.
-        /// </summary>
-        /// <value>The instance.</value>
+        /// <value>The instance name.</value>
         public string Instance { get; set; }
 
         /// <summary>
@@ -21,7 +18,7 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="T:KotoriServer.Tokens.InstanceResult"/> class.
         /// </summary>
-        /// <param name="instance">Instance.</param>
+        /// <param name="instance">Instance name.</param>
         public InstanceResult(string instance)
         {
             Instance = instance;
