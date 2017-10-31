@@ -19,25 +19,28 @@ namespace KotoriServer
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment environment)
         {
             Configuration = configuration;
+            Environment = environment;
         }
 
         public IConfiguration Configuration { get; }
+        public IHostingEnvironment Environment { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
 
-            var filePath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "KotoriServer.xml");
+            //var filePath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "KotoriServer.xml");
+            var filePath = Path.Combine(Environment.ContentRootPath, "KotoriServer.xml");
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", 
-                new Info 
-                { 
-                    Title = "Kotori", 
+                c.SwaggerDoc("v1",
+                new Info
+                {
+                    Title = "Kotori",
                     Description = "REST API for Kotori",
                     Version = "v1",
                     Contact = new Contact
@@ -63,11 +66,12 @@ namespace KotoriServer
                     In = "header"
                 });
 
-                c.CustomSchemaIds((type) => {
+                c.CustomSchemaIds((type) =>
+                {
                     if (type == typeof(InstanceResult))
                         return "Instance";
-                    
-                    return type.FullName; 
+
+                    return type.FullName;
                 }
                 );
 
@@ -120,7 +124,7 @@ namespace KotoriServer
             app.UseMvc(routes =>
             {
                 routes.MapRoute("index", "", new { controller = "Site", action = "Index" });
-                routes.MapRoute("error", "error", new { controller = "Site", action = "Error" });                
+                routes.MapRoute("error", "error", new { controller = "Site", action = "Error" });
             }
             );
 

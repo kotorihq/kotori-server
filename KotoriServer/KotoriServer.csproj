@@ -4,7 +4,7 @@
     <UserSecretsId>kotori-server</UserSecretsId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DocumentationFile>bin\Debug\netcoreapp2.0\KotoriServer.xml</DocumentationFile>
+    <DocumentationFile>KotoriServer.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />

@@ -1,0 +1,242 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>KotoriServer</name>
+    </assembly>
+    <members>
+        <member name="T:KotoriServer.Controllers.InstanceController">
+            <summary>
+            Instance controller.
+            </summary>
+        </member>
+        <member name="M:KotoriServer.Controllers.InstanceController.Get">
+            <summary>
+            Get instance name
+            </summary>
+            <returns>The instance name</returns>
+            <response code="200">Instance information</response>
+            <remarks>Just a simple method for testing purposes. It returns information about instance which you already know :)</remarks>
+        </member>
+        <member name="T:KotoriServer.Controllers.MasterController">
+            <summary>
+            Controller serving master operations.
+            </summary>
+        </member>
+        <member name="M:KotoriServer.Controllers.MasterController.#ctor(KotoriCore.IKotori)">
+            <summary>
+            Initializes a new instance of the <see cref="T:KotoriServer.Controllers.MasterController"/> class.
+            </summary>
+            <param name="kotori">Kotori.</param>
+        </member>
+        <member name="T:KotoriServer.Controllers.ProjectController">
+            <summary>
+            Project controller.
+            </summary>
+        </member>
+        <member name="M:KotoriServer.Controllers.ProjectController.#ctor(KotoriCore.IKotori)">
+            <summary>
+            Initializes a new instance of the <see cref="T:KotoriServer.Controllers.ProjectController"/> class.
+            </summary>
+            <param name="kotori">Kotori.</param>
+        </member>
+        <member name="M:KotoriServer.Controllers.SiteController.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Initializes a new instance of the <see cref="T:KotoriServer.Controllers.PresentationController"/> class.
+            </summary>
+            <param name="config">Config.</param>
+        </member>
+        <member name="T:KotoriServer.Filters.SecurityRequirementsOperationFilter">
+            <summary>
+            Security requirements operation filter.
+            </summary>
+        </member>
+        <member name="M:KotoriServer.Filters.SecurityRequirementsOperationFilter.#ctor(Microsoft.Extensions.Options.IOptions{Microsoft.AspNetCore.Authorization.AuthorizationOptions})">
+            <summary>
+            Initializes a new instance of the <see cref="T:KotoriServer.Security.SecurityRequirementsOperationFilter"/> class.
+            </summary>
+            <param name="authorizationOptions">Authorization options.</param>
+        </member>
+        <member name="M:KotoriServer.Filters.SecurityRequirementsOperationFilter.Apply(Swashbuckle.AspNetCore.Swagger.Operation,Swashbuckle.AspNetCore.SwaggerGen.OperationFilterContext)">
+            <summary>
+            Apply the specified operation and context.
+            </summary>
+            <param name="operation">Operation.</param>
+            <param name="context">Context.</param>
+        </member>
+        <member name="T:KotoriServer.Helpers.Enums">
+            <summary>
+            Enums.
+            </summary>
+        </member>
+        <member name="M:KotoriServer.Extensions.ToHttpHeaderValue(Microsoft.AspNetCore.Mvc.Filters.AuthorizationFilterContext,System.String)">
+            <summary>
+            Convert auth filter context to a header value of particular field.
+            </summary>
+            <param name="context">Auth filter context.</param>
+            <param name="key">Http header key.</param>
+            <returns>Value or empty string.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="context"/> is null.</exception>
+        </member>
+        <member name="M:KotoriServer.Extensions.ToClaimString(KotoriCore.Helpers.Enums.ClaimType)">
+            <summary>
+            Get scope string from <paramref name="claimType">the claim type</paramref>.
+            </summary>
+            <param name="claimType">The claim type.</param>
+            <returns>Scope string.</returns>
+        </member>
+        <member name="T:KotoriServer.Middleware.ErrorHandling">
+            <summary>
+            Error handling middleware.
+            </summary>
+        </member>
+        <member name="M:KotoriServer.Middleware.ErrorHandling.#ctor(Microsoft.AspNetCore.Http.RequestDelegate)">
+            <summary>
+            Initializes a new instance of the <see cref="T:KotoriServer.Middleware.ErrorHandling"/> class.
+            </summary>
+            <param name="next">Next request.</param>
+        </member>
+        <member name="M:KotoriServer.Middleware.ErrorHandling.Invoke(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Invoke the specified context.
+            </summary>
+            <param name="context">Context.</param>
+        </member>
+        <member name="M:KotoriServer.Middleware.ErrorHandling.HandleExceptionAsync(Microsoft.AspNetCore.Http.HttpContext,System.Exception)">
+            <summary>
+            Handles the exception.
+            </summary>
+            <param name="context">Context.</param>
+            <param name="exception">Exception.</param>
+        </member>
+        <member name="T:KotoriServer.Models.SiteError">
+            <summary>
+            Site error.
+            </summary>
+        </member>
+        <member name="T:KotoriServer.Models.SiteIndex">
+            <summary>
+            Site index model.
+            </summary>
+        </member>
+        <member name="P:KotoriServer.Models.SiteIndex.Kotori">
+            <summary>
+            Gets kotori configuration.
+            </summary>
+            <value>The kotori configuration.</value>
+        </member>
+        <member name="M:KotoriServer.Models.SiteIndex.#ctor(KotoriCore.Kotori)">
+            <summary>
+            Initializes a new instance of the <see cref="T:KotoriServer.Models.SiteIndex"/> class.
+            </summary>
+            <param name="kotori">Kotori configuration.</param>
+        </member>
+        <member name="T:KotoriServer.Security.IRequirement">
+            <summary>
+            Requirement inteface.
+            </summary>
+        </member>
+        <member name="P:KotoriServer.Security.IRequirement.ClaimType">
+            <summary>
+            Gets the type of the claim.
+            </summary>
+            <value>The type of the claim.</value>
+        </member>
+        <member name="T:KotoriServer.Security.MasterHandler">
+            <summary>
+            Handler of master keys.
+            </summary>
+        </member>
+        <member name="M:KotoriServer.Security.MasterHandler.#ctor(KotoriCore.IKotori)">
+            <summary>
+            Initializes a new instance of the <see cref="T:KotoriServer.Security.MasterHandler"/> class.
+            </summary>
+            <param name="kotori">Kotori.</param>
+        </member>
+        <member name="M:KotoriServer.Security.MasterHandler.HandleRequirementAsync(Microsoft.AspNetCore.Authorization.AuthorizationHandlerContext,KotoriServer.Security.MasterRequirement)">
+            <summary>
+            Handles the requirement async.
+            </summary>
+            <param name="context">Context.</param>
+            <param name="requirement">Requirement.</param>
+        </member>
+        <member name="T:KotoriServer.Security.MasterRequirement">
+            <summary>
+            Master requirement.
+            </summary>
+        </member>
+        <member name="P:KotoriServer.Security.MasterRequirement.ClaimType">
+            <summary>
+            Gets the type of the claim.
+            </summary>
+            <value>The type of the claim.</value>
+        </member>
+        <member name="M:KotoriServer.Security.ProjectHandler.#ctor(KotoriCore.IKotori)">
+            <summary>
+            Initializes a new instance of the <see cref="T:KotoriServer.Security.ProjectHandler"/> class.
+            </summary>
+            <param name="kotori">Kotori.</param>
+        </member>
+        <member name="M:KotoriServer.Security.ProjectHandler.HandleRequirementAsync(Microsoft.AspNetCore.Authorization.AuthorizationHandlerContext,KotoriServer.Security.ProjectRequirement)">
+            <summary>
+            Handles the requirement async.
+            </summary>
+            <param name="context">Context.</param>
+            <param name="requirement">Requirement.</param>
+        </member>
+        <member name="T:KotoriServer.Security.ProjectRequirement">
+            <summary>
+            Project requirement.
+            </summary>
+        </member>
+        <member name="P:KotoriServer.Security.ProjectRequirement.ClaimType">
+            <summary>
+            Gets the type of the claim.
+            </summary>
+            <value>The type of the claim.</value>
+        </member>
+        <member name="T:KotoriServer.Tokens.CountResult">
+            <summary>
+            Count result.
+            </summary>
+        </member>
+        <member name="P:KotoriServer.Tokens.CountResult.Count">
+            <summary>
+            Gets or sets the count.
+            </summary>
+            <value>The count.</value>
+        </member>
+        <member name="M:KotoriServer.Tokens.CountResult.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:KotoriServer.Tokens.CountResult"/> class.
+            </summary>
+        </member>
+        <member name="M:KotoriServer.Tokens.CountResult.#ctor(System.Int64)">
+            <summary>
+            Initializes a new instance of the <see cref="T:KotoriServer.Tokens.CountResult"/> class.
+            </summary>
+            <param name="count">Count.</param>
+        </member>
+        <member name="T:KotoriServer.Tokens.InstanceResult">
+            <summary>
+            Instance result.
+            </summary>
+        </member>
+        <member name="P:KotoriServer.Tokens.InstanceResult.Instance">
+            <summary>
+            Gets or sets the instance.
+            </summary>
+            <value>The instance.</value>
+        </member>
+        <member name="M:KotoriServer.Tokens.InstanceResult.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:KotoriServer.Tokens.InstanceResult"/> class.
+            </summary>
+        </member>
+        <member name="M:KotoriServer.Tokens.InstanceResult.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:KotoriServer.Tokens.InstanceResult"/> class.
+            </summary>
+            <param name="instance">Instance.</param>
+        </member>
+    </members>
+</doc>
