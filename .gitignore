@@ -8,3 +8,5 @@
 KotoriServer.userprefs
 
 /KotoriServer/KotoriServer.csproj.user
+/KotoriServer/bin/Release/netcoreapp2.0
+/KotoriServer/Properties/PublishProfiles
