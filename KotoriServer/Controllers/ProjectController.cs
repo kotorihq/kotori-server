@@ -208,25 +208,5 @@ namespace KotoriServer.Controllers
 
             return result;
         }
-
-        [Authorize("project")]
-        [Route("document-types/{documentType}/{documentTypeId}/documents/{documentId}/{index:long?}")]
-        [HttpPut]
-        [ProducesResponseType(typeof(string), 201)]
-        [ProducesResponseType(typeof(string), 404)]
-        public async Task<string> UpdateDocument(string projectId, string documentType, string documentTypeId,
-                                                 string documentId, long? index, [FromBody]string content)
-        {
-            var result = await _kotori.UpdateDocumentAsync
-            (
-                _instance,
-                projectId,
-                documentType + "/" + documentTypeId + "/" + documentId + (index == null ? "" : "?" + index),
-                null, // TODO
-                content
-            );
-
-            return result;
-        }
     }
 }

@@ -39,8 +39,8 @@
             Create project
             </summary>
             <returns>The operation result message</returns>
-            <param name="name">Name of the project</param>
             <param name="identifier">Identifier of the project</param>
+            <param name="name">Name of the project</param>
             <response code="201">The operation result message</response>
             <remarks>Creates the project with an unique identifier which should be a valid slug.</remarks>
         </member>
@@ -61,9 +61,9 @@
             <response code="200">The project</response>
             <remarks>Gets just one project.</remarks>
         </member>
-        <member name="M:KotoriServer.Controllers.MasterController.UpdateProject(System.String,System.String)">
+        <member name="M:KotoriServer.Controllers.MasterController.UpsertProject(System.String,System.String)">
             <summary>
-            Update project
+            Upsert project
             </summary>
             <param name="projectId">Project identifier</param>
             <param name="name">Name</param>
@@ -110,9 +110,9 @@
             <response code="200">The operation result message</response>
             <remarks>Deletes an existing project key.</remarks>
         </member>
-        <member name="M:KotoriServer.Controllers.MasterController.UpdateProjectKey(System.String,System.String,System.Boolean)">
+        <member name="M:KotoriServer.Controllers.MasterController.UpsertProjectKey(System.String,System.String,System.Boolean)">
             <summary>
-            Update project key
+            Upsert project key
             </summary>
             <returns>The operation result message</returns>
             <param name="projectId">Project identifier</param>
@@ -347,9 +347,6 @@
             </summary>
         </member>
         <member name="P:KotoriServer.Tokens.CountResult.Count">
-            <summary>
-            Gets or sets the count.
-            </summary>
             <value>The count.</value>
         </member>
         <member name="M:KotoriServer.Tokens.CountResult.#ctor">

@@ -31,16 +31,16 @@ namespace KotoriServer.Controllers
         /// Create project
         /// </summary>
         /// <returns>The operation result message</returns>
-        /// <param name="name">Name of the project</param>
         /// <param name="identifier">Identifier of the project</param>
+        /// <param name="name">Name of the project</param>
         /// <response code="201">The operation result message</response>
         /// <remarks>Creates the project with an unique identifier which should be a valid slug.</remarks>
         [Route("projects")]
         [HttpPost]
         [ProducesResponseType(typeof(string), 201)]
-        public async Task<string> CreateProject(string name, string identifier)
+        public async Task<string> CreateProject(string identifier, string name)
         {
-            var result = await _kotori.CreateProjectAsync(_instance, name, identifier, null);
+            var result = await _kotori.CreateProjectAsync(_instance, identifier, name);
 
             return result;
         }
@@ -79,7 +79,7 @@ namespace KotoriServer.Controllers
         }
 
         /// <summary>
-        /// Update project
+        /// Upsert project
         /// </summary>
         /// <param name="projectId">Project identifier</param>
         /// <param name="name">Name</param>
@@ -89,9 +89,9 @@ namespace KotoriServer.Controllers
         [Route("projects/{projectId}")]
         [HttpPut]
         [ProducesResponseType(typeof(string), 201)]
-        public async Task<string> UpdateProject(string projectId, [FromQuery]string name)
+        public async Task<string> UpsertProject(string projectId, [FromQuery]string name)
         {
-            var result = await _kotori.UpdateProjectAsync(_instance, projectId, name);
+            var result = await _kotori.UpsertProjectAsync(_instance, projectId, name);
 
             return result;
         }
@@ -171,7 +171,7 @@ namespace KotoriServer.Controllers
         }
 
         /// <summary>
-        /// Update project key
+        /// Upsert project key
         /// </summary>
         /// <returns>The operation result message</returns>
         /// <param name="projectId">Project identifier</param>
@@ -183,9 +183,9 @@ namespace KotoriServer.Controllers
         [HttpPut]
         [ProducesResponseType(typeof(string), 200)]
         [ProducesResponseType(typeof(string), 404)]
-        public async Task<string> UpdateProjectKey(string projectId, string key, [FromQuery]bool isReadonly = false)
+        public async Task<string> UpsertProjectKey(string projectId, string key, [FromQuery]bool isReadonly = false)
         {
-            var result = await _kotori.UpdateProjectKeyAsync(_instance, projectId, new KotoriCore.Configurations.ProjectKey { Key = key, IsReadonly = isReadonly });
+            var result = await _kotori.UpsertProjectKeyAsync(_instance, projectId, new KotoriCore.Configurations.ProjectKey { Key = key, IsReadonly = isReadonly });
 
             return result;
         }
