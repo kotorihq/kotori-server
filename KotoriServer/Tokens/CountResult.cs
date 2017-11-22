@@ -5,9 +5,6 @@
     /// </summary>
     public class CountResult
     {
-        /// <summary>
-        /// Gets or sets the count.
-        /// </summary>
         /// <value>The count.</value>
         public long Count { get; set; }
 
