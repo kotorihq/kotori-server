@@ -1,1 +1,0 @@
-spectacle -d -t ./KotoriServer/wwwroot/docs swagger.json

@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Swashbuckle.AspNetCore.Examples;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace KotoriServer
@@ -90,10 +89,7 @@ namespace KotoriServer
                     return type.FullName;
                 }
                 );
-
-                c.OperationFilter<ExamplesOperationFilter>();
-                c.OperationFilter<DescriptionOperationFilter>();
-
+                
                 c.OperationFilter<SecurityRequirementsOperationFilter>();
                 c.OperationFilter<InternalServerErrorOperationFilter>();
 
