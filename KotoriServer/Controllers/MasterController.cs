@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Threading.Tasks;
 using KotoriCore;
 using KotoriCore.Domains;
+using KotoriServer.Tokens;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -47,19 +49,18 @@ namespace KotoriServer.Controllers
         }
 
         /// <summary>
-        /// Get projects
+        /// Gets projects.
         /// </summary>
-        /// <returns>A collection of the projects</returns>
-        /// <response code="200">A collection of the projects</response>
-        /// <remarks>Gets a collection of existing projects in the instance.</remarks>
+        /// <returns>A collection of the projects.</returns>
+        /// <response code="200">A collection of the projects.</response>
         [Route("projects")]
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<SimpleProject>), 200)]
-        public async Task<IEnumerable<SimpleProject>> GetProjects()
+        [ProducesResponseType(typeof(IEnumerable<ProjectResult>), 200)]
+        public async Task<IEnumerable<ProjectResult>> GetProjects()
         {
             var result = await _kotori.GetProjectsAsync(_instance);
 
-            return result;
+            return result.Select(x => (ProjectResult)x);
         }
 
         /// <summary>

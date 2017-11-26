@@ -93,11 +93,6 @@ namespace KotoriServer
                 c.OperationFilter<InternalServerErrorOperationFilter>();
 
                 //c.IncludeXmlComments(filePath);
-
-                services.AddMvc(options =>
-                {
-                    options.OutputFormatters.Add(new XmlSerializerOutputFormatter());
-                });
             });
 
             services.AddAuthorization(options => options.AddPolicy("master", policy => policy.Requirements.Add(new MasterRequirement())));
@@ -107,6 +102,13 @@ namespace KotoriServer
             services.AddSingleton<IAuthorizationHandler, MasterHandler>();
             services.AddSingleton<IAuthorizationHandler, ProjectHandler>();
             services.AddSingleton<IKotori, Kotori>();
+
+            services.AddCors();
+
+            services.AddMvc(options =>
+            {
+                options.OutputFormatters.Add(new XmlSerializerOutputFormatter());
+            });
         }
 
         /// <summary>
@@ -135,11 +137,19 @@ namespace KotoriServer
                 app.UseExceptionHandler("/error");
             }
 
-            app.UseDaifuku();
+            //app.UseDaifuku();
             app.UseServerHeader("WE <3 KOTORI");
 
             app.UseStaticFiles();
 
+            app.UseCors
+            (
+                builder =>
+                {
+                    builder.AllowAnyOrigin().AllowAnyMethod().WithExposedHeaders(new[] { "masterKey", "projectKey" });
+                }
+            );
+            
             app.UseMiddleware(typeof(ErrorHandling));
 
             app.UseMvc(routes =>
