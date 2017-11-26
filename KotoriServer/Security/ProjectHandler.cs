@@ -29,7 +29,7 @@ namespace KotoriServer.Security
             if (context.Resource is Microsoft.AspNetCore.Mvc.Filters.AuthorizationFilterContext mvcContext)
             {
                 var projectId = mvcContext.RouteData.Values["projectId"]?.ToString();
-                var apiKey = mvcContext.ToHttpHeaderValue("apiKey");
+                var apiKey = mvcContext.ToHttpHeaderValue("projectKey");
 
                 if (!string.IsNullOrEmpty(apiKey) &&
                    !string.IsNullOrEmpty(projectId))

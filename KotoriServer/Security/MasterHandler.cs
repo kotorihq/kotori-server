@@ -31,7 +31,7 @@ namespace KotoriServer.Security
         {            
             if (context.Resource is Microsoft.AspNetCore.Mvc.Filters.AuthorizationFilterContext mvcContext)
             {            
-                var apiKey = mvcContext.ToHttpHeaderValue("apiKey");
+                var apiKey = mvcContext.ToHttpHeaderValue("masterKey");
 
                 if (_kotori.Configuration.MasterKeys.Any(key => key.Key.Equals(apiKey)))
                     context.Succeed(requirement);

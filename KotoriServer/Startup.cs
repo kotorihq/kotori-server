@@ -1,10 +1,8 @@
-﻿using System.IO;
-using Daifuku.Extensions;
+﻿using Daifuku.Extensions;
 using KotoriCore;
 using KotoriServer.Filters;
 using KotoriServer.Middleware;
 using KotoriServer.Security;
-using KotoriServer.Tokens;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -66,28 +64,36 @@ namespace KotoriServer
                 c.IgnoreObsoleteActions();
                 c.IgnoreObsoleteProperties();
 
-                c.AddSecurityDefinition("apiKey", new ApiKeyScheme
+                c.AddSecurityDefinition("masterKey", new ApiKeyScheme
                 {
                     Type = "apiKey",
                     Description = "API Key Authentication",
-                    Name = "apiKey",
+                    Name = "masterKey",
                     In = "header"
                 });
 
-                c.CustomSchemaIds((type) =>
+                c.AddSecurityDefinition("projectKey", new ApiKeyScheme
                 {
-                    if (type == typeof(InstanceResult))
-                        return "Instance";
+                    Type = "apiKey",
+                    Description = "API Key Authentication",
+                    Name = "projectKey",
+                    In = "header"
+                });
 
-                    if (type == typeof(KotoriCore.Domains.SimpleProject))
-                        return "Project";
+                //c.CustomSchemaIds((type) =>
+                //{
+                //    if (type == typeof(InstanceResult))
+                //        return "Instance";
 
-                    if (type == typeof(KotoriCore.Domains.ProjectKey))
-                        return "ProjectKey";
+                //    if (type == typeof(KotoriCore.Domains.SimpleProject))
+                //        return "Project";
 
-                    return type.FullName;
-                }
-                );
+                //    if (type == typeof(KotoriCore.Domains.ProjectKey))
+                //        return "ProjectKey";
+
+                //    return type.FullName;
+                //}
+                //);
                 
                 c.OperationFilter<SecurityRequirementsOperationFilter>();
                 c.OperationFilter<InternalServerErrorOperationFilter>();
@@ -105,7 +111,7 @@ namespace KotoriServer
 
             services.AddCors
             (
-                options => { options.AddPolicy("AllowAnyOrigin", builder => builder.AllowAnyOrigin().AllowAnyMethod().WithExposedHeaders(new[] { "masterKey", "projectKey" })); }
+                options => { options.AddPolicy("AllowAnyOrigin", builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()); }
             );
 
             services.AddMvc(options =>
@@ -140,7 +146,7 @@ namespace KotoriServer
                 app.UseExceptionHandler("/error");
             }
 
-            //app.UseDaifuku();
+            app.UseDaifuku();
             app.UseServerHeader("WE <3 KOTORI");
 
             app.UseStaticFiles();
