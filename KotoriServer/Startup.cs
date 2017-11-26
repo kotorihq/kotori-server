@@ -103,7 +103,10 @@ namespace KotoriServer
             services.AddSingleton<IAuthorizationHandler, ProjectHandler>();
             services.AddSingleton<IKotori, Kotori>();
 
-            services.AddCors();
+            services.AddCors
+            (
+                options => { options.AddPolicy("AllowAnyOrigin", builder => builder.AllowAnyOrigin().AllowAnyMethod().WithExposedHeaders(new[] { "masterKey", "projectKey" })); }
+            );
 
             services.AddMvc(options =>
             {
@@ -142,14 +145,8 @@ namespace KotoriServer
 
             app.UseStaticFiles();
 
-            app.UseCors
-            (
-                builder =>
-                {
-                    builder.AllowAnyOrigin().AllowAnyMethod().WithExposedHeaders(new[] { "masterKey", "projectKey" });
-                }
-            );
-            
+            app.UseCors("AllowAnyOrigin");
+
             app.UseMiddleware(typeof(ErrorHandling));
 
             app.UseMvc(routes =>

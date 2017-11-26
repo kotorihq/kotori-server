@@ -5,12 +5,14 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using KotoriCore.Domains;
 using KotoriServer.Tokens;
+using Microsoft.AspNetCore.Cors;
 
 namespace KotoriServer.Controllers
 {
     /// <summary>
     /// Project controller.
     /// </summary>
+    [EnableCors("AllowAnyOrigin")]
     [Route("api/projects/{projectId}")]
     public class ProjectController
     {

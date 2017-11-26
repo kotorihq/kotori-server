@@ -6,6 +6,7 @@ using KotoriCore;
 using KotoriCore.Domains;
 using KotoriServer.Tokens;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KotoriServer.Controllers
@@ -14,6 +15,7 @@ namespace KotoriServer.Controllers
     /// Controller for master operations
     /// </summary>
     [Route("api")]
+    [EnableCors("AllowAnyOrigin")]
     [Authorize("master")]
     public class MasterController
     {
