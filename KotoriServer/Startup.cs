@@ -8,6 +8,7 @@ using KotoriServer.Tokens;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -40,10 +41,8 @@ namespace KotoriServer
         /// <param name="services">A collection of services.</param>
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
-
             //var filePath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "KotoriServer.xml");
-            var filePath = Path.Combine(Environment.ContentRootPath, "KotoriServer.xml");
+            //var filePath = Path.Combine(Environment.ContentRootPath, "KotoriServer.xml");
 
             services.AddSwaggerGen(c =>
             {
@@ -93,7 +92,12 @@ namespace KotoriServer
                 c.OperationFilter<SecurityRequirementsOperationFilter>();
                 c.OperationFilter<InternalServerErrorOperationFilter>();
 
-                c.IncludeXmlComments(filePath);
+                //c.IncludeXmlComments(filePath);
+
+                services.AddMvc(options =>
+                {
+                    options.OutputFormatters.Add(new XmlSerializerOutputFormatter());
+                });
             });
 
             services.AddAuthorization(options => options.AddPolicy("master", policy => policy.Requirements.Add(new MasterRequirement())));
@@ -145,13 +149,13 @@ namespace KotoriServer
             }
             );
 
-            app.UseSwagger();
+            //app.UseSwagger();
 
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Kotori");
-                c.ShowRequestHeaders();
-            });
+            //app.UseSwaggerUI(c =>
+            //{
+            //    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Kotori");
+            //    c.ShowRequestHeaders();
+            //});
         }
     }
 }
