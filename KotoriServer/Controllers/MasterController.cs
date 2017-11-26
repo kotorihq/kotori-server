@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using KotoriCore;
 using KotoriCore.Domains;
@@ -137,16 +138,16 @@ namespace KotoriServer.Controllers
         /// <returns>The operation result message</returns>
         /// <param name="projectId">Project identifier</param>
         /// <param name="key">Key</param>
-        /// <param name="isReadonly">If set to <c>true</c> is readonly</param>
+        /// <param name="isReadonly">Flag if it is readonly key</param>
         /// <response code="201">The operation result message</response>
         /// <remarks>Creates a new project key.</remarks>
-        [Route("projects/{projectId}/project-keys/{key}")]
+        [Route("projects/{projectId}/project-keys")]
         [HttpPost]
         [ProducesResponseType(typeof(string), 201)]
         [ProducesResponseType(typeof(string), 404)]
-        public async Task<string> CreateProjectKey(string projectId, string key, [FromQuery]bool isReadonly = false)
+        public async Task<string> CreateProjectKey(string projectId, [FromQuery, Required]string key, [FromQuery]bool? isReadonly)
         {
-            var result = await _kotori.CreateProjectKeyAsync(_instance, projectId, new KotoriCore.Configurations.ProjectKey { Key = key, IsReadonly = isReadonly });
+            var result = await _kotori.CreateProjectKeyAsync(_instance, projectId, new KotoriCore.Configurations.ProjectKey { Key = key, IsReadonly = isReadonly ?? false });
 
             return result;
         }

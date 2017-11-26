@@ -43,7 +43,7 @@
                 <a href="#operation--api-projects--projectId--get"> Get project </a>
               </li>
               <li>
-                <a href="#operation--api-projects--projectId--put"> Update project </a>
+                <a href="#operation--api-projects--projectId--put"> Upsert project </a>
               </li>
               <li>
                 <a href="#operation--api-projects--projectId--delete"> Delete project </a>
@@ -52,10 +52,10 @@
                 <a href="#operation--api-projects--projectId--project-keys-get"> Get project keys </a>
               </li>
               <li>
-                <a href="#operation--api-projects--projectId--project-keys--key--put"> Update project key </a>
+                <a href="#operation--api-projects--projectId--project-keys-post"> Create project key </a>
               </li>
               <li>
-                <a href="#operation--api-projects--projectId--project-keys--key--post"> Create project key </a>
+                <a href="#operation--api-projects--projectId--project-keys--key--put"> Upsert project key </a>
               </li>
               <li>
                 <a href="#operation--api-projects--projectId--project-keys--key--delete"> Delete project key </a>
@@ -79,9 +79,6 @@
               </li>
               <li>
                 <a href="#operation--api-projects--projectId--document-types--documentType---documentTypeId--documents--documentId---index--get"> GET /api/projects/{projectId}/document-types/{documentType}/{documentTypeId}/documents/{documentId}/{index} </a>
-              </li>
-              <li>
-                <a href="#operation--api-projects--projectId--document-types--documentType---documentTypeId--documents--documentId---index--put"> PUT /api/projects/{projectId}/document-types/{documentType}/{documentTypeId}/documents/{documentId}/{index} </a>
               </li>
               <li>
                 <a href="#operation--api-projects--projectId--document-types--documentType---documentTypeId--documents--documentId---index--post"> POST /api/projects/{projectId}/document-types/{documentType}/{documentTypeId}/documents/{documentId}/{index} </a>
@@ -392,10 +389,10 @@
                 <section class="swagger-request-params">
                   <div class="prop-row prop-group">
                     <div class="prop-name">
-                      <div class="prop-title">name</div>
+                      <div class="prop-title">identifier</div>
                     </div>
                     <div class="prop-value">
-                      <p>Name of the project</p>
+                      <p>Identifier of the project</p>
                     </div>
                   </div>
                   <div class="prop-row prop-inner">
@@ -411,10 +408,10 @@
                   </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
-                      <div class="prop-title">identifier</div>
+                      <div class="prop-title">name</div>
                     </div>
                     <div class="prop-value">
-                      <p>Identifier of the project</p>
+                      <p>Name of the project</p>
                     </div>
                   </div>
                   <div class="prop-row prop-inner">
@@ -655,7 +652,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Update project</span>
+              <span class="operation-summary">Upsert project</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -1081,6 +1078,192 @@
               </div>
             </div>
           </div>
+          <div id="operation--api-projects--projectId--project-keys-post" class="operation panel" data-traverse-target="operation--api-projects--projectId--project-keys-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Master">Master</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Create project key</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/api/projects/{projectId}/project-keys</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Creates a new project key.</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">projectId</div>
+                      <span class="json-property-required"></span>
+                    </div>
+                    <div class="prop-value">
+                      <p>Project identifier</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">in</div>
+                    <div class="prop-value">path</div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">key</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Key</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">in</div>
+                    <div class="prop-value">query</div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">isReadonly</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Flag if it is readonly key</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">boolean</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">in</div>
+                    <div class="prop-value">query</div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">201 Created</div>
+                      <div class="prop-ref"></div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>The operation result message</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">403 Forbidden</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Forbidden</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                      <div class="prop-ref"></div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Not Found</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">500 Internal Server Error</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Internal server error</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>text/plain, application/json, text/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(201 Created)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json"><span class="hljs-string">&quot;string&quot;</span>
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(404 Not Found)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json"><span class="hljs-string">&quot;string&quot;</span>
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-security">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th class="swagger-request-security-schema"></th>
+                        <th class="swagger-request-security-scopes"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <a href="#security-definition-apiKey">apiKey</a>
+                        </td>
+                        <td> master </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </section>
+              </div>
+            </div>
+          </div>
           <div id="operation--api-projects--projectId--project-keys--key--put" class="operation panel" data-traverse-target="operation--api-projects--projectId--project-keys--key--put">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
@@ -1091,7 +1274,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Update project key</span>
+              <span class="operation-summary">Upsert project key</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -1154,6 +1337,7 @@
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">isReadonly</div>
+                      <span class="json-property-required"></span>
                     </div>
                     <div class="prop-value">
                       <p>If set to {true} is readonly</p>
@@ -1230,193 +1414,6 @@
                 <section>
                   <h5>Response Example
                     <span>(200 OK)</span>
-                  </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json"><span class="hljs-string">&quot;string&quot;</span>
-</code></pre>
-                  <!-- </div> -->
-                </section>
-                <section>
-                  <h5>Response Example
-                    <span>(404 Not Found)</span>
-                  </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json"><span class="hljs-string">&quot;string&quot;</span>
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-request-security">
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th class="swagger-request-security-schema"></th>
-                        <th class="swagger-request-security-scopes"></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          <a href="#security-definition-apiKey">apiKey</a>
-                        </td>
-                        <td> master </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </section>
-              </div>
-            </div>
-          </div>
-          <div id="operation--api-projects--projectId--project-keys--key--post" class="operation panel" data-traverse-target="operation--api-projects--projectId--project-keys--key--post">
-            <!-- <section class="operation-tags row"> -->
-            <!-- <div class="doc-copy"> -->
-            <div class="operation-tags">
-              <a class="label" href="#tag-Master">Master</a>
-              <!---->
-            </div>
-            <!-- </div> -->
-            <!-- </section> -->
-            <h2 class="operation-title">
-              <span class="operation-summary">Create project key</span>
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-path">
-                  <span class="operation-method">POST</span>
-                  <span class="operation-path">/api/projects/{projectId}/project-keys/{key}</span>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-description">
-                  <p>Creates a new project key.</p>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-request-params">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">projectId</div>
-                      <span class="json-property-required"></span>
-                    </div>
-                    <div class="prop-value">
-                      <p>Project identifier</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-inner">
-                    <div class="prop-name param-label">type</div>
-                    <div class="prop-value">
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-inner">
-                    <div class="prop-name param-label">in</div>
-                    <div class="prop-value">path</div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">key</div>
-                      <span class="json-property-required"></span>
-                    </div>
-                    <div class="prop-value">
-                      <p>Key</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-inner">
-                    <div class="prop-name param-label">type</div>
-                    <div class="prop-value">
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-inner">
-                    <div class="prop-name param-label">in</div>
-                    <div class="prop-value">path</div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">isReadonly</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>If set to {true} is readonly</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-inner">
-                    <div class="prop-name param-label">type</div>
-                    <div class="prop-value">
-                      <span class="json-property-type">boolean</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-inner">
-                    <div class="prop-name param-label">in</div>
-                    <div class="prop-value">query</div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples"></div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-responses">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">201 Created</div>
-                      <div class="prop-ref"></div>
-                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
-                    </div>
-                    <div class="prop-value">
-                      <p>The operation result message</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">401 Unauthorized</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Unauthorized</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">403 Forbidden</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Forbidden</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">404 Not Found</div>
-                      <div class="prop-ref"></div>
-                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
-                    </div>
-                    <div class="prop-value">
-                      <p>Not Found</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">500 Internal Server Error</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Internal server error</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <h5>Response Content-Types:
-                  <span>text/plain, application/json, text/json</span>
-                </h5>
-                <section>
-                  <h5>Response Example
-                    <span>(201 Created)</span>
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json"><span class="hljs-string">&quot;string&quot;</span>
 </code></pre>
@@ -1714,7 +1711,10 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
   {
     <span class="hljs-attr">&quot;identifier&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-    <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+    <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;fields&quot;</span>: [
+      <span class="hljs-string">&quot;string&quot;</span>
+    ]
   }
 ]
 </code></pre>
@@ -1860,7 +1860,10 @@
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;identifier&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-  <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+  <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;fields&quot;</span>: [
+    <span class="hljs-string">&quot;string&quot;</span>
+  ]
 }
 </code></pre>
                   <!-- </div> -->
@@ -1976,6 +1979,7 @@
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">drafts</div>
+                      <span class="json-property-required"></span>
                     </div>
                     <div class="prop-value">
                       <p class="no-description">(no description)</p>
@@ -1995,6 +1999,7 @@
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">future</div>
+                      <span class="json-property-required"></span>
                     </div>
                     <div class="prop-value">
                       <p class="no-description">(no description)</p>
@@ -2507,195 +2512,6 @@
   <span class="hljs-attr">&quot;version&quot;</span>: <span class="hljs-string">&quot;integer (int64)&quot;</span>,
   <span class="hljs-attr">&quot;filename&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
 }
-</code></pre>
-                  <!-- </div> -->
-                </section>
-                <section>
-                  <h5>Response Example
-                    <span>(404 Not Found)</span>
-                  </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json"><span class="hljs-string">&quot;string&quot;</span>
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-          </div>
-          <div id="operation--api-projects--projectId--document-types--documentType---documentTypeId--documents--documentId---index--put" class="operation panel" data-traverse-target="operation--api-projects--projectId--document-types--documentType---documentTypeId--documents--documentId---index--put">
-            <!-- <section class="operation-tags row"> -->
-            <!-- <div class="doc-copy"> -->
-            <div class="operation-tags">
-              <a class="label" href="#tag-Project">Project</a>
-              <!---->
-            </div>
-            <!-- </div> -->
-            <!-- </section> -->
-            <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">PUT</span>
-                <span class="operation-path">/api/projects/{projectId}/document-types/{documentType}/{documentTypeId}/documents/{documentId}/{index}</span>
-              </span>
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-request-body"> </section>
-                <section class="swagger-request-params">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">projectId</div>
-                      <span class="json-property-required"></span>
-                    </div>
-                    <div class="prop-value">
-                      <p class="no-description">(no description)</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-inner">
-                    <div class="prop-name param-label">type</div>
-                    <div class="prop-value">
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-inner">
-                    <div class="prop-name param-label">in</div>
-                    <div class="prop-value">path</div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">documentType</div>
-                      <span class="json-property-required"></span>
-                    </div>
-                    <div class="prop-value">
-                      <p class="no-description">(no description)</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-inner">
-                    <div class="prop-name param-label">type</div>
-                    <div class="prop-value">
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-inner">
-                    <div class="prop-name param-label">in</div>
-                    <div class="prop-value">path</div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">documentTypeId</div>
-                      <span class="json-property-required"></span>
-                    </div>
-                    <div class="prop-value">
-                      <p class="no-description">(no description)</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-inner">
-                    <div class="prop-name param-label">type</div>
-                    <div class="prop-value">
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-inner">
-                    <div class="prop-name param-label">in</div>
-                    <div class="prop-value">path</div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">documentId</div>
-                      <span class="json-property-required"></span>
-                    </div>
-                    <div class="prop-value">
-                      <p class="no-description">(no description)</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-inner">
-                    <div class="prop-name param-label">type</div>
-                    <div class="prop-value">
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-inner">
-                    <div class="prop-name param-label">in</div>
-                    <div class="prop-value">path</div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">index</div>
-                    </div>
-                    <div class="prop-value">
-                      <p class="no-description">(no description)</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-inner">
-                    <div class="prop-name param-label">type</div>
-                    <div class="prop-value">
-                      <span class="json-property-type">integer</span>
-                      <span class="json-property-format">(int64)</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-inner">
-                    <div class="prop-name param-label">in</div>
-                    <div class="prop-value">query</div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Request Content-Types:
-                    <span>application/json-patch+json, application/json, text/json, application/*+json</span>
-                  </h5>
-                  <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json"><span class="hljs-string">&quot;string&quot;</span>
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-responses">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">201 Created</div>
-                      <div class="prop-ref"></div>
-                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
-                    </div>
-                    <div class="prop-value">
-                      <p>Success</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">404 Not Found</div>
-                      <div class="prop-ref"></div>
-                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
-                    </div>
-                    <div class="prop-value">
-                      <p>Not Found</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">500 Internal Server Error</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Internal server error</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <h5>Response Content-Types:
-                  <span>text/plain, application/json, text/json</span>
-                </h5>
-                <section>
-                  <h5>Response Example
-                    <span>(201 Created)</span>
-                  </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json"><span class="hljs-string">&quot;string&quot;</span>
 </code></pre>
                   <!-- </div> -->
                 </section>
@@ -3598,6 +3414,7 @@
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">drafts</div>
+                      <span class="json-property-required"></span>
                     </div>
                     <div class="prop-value">
                       <p class="no-description">(no description)</p>
@@ -3617,6 +3434,7 @@
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">future</div>
+                      <span class="json-property-required"></span>
                     </div>
                     <div class="prop-value">
                       <p class="no-description">(no description)</p>
@@ -3886,6 +3704,11 @@
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
+                    <dt data-property-name="fields">
+                      <span class="json-property-name">fields:</span>
+                      <span class="json-property-type">string[]</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
                   </dl>
                 </section>
               </div>
@@ -3894,7 +3717,10 @@
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;identifier&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-  <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+  <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;fields&quot;</span>: [
+    <span class="hljs-string">&quot;string&quot;</span>
+  ]
 }
 </code></pre>
                   <!-- </div> -->
@@ -3918,15 +3744,12 @@
                 </section>
                 <section class="json-schema-properties">
                   <dl>
-                    <dt data-property-name="count" class="has-description">
+                    <dt data-property-name="count">
                       <span class="json-property-name">count:</span>
                       <span class="json-property-type">integer</span>
                       <span class="json-property-format">(int64)</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
-                    <dd>
-                      <p>Gets or sets the count.</p>
-                    </dd>
                   </dl>
                 </section>
               </div>
