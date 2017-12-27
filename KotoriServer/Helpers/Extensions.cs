@@ -1,6 +1,9 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
+using System.IO;
+using YamlDotNet.Serialization;
+using YamlDotNet.Serialization.NamingConventions;
 
 namespace KotoriServer
 {
@@ -34,5 +37,41 @@ namespace KotoriServer
         /// <param name="claimType">The claim type.</param>
         /// <returns>Scope string.</returns>
         public static string ToClaimString(this KotoriCore.Helpers.Enums.ClaimType claimType) => claimType.ToString().ToLower();
+
+        class Simple
+        {
+            public DateTime? D { get; set; }
+        }
+
+        /// <summary>
+        /// Converts string to the date time.
+        /// </summary>
+        /// <returns>The date time.</returns>
+        /// <param name="dt">String date time.</param>
+        public static DateTime? ToDateTime(this string dt)
+        {
+            if (string.IsNullOrWhiteSpace(dt))
+                return null;
+
+            var yaml = $@"---
+d: {dt}
+---";
+
+            var input = new StringReader(yaml);
+
+            var deserializer = new DeserializerBuilder()
+                .WithNamingConvention(new CamelCaseNamingConvention())
+                .Build();
+
+            try
+            {
+                var order = deserializer.Deserialize<Simple>(input);
+                return order.D;
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }
