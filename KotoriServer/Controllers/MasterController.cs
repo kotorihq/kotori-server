@@ -33,19 +33,17 @@ namespace KotoriServer.Controllers
         }
 
         /// <summary>
-        /// Create project
+        /// Creates the project.
         /// </summary>
         /// <returns>The operation result message</returns>
-        /// <param name="identifier">Identifier of the project</param>
-        /// <param name="name">Name of the project</param>
-        /// <response code="201">The operation result message</response>
-        /// <remarks>Creates the project with an unique identifier which should be a valid slug.</remarks>
+        /// <param name="createProject">Create project.</param>
+        /// <response code="201">The operation result message.</response>
         [Route("projects")]
         [HttpPost]
         [ProducesResponseType(typeof(string), 201)]
-        public async Task<string> CreateProject(string identifier, string name)
+        public async Task<string> CreateProject([FromBody]CreateProjectRequest createProject)
         {
-            var result = await _kotori.CreateProjectAsync(_instance, identifier, name);
+            var result = await _kotori.CreateProjectAsync(_instance, createProject.Id, createProject.Name);
 
             return result;
         }
