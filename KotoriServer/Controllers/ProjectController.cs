@@ -184,13 +184,13 @@ namespace KotoriServer.Controllers
         [ProducesResponseType(typeof(SimpleDocument), 200)]
         [ProducesResponseType(typeof(string), 404)]
         public async Task<SimpleDocument> GetDataDocument(string projectId, string documentTypeId,
-                                                      string documentId, long index)
+                                                          string documentId, long index)
         {
             var document = await _kotori.GetDocumentAsync
             (
                 _instance,
                 projectId,
-                KotoriCore.Helpers.Enums.DocumentType.Content,
+                KotoriCore.Helpers.Enums.DocumentType.Data,
                 documentTypeId,
                 documentId,
                 index,
