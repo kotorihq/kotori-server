@@ -3,6 +3,8 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 using KotoriCore.Exceptions;
+using KotoriServer.Tokens;
+using Newtonsoft.Json;
 
 namespace KotoriServer.Middleware
 {
@@ -56,14 +58,37 @@ namespace KotoriServer.Middleware
             } 
             else if (exception is KotoriException kotori)
             {
-                context.Response.ContentType = "text/plain";
+                context.Response.ContentType = "application/json";
                 context.Response.StatusCode = (int)kotori.StatusCode;
-                return context.Response.WriteAsync(exception.Message);
+
+                var error = new ErrorResult
+                {
+                    Message = exception.Message,
+                    Type = exception.GetType().ToString()
+                };
+
+                if (exception is KotoriProjectException kpe)
+                    error.Identifier = kpe.Identifier;
+
+                if (exception is KotoriDocumentException kde)
+                    error.Identifier = kde.Identifier;
+
+                if (exception is KotoriDocumentTypeException kdte)
+                    error.Identifier = kdte.Identifier;
+
+                return context.Response.WriteAsync(JsonConvert.SerializeObject(new { error = error }));
             }
                         
-            context.Response.ContentType = "text/plain";
+            context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)code;
-            return context.Response.WriteAsync(exception.Message);
+
+            var error2 = new ErrorResult
+            {
+                Message = exception.Message,
+                Type = exception.GetType().ToString()
+            };
+
+            return context.Response.WriteAsync(JsonConvert.SerializeObject(new { error = error2 }));
         }
     }
 }
