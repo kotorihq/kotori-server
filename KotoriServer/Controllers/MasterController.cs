@@ -17,7 +17,7 @@ namespace KotoriServer.Controllers
     [Route("api")]
     [EnableCors("AllowAnyOrigin")]
     [Authorize("master")]
-    public class MasterController
+    public class MasterController : ControllerBase
     {
         readonly Kotori _kotori;
         readonly string _instance;
@@ -35,17 +35,16 @@ namespace KotoriServer.Controllers
         /// <summary>
         /// Creates the project.
         /// </summary>
-        /// <returns>The operation result message</returns>
-        /// <param name="createProject">Create project.</param>
-        /// <response code="201">The operation result message.</response>
+        /// <returns>The status code.</returns>
+        /// <param name="createProject">Create project request.</param>
         [Route("projects")]
         [HttpPost]
-        [ProducesResponseType(typeof(string), 201)]
-        public async Task<string> CreateProject([FromBody]CreateProjectRequest createProject)
+        [ProducesResponseType(201)]
+        public async Task<IActionResult> CreateProject([FromBody]CreateProjectRequest createProject)
         {
             var result = await _kotori.CreateProjectAsync(_instance, createProject.Id, createProject.Name);
 
-            return result;
+            return Created(result.Url, result);
         }
 
         /// <summary>
@@ -91,11 +90,11 @@ namespace KotoriServer.Controllers
         [Route("projects/{projectId}")]
         [HttpPut]
         [ProducesResponseType(typeof(string), 201)]
-        public async Task<string> UpsertProject(string projectId, [FromQuery]string name)
+        public async Task<IActionResult> UpsertProject(string projectId, [FromQuery]string name)
         {
             var result = await _kotori.UpsertProjectAsync(_instance, projectId, name);
 
-            return result;
+            return Ok(result);
         }
 
         /// <summary>
@@ -108,11 +107,11 @@ namespace KotoriServer.Controllers
         [Route("projects/{projectId}")]
         [HttpDelete]
         [ProducesResponseType(typeof(string), 200)]
-        public async Task<string> DeleteProject(string projectId)
+        public async Task<IActionResult> DeleteProject(string projectId)
         {
-            var result = await _kotori.DeleteProjectAsync(_instance, projectId);
+            await _kotori.DeleteProjectAsync(_instance, projectId);
 
-            return result;
+            return NoContent();
         }
 
         /// <summary>
@@ -146,11 +145,11 @@ namespace KotoriServer.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(string), 201)]
         [ProducesResponseType(typeof(string), 404)]
-        public async Task<string> CreateProjectKey(string projectId, [FromQuery, Required]string key, [FromQuery]bool? isReadonly)
+        public async Task<IActionResult> CreateProjectKey(string projectId, [FromQuery, Required]string key, [FromQuery]bool? isReadonly)
         {
             var result = await _kotori.CreateProjectKeyAsync(_instance, projectId, new KotoriCore.Configurations.ProjectKey { Key = key, IsReadonly = isReadonly ?? false });
 
-            return result;
+            return Created(result.Url, result);
         }
 
         /// <summary>
@@ -165,11 +164,11 @@ namespace KotoriServer.Controllers
         [HttpDelete]
         [ProducesResponseType(typeof(string), 200)]
         [ProducesResponseType(typeof(string), 404)]
-        public async Task<string> DeleteProjectKey(string projectId, string key)
+        public async Task<IActionResult> DeleteProjectKey(string projectId, string key)
         {
-            var result = await _kotori.DeleteProjectKeyAsync(_instance, projectId, key);
+            await _kotori.DeleteProjectKeyAsync(_instance, projectId, key);
 
-            return result;
+            return NoContent();
         }
 
         /// <summary>
@@ -185,11 +184,11 @@ namespace KotoriServer.Controllers
         [HttpPut]
         [ProducesResponseType(typeof(string), 200)]
         [ProducesResponseType(typeof(string), 404)]
-        public async Task<string> UpsertProjectKey(string projectId, string key, [FromQuery]bool isReadonly = false)
+        public async Task<IActionResult> UpsertProjectKey(string projectId, string key, [FromQuery]bool isReadonly = false)
         {
             var result = await _kotori.UpsertProjectKeyAsync(_instance, projectId, new KotoriCore.Configurations.ProjectKey { Key = key, IsReadonly = isReadonly });
 
-            return result;
+            return Ok(result);
         }
     }
 }
