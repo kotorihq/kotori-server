@@ -24,11 +24,9 @@ namespace KotoriServer.Controllers
         }
 
         /// <summary>
-        /// Get instance information
+        /// Gets the instance information.
         /// </summary>
-        /// <returns>The instance information</returns>
-        /// <response code="200">Instance information</response>
-        /// <remarks>Just a simple method for testing purposes. It returns information about instance which you already know :)</remarks>
+        /// <returns>The instance information.</returns>
         [HttpGet]
         [ProducesResponseType(typeof(InstanceResult), 200)]
         public InstanceResult Get()
