@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace KotoriServer.Controllers
 {
     /// <summary>
-    /// Controller for master operations
+    /// Controller for master operations.
     /// </summary>
     [Route("api")]
     [EnableCors("AllowAnyOrigin")]
