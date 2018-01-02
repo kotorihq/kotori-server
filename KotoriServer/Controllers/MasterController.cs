@@ -51,7 +51,6 @@ namespace KotoriServer.Controllers
         /// Gets projects.
         /// </summary>
         /// <returns>A collection of the projects.</returns>
-        /// <response code="200">A collection of the projects.</response>
         [Route("projects")]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<ProjectResult>), 200)]
