@@ -62,16 +62,14 @@ namespace KotoriServer.Controllers
         }
 
         /// <summary>
-        /// Get project
+        /// Gets the project.
         /// </summary>
-        /// <returns>The project</returns>
-        /// <param name="projectId">Project identifier</param>
-        /// <response code="200">The project</response>
-        /// <remarks>Gets just one project.</remarks>
+        /// <returns>The project.</returns>
+        /// <param name="projectId">Project identifier.</param>
         [Route("projects/{projectId}")]
         [HttpGet]
-        [ProducesResponseType(typeof(SimpleProject), 200)]
-        public async Task<SimpleProject> GetProject(string projectId)
+        [ProducesResponseType(typeof(ProjectResult), 200)]
+        public async Task<ProjectResult> GetProject(string projectId)
         {
             var result = await _kotori.GetProjectAsync(_instance, projectId);
 
