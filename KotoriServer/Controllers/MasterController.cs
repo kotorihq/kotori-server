@@ -113,16 +113,14 @@ namespace KotoriServer.Controllers
         }
 
         /// <summary>
-        /// Get project keys
+        /// Gets the project keys.
         /// </summary>
-        /// <returns>A collection of project keys</returns>
-        /// <response code="200">A collection of project keys</response>
-        /// <param name="projectId">Project identifier</param>
-        /// <remarks>Gets project keys.</remarks>
+        /// <returns>The project keys.</returns>
+        /// <param name="projectId">Project identifier.</param>
         [Route("projects/{projectId}/project-keys")]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<ProjectKey>), 200)]
-        [ProducesResponseType(typeof(string), 404)]
+        [ProducesResponseType(404)]
         public async Task<IEnumerable<ProjectKey>> GetProjectKeys(string projectId)
         {
             var projectKeys = await _kotori.GetProjectKeysAsync(_instance, projectId);
