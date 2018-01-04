@@ -77,21 +77,23 @@ namespace KotoriServer.Controllers
         }
 
         /// <summary>
-        /// Upsert project
+        /// Upserts the project.
         /// </summary>
-        /// <param name="projectId">Project identifier</param>
-        /// <param name="name">Name</param>
-        /// <returns>The operation result message</returns>
-        /// <response code="201">The operation result message</response>
-        /// <remarks>Updates project. Identifier cannot by changed. You can only change a name at the moment.</remarks>
+        /// <returns>The project.</returns>
+        /// <param name="projectId">Project identifier.</param>
+        /// <param name="upsertProject">Upsert project request.</param>
         [Route("projects/{projectId}")]
         [HttpPut]
-        [ProducesResponseType(typeof(string), 201)]
-        public async Task<IActionResult> UpsertProject(string projectId, [FromQuery]string name)
+        [ProducesResponseType(200)]
+        [ProducesResponseType(typeof(ProjectResult), 201)]
+        public async Task<IActionResult> UpsertProject(string projectId, [FromBody]UpsertProjectRequest upsertProject)
         {
-            var result = await _kotori.UpsertProjectAsync(_instance, projectId, name);
+            var result = await _kotori.UpsertProjectAsync(_instance, projectId, upsertProject.Name);
 
-            return Ok(result);
+            if (result.NewResource)
+                return Created(result.Url, result);
+            
+            return Ok();
         }
 
         /// <summary>
