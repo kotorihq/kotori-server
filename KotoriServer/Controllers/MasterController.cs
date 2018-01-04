@@ -35,7 +35,7 @@ namespace KotoriServer.Controllers
         /// <summary>
         /// Creates the project.
         /// </summary>
-        /// <returns>The status code.</returns>
+        /// <returns>The create project result.</returns>
         /// <param name="createProject">Create project request.</param>
         [Route("projects")]
         [HttpPost]
@@ -79,7 +79,7 @@ namespace KotoriServer.Controllers
         /// <summary>
         /// Upserts the project.
         /// </summary>
-        /// <returns>The project.</returns>
+        /// <returns>No content or create project result.</returns>
         /// <param name="projectId">Project identifier.</param>
         /// <param name="upsertProject">Upsert project request.</param>
         [Route("projects/{projectId}")]
@@ -96,16 +96,15 @@ namespace KotoriServer.Controllers
             return Ok();
         }
 
+
         /// <summary>
-        /// Delete project
+        /// Deletes the project.
         /// </summary>
-        /// <returns>The operation result message</returns>
-        /// <response code="200">The operation result message</response>
-        /// <param name="projectId">Project identifier</param>
-        /// <remarks>Deletes the project. Do not be worry too much. Non empty projects cannot be deleted.</remarks>
+        /// <returns>No content.</returns>
+        /// <param name="projectId">Project identifier.</param>
         [Route("projects/{projectId}")]
         [HttpDelete]
-        [ProducesResponseType(typeof(string), 200)]
+        [ProducesResponseType(204)]
         public async Task<IActionResult> DeleteProject(string projectId)
         {
             await _kotori.DeleteProjectAsync(_instance, projectId);
