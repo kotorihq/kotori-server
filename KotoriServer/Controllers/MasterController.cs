@@ -53,12 +53,12 @@ namespace KotoriServer.Controllers
         /// <returns>A collection of the projects.</returns>
         [Route("projects")]
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<ProjectResult>), 200)]
-        public async Task<IEnumerable<ProjectResult>> GetProjects()
+        [ProducesResponseType(typeof(ComplexCountResult<SimpleProject>), 200)]
+        public async Task<ComplexCountResult<SimpleProject>> GetProjects()
         {
-            var result = await _kotori.GetProjectsAsync(_instance);
+            var projects = await _kotori.GetProjectsAsync(_instance);
 
-            return result.Select(x => (ProjectResult)x);
+            return projects;
         }
 
         /// <summary>
@@ -119,9 +119,9 @@ namespace KotoriServer.Controllers
         /// <param name="projectId">Project identifier.</param>
         [Route("projects/{projectId}/project-keys")]
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<ProjectKey>), 200)]
+        [ProducesResponseType(typeof(ComplexCountResult<ProjectKey>), 200)]
         [ProducesResponseType(404)]
-        public async Task<IEnumerable<ProjectKey>> GetProjectKeys(string projectId)
+        public async Task<ComplexCountResult<ProjectKey>> GetProjectKeys(string projectId)
         {
             var projectKeys = await _kotori.GetProjectKeysAsync(_instance, projectId);
 

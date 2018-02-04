@@ -31,9 +31,9 @@ namespace KotoriServer.Controllers
         [Authorize("readonlyproject")]
         [Route("document-types")]
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<SimpleDocumentType>), 200)]
+        [ProducesResponseType(typeof(ComplexCountResult<SimpleDocumentType>), 200)]
         [ProducesResponseType(typeof(string), 404)]
-        public async Task<IEnumerable<SimpleDocumentType>> GetDocumentTypes(string projectId)
+        public async Task<ComplexCountResult<SimpleDocumentType>> GetDocumentTypes(string projectId)
         {
             var documentTypes = await _kotori.GetDocumentTypesAsync(_instance, projectId);
 
@@ -202,9 +202,9 @@ namespace KotoriServer.Controllers
         [Authorize("readonlyproject")]
         [Route("content/{documentTypeId}/documents/{documentId}/versions")]
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<SimpleDocumentVersion>), 200)]
+        [ProducesResponseType(typeof(ComplexCountResult<SimpleDocumentVersion>), 200)]
         [ProducesResponseType(typeof(string), 404)]
-        public async Task<IEnumerable<SimpleDocumentVersion>> GetContentDocumentVersions(string projectId, string documentTypeId, string documentId)
+        public async Task<ComplexCountResult<SimpleDocumentVersion>> GetContentDocumentVersions(string projectId, string documentTypeId, string documentId)
         {
             var documentVersions = await _kotori.GetDocumentVersionsAsync
             (
@@ -222,9 +222,9 @@ namespace KotoriServer.Controllers
         [Authorize("readonlyproject")]
         [Route("data/{documentTypeId}/documents/{documentId}/{index:long}/versions")]
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<SimpleDocumentVersion>), 200)]
+        [ProducesResponseType(typeof(ComplexCountResult<SimpleDocumentVersion>), 200)]
         [ProducesResponseType(typeof(string), 404)]
-        public async Task<IEnumerable<SimpleDocumentVersion>> GetDataDocumentVersions(string projectId, string documentTypeId, string documentId, long index)
+        public async Task<ComplexCountResult<SimpleDocumentVersion>> GetDataDocumentVersions(string projectId, string documentTypeId, string documentId, long index)
         {
             var documentVersions = await _kotori.GetDocumentVersionsAsync
             (
@@ -282,9 +282,9 @@ namespace KotoriServer.Controllers
         [Authorize("readonlyproject")]
         [Route("content/{documentTypeId}/find")]
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<SimpleDocument>), 200)]
+        [ProducesResponseType(typeof(ComplexCountResult<SimpleDocument>), 200)]
         [ProducesResponseType(typeof(string), 404)]
-        public async Task<IEnumerable<SimpleDocument>> FindContentDocuments(string projectId, string documentTypeId, [FromQuery]int? top, 
+        public async Task<ComplexCountResult<SimpleDocument>> FindContentDocuments(string projectId, string documentTypeId, [FromQuery]int? top, 
                                                 [FromQuery]string select, [FromQuery]string filter, [FromQuery]string orderBy, [FromQuery]bool drafts = false,
                                                 [FromQuery]bool future = false, [FromQuery]int? skip = null, [FromQuery]string format = null)
         {
@@ -316,9 +316,9 @@ namespace KotoriServer.Controllers
         [Authorize("readonlyproject")]
         [Route("data/{documentTypeId}/find")]
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<SimpleDocument>), 200)]
+        [ProducesResponseType(typeof(ComplexCountResult<SimpleDocument>), 200)]
         [ProducesResponseType(typeof(string), 404)]
-        public async Task<IEnumerable<SimpleDocument>> FindDataDocuments(string projectId, string documentTypeId, [FromQuery]int? top,
+        public async Task<ComplexCountResult<SimpleDocument>> FindDataDocuments(string projectId, string documentTypeId, [FromQuery]int? top,
                                                 [FromQuery]string select, [FromQuery]string filter, [FromQuery]string orderBy, [FromQuery]bool drafts = false,
                                                 [FromQuery]bool future = false, [FromQuery]int? skip = null)
         {

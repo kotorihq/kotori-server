@@ -37,7 +37,7 @@ namespace KotoriServer.Security
                     try
                     {
                         var keys = _kotori.GetProjectKeys(_kotori.Configuration.Instance, projectId);
-                        var key = keys.FirstOrDefault(k => k.Key.Equals(apiKey));
+                        var key = keys.Items.FirstOrDefault(k => k.Key.Equals(apiKey));
                         var isOk = false;
 
                         if (key != null)
