@@ -44,7 +44,7 @@ namespace KotoriServer.Controllers
         {
             var result = await _kotori.CreateProjectAsync(_instance, createProject.Id, createProject.Name);
 
-            return Created(result.Url, result);
+            return Created(result.Url, new { id = result.Id, url = result.Url });
         }
 
         /// <summary>
@@ -53,12 +53,12 @@ namespace KotoriServer.Controllers
         /// <returns>A collection of the projects.</returns>
         [Route("projects")]
         [HttpGet]
-        [ProducesResponseType(typeof(ComplexCountResult<SimpleProject>), 200)]
-        public async Task<ComplexCountResult<SimpleProject>> GetProjects()
+        [ProducesResponseType(typeof(Tokens.ComplexCountResult<ProjectResult>), 200)]
+        public async Task<Tokens.ComplexCountResult<ProjectResult>> GetProjects()
         {
             var projects = await _kotori.GetProjectsAsync(_instance);
 
-            return projects;
+            return new Tokens.ComplexCountResult<ProjectResult>(projects.Count, projects.Items.Select(p => new ProjectResult(p.Identifier, p.Name)));
         }
 
         /// <summary>
@@ -119,13 +119,13 @@ namespace KotoriServer.Controllers
         /// <param name="projectId">Project identifier.</param>
         [Route("projects/{projectId}/project-keys")]
         [HttpGet]
-        [ProducesResponseType(typeof(ComplexCountResult<ProjectKey>), 200)]
+        [ProducesResponseType(typeof(Tokens.ComplexCountResult<ProjectKeyResult>), 200)]
         [ProducesResponseType(404)]
-        public async Task<ComplexCountResult<ProjectKey>> GetProjectKeys(string projectId)
+        public async Task<Tokens.ComplexCountResult<ProjectKeyResult>> GetProjectKeys(string projectId)
         {
             var projectKeys = await _kotori.GetProjectKeysAsync(_instance, projectId);
 
-            return projectKeys;
+            return new Tokens.ComplexCountResult<ProjectKeyResult>(projectKeys.Count, projectKeys.Items.Select(pk => new ProjectKeyResult(pk.Key, pk.IsReadonly)));
         }
 
         /// <summary>

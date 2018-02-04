@@ -2,7 +2,7 @@
 
 namespace KotoriServer.Tokens
 {
-    public class ProjectResult
+    public class ProjectResult : IResult
     {
         /// <summary>
         /// The identifier.

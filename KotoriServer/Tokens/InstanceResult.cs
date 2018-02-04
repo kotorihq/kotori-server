@@ -3,7 +3,7 @@
     /// <summary>
     /// Instance result.
     /// </summary>
-    public class InstanceResult
+    public class InstanceResult : IResult
     {
         /// <value>The instance name.</value>
         public string Instance { get; set; }
