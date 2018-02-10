@@ -21,6 +21,6 @@
         /// Gets or sets the identifier.
         /// </summary>
         /// <value>The identifier.</value>
-        public string Identifier { get; set; }
+        public string Id { get; set; }
     }
 }

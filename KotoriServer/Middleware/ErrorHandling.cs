@@ -68,13 +68,13 @@ namespace KotoriServer.Middleware
                 };
 
                 if (exception is KotoriProjectException kpe)
-                    error.Identifier = kpe.Identifier;
+                    error.Id = kpe.Identifier;
 
                 if (exception is KotoriDocumentException kde)
-                    error.Identifier = kde.Identifier;
+                    error.Id = kde.Identifier;
 
                 if (exception is KotoriDocumentTypeException kdte)
-                    error.Identifier = kdte.Identifier;
+                    error.Id = kdte.Identifier;
 
                 return context.Response.WriteAsync(JsonConvert.SerializeObject(error));
             }
