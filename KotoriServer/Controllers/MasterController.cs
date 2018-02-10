@@ -85,13 +85,13 @@ namespace KotoriServer.Controllers
         [Route("projects/{projectId}")]
         [HttpPut]
         [ProducesResponseType(200)]
-        [ProducesResponseType(typeof(ProjectResult), 201)]
+        [ProducesResponseType(201)]
         public async Task<IActionResult> UpsertProject(string projectId, [FromBody]UpsertProjectRequest upsertProject)
         {
             var result = await _kotori.UpsertProjectAsync(_instance, projectId, upsertProject.Name);
 
             if (result.NewResource)
-                return Created(result.Url, result);
+                return Created(result.Url, new { id = result.Id, url = result.Url });
             
             return Ok();
         }
