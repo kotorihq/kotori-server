@@ -76,7 +76,7 @@ namespace KotoriServer.Middleware
                 if (exception is KotoriDocumentTypeException kdte)
                     error.Identifier = kdte.Identifier;
 
-                return context.Response.WriteAsync(JsonConvert.SerializeObject(new { error = error }));
+                return context.Response.WriteAsync(JsonConvert.SerializeObject(error));
             }
                         
             context.Response.ContentType = "application/json";
@@ -88,7 +88,7 @@ namespace KotoriServer.Middleware
                 Type = exception.GetType().ToString()
             };
 
-            return context.Response.WriteAsync(JsonConvert.SerializeObject(new { error = error2 }));
+            return context.Response.WriteAsync(JsonConvert.SerializeObject(error2));
         }
     }
 }
