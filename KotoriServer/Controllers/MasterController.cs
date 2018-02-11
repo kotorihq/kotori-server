@@ -129,23 +129,17 @@ namespace KotoriServer.Controllers
         }
 
         /// <summary>
-        /// Create project key
+        /// Creates project key.
         /// </summary>
-        /// <returns>The operation result message</returns>
-        /// <param name="projectId">Project identifier</param>
-        /// <param name="key">Key</param>
-        /// <param name="isReadonly">Flag if it is readonly key</param>
-        /// <response code="201">The operation result message</response>
-        /// <remarks>Creates a new project key.</remarks>
+        /// <returns>The create project key result.</returns>
+        /// <param name="projectId">Project identifier.</param>
         [Route("projects/{projectId}/project-keys")]
         [HttpPost]
-        [ProducesResponseType(typeof(string), 201)]
-        [ProducesResponseType(typeof(string), 404)]
-        public async Task<IActionResult> CreateProjectKey(string projectId, [FromQuery, Required]string key, [FromQuery]bool? isReadonly)
+        public async Task<IActionResult> CreateProjectKey(string projectId, [FromBody]CreateProjectKeyRequest createProjectKey)
         {
-            var result = await _kotori.CreateProjectKeyAsync(_instance, projectId, new KotoriCore.Configurations.ProjectKey { Key = key, IsReadonly = isReadonly ?? false });
+            var result = await _kotori.CreateProjectKeyAsync(_instance, projectId, new KotoriCore.Configurations.ProjectKey { Key = createProjectKey.Key, IsReadonly = createProjectKey.IsReadonly ?? false });
 
-            return Created(result.Url, result);
+            return Created(result.Url, new { id = result.Id, url = result.Url });
         }
 
         /// <summary>
