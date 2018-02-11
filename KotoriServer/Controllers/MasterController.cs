@@ -162,23 +162,21 @@ namespace KotoriServer.Controllers
         }
 
         /// <summary>
-        /// Upsert project key
+        /// Upserts the project key.
         /// </summary>
-        /// <returns>The operation result message</returns>
-        /// <param name="projectId">Project identifier</param>
-        /// <param name="key">Key</param>
-        /// <param name="isReadonly">If set to <c>true</c> is readonly</param>
-        /// <response code="200">The operation result message</response>
-        /// <remarks>Update an existing project key. You can just change if it's readonly or not.</remarks>
+        /// <returns>Upsert project key result.</returns>
+        /// <param name="projectId">Project identifier.</param>
+        /// <param name="createProjectKey">Create project key request.</param>
         [Route("projects/{projectId}/project-keys/{key}")]
         [HttpPut]
-        [ProducesResponseType(typeof(string), 200)]
-        [ProducesResponseType(typeof(string), 404)]
-        public async Task<IActionResult> UpsertProjectKey(string projectId, string key, [FromQuery]bool isReadonly = false)
+        public async Task<IActionResult> UpsertProjectKey(string projectId, [FromBody]CreateProjectKeyRequest createProjectKey)
         {
-            var result = await _kotori.UpsertProjectKeyAsync(_instance, projectId, new KotoriCore.Configurations.ProjectKey { Key = key, IsReadonly = isReadonly });
+            var result = await _kotori.UpsertProjectKeyAsync(_instance, projectId, new KotoriCore.Configurations.ProjectKey { Key = createProjectKey.Key, IsReadonly = createProjectKey.IsReadonly ?? false });
 
-            return Ok(result);
+            if (result.NewResource)
+                return Created(result.Url, new { id = result.Id, url = result.Url });
+
+            return Ok();
         }
     }
 }
