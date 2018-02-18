@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Threading.Tasks;
 using KotoriCore;
 using KotoriServer.Tokens;
@@ -83,7 +84,7 @@ namespace KotoriServer.Controllers
         [HttpPut]
         [ProducesResponseType(200)]
         [ProducesResponseType(201)]
-        public async Task<IActionResult> UpsertProject(string projectId, [FromBody]UpsertProjectRequest upsertProject)
+        public async Task<IActionResult> UpsertProject([Required]string projectId, [FromBody]UpsertProjectRequest upsertProject)
         {
             var result = await _kotori.UpsertProjectAsync(_instance, projectId, upsertProject.Name);
 
@@ -134,7 +135,7 @@ namespace KotoriServer.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateProjectKey(string projectId, [FromBody]CreateProjectKeyRequest createProjectKey)
         {
-            var result = await _kotori.CreateProjectKeyAsync(_instance, projectId, new KotoriCore.Configurations.ProjectKey { Key = createProjectKey.Key, IsReadonly = createProjectKey.IsReadonly ?? false });
+            var result = await _kotori.CreateProjectKeyAsync(_instance, projectId, new KotoriCore.Configurations.ProjectKey { IsReadonly = createProjectKey.IsReadonly ?? false });
 
             return Created(result.Url, new { id = result.Id, url = result.Url });
         }
@@ -166,9 +167,9 @@ namespace KotoriServer.Controllers
         /// <param name="createProjectKey">Create project key request.</param>
         [Route("projects/{projectId}/project-keys/{key}")]
         [HttpPut]
-        public async Task<IActionResult> UpsertProjectKey(string projectId, [FromBody]CreateProjectKeyRequest createProjectKey)
+        public async Task<IActionResult> UpsertProjectKey(string projectId, [Required]string key, [FromBody]CreateProjectKeyRequest createProjectKey)
         {
-            var result = await _kotori.UpsertProjectKeyAsync(_instance, projectId, new KotoriCore.Configurations.ProjectKey { Key = createProjectKey.Key, IsReadonly = createProjectKey.IsReadonly ?? false });
+            var result = await _kotori.UpsertProjectKeyAsync(_instance, projectId, new KotoriCore.Configurations.ProjectKey { Key = key, IsReadonly = createProjectKey.IsReadonly ?? false });
 
             if (result.NewResource)
                 return Created(result.Url, new { id = result.Id, url = result.Url });
