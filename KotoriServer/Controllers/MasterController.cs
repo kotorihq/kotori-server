@@ -129,7 +129,7 @@ namespace KotoriServer.Controllers
         /// <summary>
         /// Creates project key.
         /// </summary>
-        /// <returns>The create project key result.</returns>
+        /// <returns>The operation result.</returns>
         /// <param name="projectId">Project identifier.</param>
         [Route("projects/{projectId}/project-keys")]
         [HttpPost]

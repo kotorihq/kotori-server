@@ -28,6 +28,29 @@ namespace KotoriServer.Controllers
             _instance = kotori.Configuration.Instance;
         }
 
+        /// <summary>
+        /// Creates the content document type.
+        /// </summary>
+        /// <returns>The operation result.</returns>
+        /// <param name="projectId">Project identifier.</param>
+        [Authorize("project")]
+        [Route("content/document-types")]
+        [HttpPost]
+        public async Task<IActionResult> CreateContentDocumentType(string projectId)
+        {
+            var result = await _kotori.CreateDocumentTypeAsync
+            (
+                  _instance,
+                  projectId,
+                  KotoriCore.Helpers.Enums.DocumentType.Content,
+                  null
+            );
+
+            return Created(result.Url, new { id = result.Id, url = result.Url });
+        }
+
+        // -------------------- TODO
+
         [Authorize("readonlyproject")]
         [Route("document-types")]
         [HttpGet]
