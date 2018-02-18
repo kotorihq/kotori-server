@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using KotoriCore;
-using KotoriCore.Domains;
 using KotoriServer.Tokens;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
@@ -42,7 +39,7 @@ namespace KotoriServer.Controllers
         [ProducesResponseType(201)]
         public async Task<IActionResult> CreateProject([FromBody]CreateProjectRequest createProject)
         {
-            var result = await _kotori.CreateProjectAsync(_instance, createProject.Id, createProject.Name);
+            var result = await _kotori.CreateProjectAsync(_instance, null, createProject.Name);
 
             return Created(result.Url, new { id = result.Id, url = result.Url });
         }
