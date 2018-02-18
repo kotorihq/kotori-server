@@ -141,18 +141,16 @@ namespace KotoriServer.Controllers
         }
 
         /// <summary>
-        /// Delete project key
+        /// Deletes the project key.
         /// </summary>
-        /// <returns>The operation result message</returns>
-        /// <param name="projectId">Project identifier</param>
-        /// <param name="key">Key</param>
-        /// <response code="200">The operation result message</response>
-        /// <remarks>Deletes an existing project key.</remarks>
+        /// <returns>The project key.</returns>
+        /// <param name="projectId">Project identifier.</param>
+        /// <param name="key">Key.</param>
         [Route("projects/{projectId}/project-keys/{key}")]
         [HttpDelete]
         [ProducesResponseType(typeof(string), 200)]
         [ProducesResponseType(typeof(string), 404)]
-        public async Task<IActionResult> DeleteProjectKey(string projectId, string key)
+        public async Task<IActionResult> DeleteProjectKey(string projectId, [Required]string key)
         {
             await _kotori.DeleteProjectKeyAsync(_instance, projectId, key);
 
