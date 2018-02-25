@@ -14,6 +14,11 @@ namespace KotoriServer.Tokens
         /// </summary>
         public readonly string Name;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:KotoriServer.Tokens.ProjectResult"/> class.
+        /// </summary>
+        /// <param name="id">Identifier.</param>
+        /// <param name="name">Name.</param>
         public ProjectResult(string id, string name)
         {
             Id = id;

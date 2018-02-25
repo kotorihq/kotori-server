@@ -51,12 +51,12 @@ namespace KotoriServer.Controllers
         /// <returns>A collection of the projects.</returns>
         [Route("projects")]
         [HttpGet]
-        [ProducesResponseType(typeof(Tokens.ComplexCountResult<ProjectResult>), 200)]
-        public async Task<Tokens.ComplexCountResult<ProjectResult>> GetProjects()
+        [ProducesResponseType(typeof(ComplexCountResult<ProjectResult>), 200)]
+        public async Task<ComplexCountResult<ProjectResult>> GetProjects()
         {
             var projects = await _kotori.GetProjectsAsync(_instance);
 
-            return new Tokens.ComplexCountResult<ProjectResult>(projects.Count, projects.Items.Select(p => new ProjectResult(p.Identifier, p.Name)));
+            return new ComplexCountResult<ProjectResult>(projects.Count, projects.Items.Select(p => new ProjectResult(p.Identifier, p.Name)));
         }
 
         /// <summary>

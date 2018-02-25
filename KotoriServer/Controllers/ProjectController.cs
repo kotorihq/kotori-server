@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using KotoriCore.Domains;
 using Microsoft.AspNetCore.Cors;
+using KotoriServer.Tokens;
+using System.Linq;
 
 namespace KotoriServer.Controllers
 {
@@ -49,19 +51,22 @@ namespace KotoriServer.Controllers
             return Created(result.Url, new { id = result.Id, url = result.Url });
         }
 
-        // -------------------- TODO
-
+        /// <summary>
+        /// Gets the content document types.
+        /// </summary>
+        /// <returns>The document types.</returns>
+        /// <param name="projectId">Project identifier.</param>
         [Authorize("readonlyproject")]
-        [Route("document-types")]
+        [Route("content/document-types")]
         [HttpGet]
-        [ProducesResponseType(typeof(ComplexCountResult<SimpleDocumentType>), 200)]
-        [ProducesResponseType(typeof(string), 404)]
-        public async Task<ComplexCountResult<SimpleDocumentType>> GetDocumentTypes(string projectId)
+        public async Task<Tokens.ComplexCountResult<DocumentTypeResult>> GetContentDocumentTypes(string projectId)
         {
             var documentTypes = await _kotori.GetDocumentTypesAsync(_instance, projectId);
 
-            return documentTypes;
+            return new Tokens.ComplexCountResult<DocumentTypeResult>(documentTypes.Count, documentTypes.Items.Select(x => (DocumentTypeResult)x));
         }
+
+        // -------------------- TODO
 
         [Authorize("readonlyproject")]
         [Route("content/{documentTypeId}")]
@@ -222,45 +227,45 @@ namespace KotoriServer.Controllers
             return document;
         }
 
-        [Authorize("readonlyproject")]
-        [Route("content/{documentTypeId}/documents/{documentId}/versions")]
-        [HttpGet]
-        [ProducesResponseType(typeof(ComplexCountResult<SimpleDocumentVersion>), 200)]
-        [ProducesResponseType(typeof(string), 404)]
-        public async Task<ComplexCountResult<SimpleDocumentVersion>> GetContentDocumentVersions(string projectId, string documentTypeId, string documentId)
-        {
-            var documentVersions = await _kotori.GetDocumentVersionsAsync
-            (
-                _instance,
-                projectId,
-                KotoriCore.Helpers.Enums.DocumentType.Content,
-                documentTypeId,
-                documentId,
-                null
-            );
+        //[Authorize("readonlyproject")]
+        //[Route("content/{documentTypeId}/documents/{documentId}/versions")]
+        //[HttpGet]
+        //[ProducesResponseType(typeof(ComplexCountResult<SimpleDocumentVersion>), 200)]
+        //[ProducesResponseType(typeof(string), 404)]
+        //public async Task<ComplexCountResult<SimpleDocumentVersion>> GetContentDocumentVersions(string projectId, string documentTypeId, string documentId)
+        //{
+        //    var documentVersions = await _kotori.GetDocumentVersionsAsync
+        //    (
+        //        _instance,
+        //        projectId,
+        //        KotoriCore.Helpers.Enums.DocumentType.Content,
+        //        documentTypeId,
+        //        documentId,
+        //        null
+        //    );
 
-            return documentVersions;
-        }
+        //    return documentVersions;
+        //}
 
-        [Authorize("readonlyproject")]
-        [Route("data/{documentTypeId}/documents/{documentId}/{index:long}/versions")]
-        [HttpGet]
-        [ProducesResponseType(typeof(ComplexCountResult<SimpleDocumentVersion>), 200)]
-        [ProducesResponseType(typeof(string), 404)]
-        public async Task<ComplexCountResult<SimpleDocumentVersion>> GetDataDocumentVersions(string projectId, string documentTypeId, string documentId, long index)
-        {
-            var documentVersions = await _kotori.GetDocumentVersionsAsync
-            (
-                _instance,
-                projectId,
-                KotoriCore.Helpers.Enums.DocumentType.Data,
-                documentTypeId,
-                documentId,
-                index
-            );
+        //[Authorize("readonlyproject")]
+        //[Route("data/{documentTypeId}/documents/{documentId}/{index:long}/versions")]
+        //[HttpGet]
+        //[ProducesResponseType(typeof(ComplexCountResult<SimpleDocumentVersion>), 200)]
+        //[ProducesResponseType(typeof(string), 404)]
+        //public async Task<ComplexCountResult<SimpleDocumentVersion>> GetDataDocumentVersions(string projectId, string documentTypeId, string documentId, long index)
+        //{
+        //    var documentVersions = await _kotori.GetDocumentVersionsAsync
+        //    (
+        //        _instance,
+        //        projectId,
+        //        KotoriCore.Helpers.Enums.DocumentType.Data,
+        //        documentTypeId,
+        //        documentId,
+        //        index
+        //    );
 
-            return documentVersions;
-        }
+        //    return documentVersions;
+        //}
 
         [Authorize("project")]
         [Route("content/{documentTypeId}/documents/{documentId}")]
@@ -302,67 +307,67 @@ namespace KotoriServer.Controllers
             return NoContent();
         }
 
-        [Authorize("readonlyproject")]
-        [Route("content/{documentTypeId}/find")]
-        [HttpGet]
-        [ProducesResponseType(typeof(ComplexCountResult<SimpleDocument>), 200)]
-        [ProducesResponseType(typeof(string), 404)]
-        public async Task<ComplexCountResult<SimpleDocument>> FindContentDocuments(string projectId, string documentTypeId, [FromQuery]int? top, 
-                                                [FromQuery]string select, [FromQuery]string filter, [FromQuery]string orderBy, [FromQuery]bool drafts = false,
-                                                [FromQuery]bool future = false, [FromQuery]int? skip = null, [FromQuery]string format = null)
-        {
-            var df = KotoriCore.Helpers.Enums.DocumentFormat.Markdown;
+        //[Authorize("readonlyproject")]
+        //[Route("content/{documentTypeId}/find")]
+        //[HttpGet]
+        //[ProducesResponseType(typeof(ComplexCountResult<SimpleDocument>), 200)]
+        //[ProducesResponseType(typeof(string), 404)]
+        //public async Task<ComplexCountResult<SimpleDocument>> FindContentDocuments(string projectId, string documentTypeId, [FromQuery]int? top, 
+        //                                        [FromQuery]string select, [FromQuery]string filter, [FromQuery]string orderBy, [FromQuery]bool drafts = false,
+        //                                        [FromQuery]bool future = false, [FromQuery]int? skip = null, [FromQuery]string format = null)
+        //{
+        //    var df = KotoriCore.Helpers.Enums.DocumentFormat.Markdown;
 
-            if (!string.IsNullOrEmpty(format) &&
-               !format.Equals("html", System.StringComparison.OrdinalIgnoreCase))
-                df = KotoriCore.Helpers.Enums.DocumentFormat.Markdown;
+        //    if (!string.IsNullOrEmpty(format) &&
+        //       !format.Equals("html", System.StringComparison.OrdinalIgnoreCase))
+        //        df = KotoriCore.Helpers.Enums.DocumentFormat.Markdown;
 
-            var documents = await _kotori.FindDocumentsAsync
-            (
-                 _instance,
-                 projectId,
-                 KotoriCore.Helpers.Enums.DocumentType.Content,
-                 documentTypeId,
-                 top,
-                 select,
-                 filter,
-                 orderBy,
-                 drafts,
-                 future,
-                 skip,
-                 df
-            );
+        //    var documents = await _kotori.FindDocumentsAsync
+        //    (
+        //         _instance,
+        //         projectId,
+        //         KotoriCore.Helpers.Enums.DocumentType.Content,
+        //         documentTypeId,
+        //         top,
+        //         select,
+        //         filter,
+        //         orderBy,
+        //         drafts,
+        //         future,
+        //         skip,
+        //         df
+        //    );
 
-            return documents;
-        }
+        //    return documents;
+        //}
 
-        [Authorize("readonlyproject")]
-        [Route("data/{documentTypeId}/find")]
-        [HttpGet]
-        [ProducesResponseType(typeof(ComplexCountResult<SimpleDocument>), 200)]
-        [ProducesResponseType(typeof(string), 404)]
-        public async Task<ComplexCountResult<SimpleDocument>> FindDataDocuments(string projectId, string documentTypeId, [FromQuery]int? top,
-                                                [FromQuery]string select, [FromQuery]string filter, [FromQuery]string orderBy, [FromQuery]bool drafts = false,
-                                                [FromQuery]bool future = false, [FromQuery]int? skip = null)
-        {
-            var documents = await _kotori.FindDocumentsAsync
-            (
-                 _instance,
-                 projectId,
-                 KotoriCore.Helpers.Enums.DocumentType.Data,
-                 documentTypeId,
-                 top,
-                 select,
-                 filter,
-                 orderBy,
-                 drafts,
-                 future,
-                 skip,
-                 KotoriCore.Helpers.Enums.DocumentFormat.Html
-            );
+        //[Authorize("readonlyproject")]
+        //[Route("data/{documentTypeId}/find")]
+        //[HttpGet]
+        //[ProducesResponseType(typeof(ComplexCountResult<SimpleDocument>), 200)]
+        //[ProducesResponseType(typeof(string), 404)]
+        //public async Task<ComplexCountResult<SimpleDocument>> FindDataDocuments(string projectId, string documentTypeId, [FromQuery]int? top,
+        //                                        [FromQuery]string select, [FromQuery]string filter, [FromQuery]string orderBy, [FromQuery]bool drafts = false,
+        //                                        [FromQuery]bool future = false, [FromQuery]int? skip = null)
+        //{
+        //    var documents = await _kotori.FindDocumentsAsync
+        //    (
+        //         _instance,
+        //         projectId,
+        //         KotoriCore.Helpers.Enums.DocumentType.Data,
+        //         documentTypeId,
+        //         top,
+        //         select,
+        //         filter,
+        //         orderBy,
+        //         drafts,
+        //         future,
+        //         skip,
+        //         KotoriCore.Helpers.Enums.DocumentFormat.Html
+        //    );
 
-            return documents;
-        }
+        //    return documents;
+        //}
 
         [Authorize("project")]
         [Route("content/{documentTypeId}/documents/{documentId}/{index:long?}")]
