@@ -91,19 +91,23 @@ namespace KotoriServer.Controllers
             return new Tokens.ComplexCountResult<DocumentTypeResult>(documentTypes.Count, documentTypes.Items.Select(x => (DocumentTypeResult)x));
         }
 
-        // -------------------- TODO
-
+        /// <summary>
+        /// Gets the content document type.
+        /// </summary>
+        /// <returns>The operation result.</returns>
+        /// <param name="projectId">Project identifier.</param>
+        /// <param name="documentTypeId">Document type identifier.</param>
         [Authorize("readonlyproject")]
-        [Route("content/{documentTypeId}")]
+        [Route("content/document-types/{documentTypeId}")]
         [HttpGet]
-        [ProducesResponseType(typeof(SimpleDocumentType), 200)]
-        [ProducesResponseType(typeof(string), 404)]
-        public async Task<SimpleDocumentType> GetContentDocumentType(string projectId, string documentTypeId)
+        public async Task<DocumentTypeResult> GetContentDocumentType(string projectId, [Required]string documentTypeId)
         {
             var docType = await _kotori.GetDocumentTypeAsync(_instance, projectId, KotoriCore.Helpers.Enums.DocumentType.Content, documentTypeId);
 
             return docType;
         }
+
+        // -------------------- TODO
 
         [Authorize("readonlyproject")]
         [Route("data/{documentType}/{documentTypeId}")]
