@@ -7,6 +7,7 @@ using KotoriCore.Domains;
 using Microsoft.AspNetCore.Cors;
 using KotoriServer.Tokens;
 using System.Linq;
+using System.ComponentModel.DataAnnotations;
 
 namespace KotoriServer.Controllers
 {
@@ -52,6 +53,30 @@ namespace KotoriServer.Controllers
         }
 
         /// <summary>
+        /// Upserts the type of the content document.
+        /// </summary>
+        /// <returns>The operation result.</returns>
+        /// <param name="projectId">Project identifier.</param>
+        [Authorize("project")]
+        [Route("content/document-types/{documentTypeId}")]
+        [HttpPut]
+        public async Task<IActionResult> UpsertContentDocumentType(string projectId, [Required]string documentTypeId)
+        {
+            var result = await _kotori.UpsertDocumentTypeAsync
+            (
+                  _instance,
+                  projectId,
+                  KotoriCore.Helpers.Enums.DocumentType.Content,
+                  documentTypeId
+            );
+
+            if (result.NewResource)
+                return Created(result.Url, new { id = result.Id, url = result.Url });
+
+            return Ok();
+        }
+
+        /// <summary>
         /// Gets the content document types.
         /// </summary>
         /// <returns>The document types.</returns>
@@ -62,7 +87,7 @@ namespace KotoriServer.Controllers
         public async Task<Tokens.ComplexCountResult<DocumentTypeResult>> GetContentDocumentTypes(string projectId)
         {
             var documentTypes = await _kotori.GetDocumentTypesAsync(_instance, projectId);
-
+             
             return new Tokens.ComplexCountResult<DocumentTypeResult>(documentTypes.Count, documentTypes.Items.Select(x => (DocumentTypeResult)x));
         }
 
