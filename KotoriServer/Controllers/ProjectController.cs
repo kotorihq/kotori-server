@@ -37,7 +37,7 @@ namespace KotoriServer.Controllers
         /// <returns>The operation result.</returns>
         /// <param name="projectId">Project identifier.</param>
         [Authorize("project")]
-        [Route("content/document-types")]
+        [Route("content")]
         [HttpPost]
         public async Task<IActionResult> CreateContentDocumentType(string projectId)
         {
