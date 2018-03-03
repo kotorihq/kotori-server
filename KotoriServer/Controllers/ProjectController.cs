@@ -195,6 +195,33 @@ namespace KotoriServer.Controllers
             return Ok();
         }
 
+        [Authorize("readonlyproject")]
+        //[Route("content/{documentTypeId}/documents/{documentId}/versions/{version:long}")]
+        [Route("content/{documentTypeId}/documents/{documentId}")]
+        [HttpGet]
+        public async Task<DocumentResult> GetContentDocument(string projectId, string documentTypeId, string documentId, [FromQuery]string format)
+        {
+            var df = KotoriCore.Helpers.Enums.DocumentFormat.Markdown;
+
+            if (!string.IsNullOrEmpty(format) &&
+               !format.Equals("html", System.StringComparison.OrdinalIgnoreCase))
+                df = KotoriCore.Helpers.Enums.DocumentFormat.Markdown;
+
+            var document = await _kotori.GetDocumentAsync
+            (
+                _instance,
+                projectId,
+                KotoriCore.Helpers.Enums.DocumentType.Content,
+                documentTypeId,
+                documentId,
+                null,
+                null,
+                df
+            );
+
+            return document;
+        }
+
         // -------------------- TODO
 
         [Authorize("readonlyproject")]
@@ -235,34 +262,6 @@ namespace KotoriServer.Controllers
             return new Tokens.CountResult(count.Count);
         }
 
-        [Authorize("readonlyproject")]
-        [Route("content/{documentTypeId}/documents/{documentId}/versions/{version:long}")]
-        [HttpGet]
-        [ProducesResponseType(typeof(SimpleDocument), 200)]
-        [ProducesResponseType(typeof(string), 404)]
-        public async Task<SimpleDocument> GetContentDocument(string projectId, string documentTypeId,
-                                                      string documentId, long version, [FromQuery]string format)
-        {
-            var df = KotoriCore.Helpers.Enums.DocumentFormat.Markdown;
-
-            if (!string.IsNullOrEmpty(format) &&
-               !format.Equals("html", System.StringComparison.OrdinalIgnoreCase))
-                df = KotoriCore.Helpers.Enums.DocumentFormat.Markdown;
-
-            var document = await _kotori.GetDocumentAsync
-            (
-                _instance,
-                projectId,
-                KotoriCore.Helpers.Enums.DocumentType.Content,
-                documentTypeId,
-                documentId,
-                null,
-                version,
-                df
-            );
-
-            return document;
-        }
 
         [Authorize("readonlyproject")]
         [Route("data/{documentTypeId}/documents/{documentId}/{index:long}/versions/{version:long}")]
@@ -287,35 +286,6 @@ namespace KotoriServer.Controllers
                 documentId,
                 index,
                 version,
-                df
-            );
-
-            return document;
-        }
-
-        [Authorize("readonlyproject")]
-        [Route("content/{documentTypeId}/documents/{documentId}")]
-        [HttpGet]
-        [ProducesResponseType(typeof(SimpleDocument), 200)]
-        [ProducesResponseType(typeof(string), 404)]
-        public async Task<SimpleDocument> GetContentDocument(string projectId, string documentTypeId,
-                                                      string documentId, [FromQuery]string format)
-        {
-            var df = KotoriCore.Helpers.Enums.DocumentFormat.Markdown;
-
-            if (!string.IsNullOrEmpty(format) &&
-               !format.Equals("html", System.StringComparison.OrdinalIgnoreCase))
-                df = KotoriCore.Helpers.Enums.DocumentFormat.Markdown;
-
-            var document = await _kotori.GetDocumentAsync
-            (
-                _instance,
-                projectId,
-                KotoriCore.Helpers.Enums.DocumentType.Content,
-                documentTypeId,
-                documentId,
-                null,
-                null,
                 df
             );
 
