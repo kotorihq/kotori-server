@@ -58,7 +58,7 @@ namespace KotoriServer.Controllers
         /// <returns>The operation result.</returns>
         /// <param name="projectId">Project identifier.</param>
         [Authorize("project")]
-        [Route("content/document-types/{documentTypeId}")]
+        [Route("content/{documentTypeId}")]
         [HttpPut]
         public async Task<IActionResult> UpsertContentDocumentType(string projectId, [Required]string documentTypeId)
         {
