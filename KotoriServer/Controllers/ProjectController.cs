@@ -129,6 +129,15 @@ namespace KotoriServer.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Creates the content document.
+        /// </summary>
+        /// <returns>The operation result.</returns>
+        /// <param name="projectId">Project identifier.</param>
+        /// <param name="documentTypeId">Document type identifier.</param>
+        /// <param name="content">Content.</param>
+        /// <param name="date">Date.</param>
+        /// <param name="draft">Draft.</param>
         [Authorize("project")]
         [Route("content/{documentTypeId}/documents")]
         [HttpPost]
@@ -148,6 +157,42 @@ namespace KotoriServer.Controllers
             );
 
             return Created(result.Url, new { id = result.Id, url = result.Url });
+        }
+
+        /// <summary>
+        /// Upserts the content document.
+        /// </summary>
+        /// <returns>The operation result.</returns>
+        /// <param name="projectId">Project identifier.</param>
+        /// <param name="documentTypeId">Document type identifier.</param>
+        /// <param name="documentId">Document identifier.</param>
+        /// <param name="content">Content.</param>
+        /// <param name="date">Date.</param>
+        /// <param name="draft">Draft.</param>
+        [Authorize("project")]
+        [Route("content/{documentTypeId}/documents/{documentId}")]
+        [HttpPut]
+        public async Task<IActionResult> UpsertContentDocument(string projectId, string documentTypeId, string documentId, [FromBody]string content, [FromQuery]string date, [FromQuery]bool? draft)
+        {
+            var dt = date.ToDateTime();
+
+            var result = await _kotori.UpsertDocumentAsync
+            (
+                _instance,
+                projectId,
+                KotoriCore.Helpers.Enums.DocumentType.Content,
+                documentTypeId,
+                documentId,
+                null,
+                content,
+                dt,
+                draft
+            );
+
+            if (result.NewResource)
+                return Created(result.Url, new { id = result.Id, url = result.Url });
+
+            return Ok();
         }
 
         // -------------------- TODO
@@ -440,32 +485,6 @@ namespace KotoriServer.Controllers
 
         //    return documents;
         //}
-
-        [Authorize("project")]
-        [Route("content/{documentTypeId}/documents/{documentId}/{index:long?}")]
-        [HttpPost]
-        [ProducesResponseType(typeof(string), 201)]
-        [ProducesResponseType(typeof(string), 404)]
-        public async Task<IActionResult> UpsertContentDocument(string projectId, string documentTypeId, string documentId,
-                                                        [FromBody]string content, [FromQuery]string date, [FromQuery]bool? draft)
-        {
-            var dt = date.ToDateTime();
-
-            var result = await _kotori.UpsertDocumentAsync
-            (
-                _instance,
-                projectId,
-                KotoriCore.Helpers.Enums.DocumentType.Content,
-                documentTypeId,
-                documentId,
-                null,
-                content,
-                dt,
-                draft
-            );
-
-            return Created(result.Url, result);
-        }
 
         [Authorize("project")]
         [Route("data/{documentTypeId}/documents/{documentId}/{index:long?}")]
