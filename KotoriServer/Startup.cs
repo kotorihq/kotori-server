@@ -1,6 +1,7 @@
 ﻿using Daifuku.Extensions;
 using KotoriCore;
 using KotoriServer.Filters;
+using KotoriServer.Helpers;
 using KotoriServer.Middleware;
 using KotoriServer.Security;
 using Microsoft.AspNetCore.Authorization;
@@ -117,6 +118,7 @@ namespace KotoriServer
             services.AddMvc(options =>
             {
                 options.OutputFormatters.Add(new XmlSerializerOutputFormatter());
+                options.InputFormatters.Insert(0, new RawRequestBodyFormatter());
             });
         }
 

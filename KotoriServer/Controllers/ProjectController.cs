@@ -128,6 +128,28 @@ namespace KotoriServer.Controllers
 
             return NoContent();
         }
+
+        [Authorize("project")]
+        [Route("content/{documentTypeId}/documents")]
+        [HttpPost]
+        public async Task<IActionResult> CreateContentDocument(string projectId, string documentTypeId, [FromBody]string content, [FromQuery]string date, [FromQuery]bool? draft)
+        {
+            var dt = date.ToDateTime();
+
+            var result = await _kotori.CreateDocumentAsync
+            (
+                _instance,
+                projectId,
+                KotoriCore.Helpers.Enums.DocumentType.Content,
+                documentTypeId,
+                content,
+                dt,
+                draft
+            );
+
+            return Created(result.Url, new { id = result.Id, url = result.Url });
+        }
+
         // -------------------- TODO
 
         [Authorize("readonlyproject")]
