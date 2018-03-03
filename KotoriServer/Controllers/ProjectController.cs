@@ -222,6 +222,24 @@ namespace KotoriServer.Controllers
             return document;
         }
 
+        [Authorize("project")]
+        [Route("content/{documentTypeId}/documents/{documentId}")]
+        [HttpDelete]
+        public async Task<StatusCodeResult> DeleteContentDocument(string projectId, string documentTypeId, string documentId)
+        {
+            await _kotori.DeleteDocumentAsync
+            (
+                  _instance,
+                  projectId,
+                  KotoriCore.Helpers.Enums.DocumentType.Content,
+                  documentTypeId,
+                  documentId,
+                  null
+            );
+
+            return NoContent();
+        }
+
         // -------------------- TODO
 
         [Authorize("readonlyproject")]
@@ -353,26 +371,6 @@ namespace KotoriServer.Controllers
 
         //    return documentVersions;
         //}
-
-        [Authorize("project")]
-        [Route("content/{documentTypeId}/documents/{documentId}")]
-        [HttpDelete]
-        [ProducesResponseType(204)]
-        [ProducesResponseType(typeof(string), 404)]
-        public async Task<StatusCodeResult> DeleteContentDocument(string projectId, string documentTypeId, string documentId)
-        {
-            await _kotori.DeleteDocumentAsync
-            (
-                  _instance,
-                  projectId,
-                  KotoriCore.Helpers.Enums.DocumentType.Content,
-                  documentTypeId,
-                  documentId,
-                  null
-            );
-
-            return NoContent();
-        }
 
         [Authorize("project")]
         [Route("data/{documentTypeId}/documents/{documentId}/{index:long?}")]
