@@ -82,7 +82,7 @@ namespace KotoriServer.Controllers
         /// <returns>The document types.</returns>
         /// <param name="projectId">Project identifier.</param>
         [Authorize("readonlyproject")]
-        [Route("content/document-types")]
+        [Route("content")]
         [HttpGet]
         public async Task<Tokens.ComplexCountResult<DocumentTypeResult>> GetContentDocumentTypes(string projectId)
         {
