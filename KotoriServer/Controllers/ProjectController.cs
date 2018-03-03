@@ -96,7 +96,7 @@ namespace KotoriServer.Controllers
         /// </summary>
         /// <returns>The operation result.</returns>
         /// <param name="projectId">Project identifier.</param>
-        /// <param name="documentTypeId">Document type identifier.</param>
+        /// <param name="documentTypeId">Content document type identifier.</param>
         [Authorize("readonlyproject")]
         [Route("content/document-types/{documentTypeId}")]
         [HttpGet]
@@ -107,6 +107,27 @@ namespace KotoriServer.Controllers
             return docType;
         }
 
+        /// <summary>
+        /// Deletes the content document tpye.
+        /// </summary>
+        /// <returns>The operation result.</returns>
+        /// <param name="projectId">Project identifier.</param>
+        /// <param name="documentTypeId">Content document type identifier.</param>
+        [Authorize("project")]
+        [Route("content/{documentTypeId}")]
+        [HttpDelete]
+        public async Task<StatusCodeResult> DeleteContentDocumentType(string projectId, string documentTypeId)
+        {
+            await _kotori.DeleteDocumentTypeAsync
+            (
+                  _instance,
+                  projectId,
+                  KotoriCore.Helpers.Enums.DocumentType.Content,
+                  documentTypeId
+            );
+
+            return NoContent();
+        }
         // -------------------- TODO
 
         [Authorize("readonlyproject")]
