@@ -5,8 +5,17 @@
     /// </summary>
     public class InstanceResult : IResult
     {
-        /// <value>The instance name.</value>
+        /// <summary>
+        /// Gets or sets the instance.
+        /// </summary>
+        /// <value>The instance.</value>
         public string Instance { get; set; }
+
+        /// <summary>
+        /// Gets or sets the version.
+        /// </summary>
+        /// <value>The version.</value>
+        public string Version { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:KotoriServer.Tokens.InstanceResult"/> class.
@@ -18,10 +27,11 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="T:KotoriServer.Tokens.InstanceResult"/> class.
         /// </summary>
-        /// <param name="instance">Instance name.</param>
-        public InstanceResult(string instance)
+        /// <param name="configuration">Configuration.</param>
+        public InstanceResult(KotoriCore.Configurations.IKotoriConfiguration configuration)
         {
-            Instance = instance;
+            Instance = configuration.Instance;
+            Version = configuration.Version;
         }
     }
 }

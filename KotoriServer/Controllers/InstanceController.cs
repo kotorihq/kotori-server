@@ -11,7 +11,6 @@ namespace KotoriServer.Controllers
     public class InstanceController
     {
         readonly Kotori _kotori;
-        readonly string _instance;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:KotoriServer.Controllers.InstanceController"/> class.
@@ -20,7 +19,6 @@ namespace KotoriServer.Controllers
         public InstanceController(IKotori kotori)
         {
             _kotori = kotori as Kotori;
-            _instance = _kotori.Configuration.Instance;
         }
 
         /// <summary>
@@ -28,10 +26,9 @@ namespace KotoriServer.Controllers
         /// </summary>
         /// <returns>The instance information.</returns>
         [HttpGet]
-        [ProducesResponseType(typeof(InstanceResult), 200)]
         public InstanceResult Get()
         {
-            return new InstanceResult(_instance);
+            return new InstanceResult(_kotori.Configuration);
         }
     }
 }
