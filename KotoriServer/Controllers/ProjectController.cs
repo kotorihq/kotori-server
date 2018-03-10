@@ -245,8 +245,6 @@ namespace KotoriServer.Controllers
         [Authorize("readonlyproject")]
         [Route("data/{documentType}/{documentTypeId}")]
         [HttpGet]
-        [ProducesResponseType(typeof(SimpleDocumentType), 200)]
-        [ProducesResponseType(typeof(string), 404)]
         public async Task<SimpleDocumentType> GetDataDocumentType(string projectId, string documentTypeId)
         {
             var docType = await _kotori.GetDocumentTypeAsync(_instance, projectId, KotoriCore.Helpers.Enums.DocumentType.Data, documentTypeId);
@@ -257,8 +255,6 @@ namespace KotoriServer.Controllers
         [Authorize("readonlyproject")]
         [Route("content/{documentTypeId}/count")]
         [HttpGet]
-        [ProducesResponseType(typeof(Tokens.CountResult), 200)]
-        [ProducesResponseType(typeof(string), 404)]
         public async Task<Tokens.CountResult> CountContentDocuments(string projectId, string documentTypeId, 
                                                       [FromQuery]string filter, [FromQuery]bool drafts = false, [FromQuery]bool future = false)
         {
@@ -270,8 +266,6 @@ namespace KotoriServer.Controllers
         [Authorize("readonlyproject")]
         [Route("data/{documentTypeId}/count")]
         [HttpGet]
-        [ProducesResponseType(typeof(Tokens.CountResult), 200)]
-        [ProducesResponseType(typeof(string), 404)]
         public async Task<Tokens.CountResult> CountDataDocuments(string projectId, string documentTypeId,
                                                       [FromQuery]string filter, [FromQuery]bool drafts = false, [FromQuery]bool future = false)
         {
@@ -284,8 +278,6 @@ namespace KotoriServer.Controllers
         [Authorize("readonlyproject")]
         [Route("data/{documentTypeId}/documents/{documentId}/{index:long}/versions/{version:long}")]
         [HttpGet]
-        [ProducesResponseType(typeof(SimpleDocument), 200)]
-        [ProducesResponseType(typeof(string), 404)]
         public async Task<SimpleDocument> GetContentDocument(string projectId, string documentTypeId,
                                                       string documentId, long index, long version, [FromQuery]string format)
         {
@@ -313,8 +305,6 @@ namespace KotoriServer.Controllers
         [Authorize("readonlyproject")]
         [Route("data/{documentTypeId}/documents/{documentId}/{index:long}")]
         [HttpGet]
-        [ProducesResponseType(typeof(SimpleDocument), 200)]
-        [ProducesResponseType(typeof(string), 404)]
         public async Task<SimpleDocument> GetDataDocument(string projectId, string documentTypeId,
                                                           string documentId, long index)
         {
@@ -375,8 +365,6 @@ namespace KotoriServer.Controllers
         [Authorize("project")]
         [Route("data/{documentTypeId}/documents/{documentId}/{index:long?}")]
         [HttpDelete]
-        [ProducesResponseType(204)]
-        [ProducesResponseType(typeof(string), 404)]
         public async Task<StatusCodeResult> DeleteDataDocument(string projectId, string documentTypeId, string documentId, long? index)
         {
             await _kotori.DeleteDocumentAsync
@@ -457,8 +445,6 @@ namespace KotoriServer.Controllers
         [Authorize("project")]
         [Route("data/{documentTypeId}/documents/{documentId}/{index:long?}")]
         [HttpPost]
-        [ProducesResponseType(typeof(string), 201)]
-        [ProducesResponseType(typeof(string), 404)]
         public async Task<IActionResult> UpsertDataDocument(string projectId, string documentTypeId, string documentId,
                                                      long? index, [FromBody]string content, [FromQuery]string date, [FromQuery]bool? draft)
         {

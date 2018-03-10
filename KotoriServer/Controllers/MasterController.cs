@@ -37,7 +37,6 @@ namespace KotoriServer.Controllers
         /// <param name="createProject">Create project request.</param>
         [Route("projects")]
         [HttpPost]
-        [ProducesResponseType(201)]
         public async Task<IActionResult> CreateProject([FromBody]CreateProjectRequest createProject)
         {
             var result = await _kotori.CreateProjectAsync(_instance, null, createProject.Name);
@@ -51,7 +50,6 @@ namespace KotoriServer.Controllers
         /// <returns>A collection of the projects.</returns>
         [Route("projects")]
         [HttpGet]
-        [ProducesResponseType(typeof(ComplexCountResult<ProjectResult>), 200)]
         public async Task<ComplexCountResult<ProjectResult>> GetProjects()
         {
             var projects = await _kotori.GetProjectsAsync(_instance);
@@ -66,7 +64,6 @@ namespace KotoriServer.Controllers
         /// <param name="projectId">Project identifier.</param>
         [Route("projects/{projectId}")]
         [HttpGet]
-        [ProducesResponseType(typeof(ProjectResult), 200)]
         public async Task<ProjectResult> GetProject(string projectId)
         {
             var result = await _kotori.GetProjectAsync(_instance, projectId);
@@ -82,8 +79,6 @@ namespace KotoriServer.Controllers
         /// <param name="upsertProject">Upsert project request.</param>
         [Route("projects/{projectId}")]
         [HttpPut]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(201)]
         public async Task<IActionResult> UpsertProject([Required]string projectId, [FromBody]UpsertProjectRequest upsertProject)
         {
             var result = await _kotori.UpsertProjectAsync(_instance, projectId, upsertProject.Name);
@@ -102,7 +97,6 @@ namespace KotoriServer.Controllers
         /// <param name="projectId">Project identifier.</param>
         [Route("projects/{projectId}")]
         [HttpDelete]
-        [ProducesResponseType(204)]
         public async Task<IActionResult> DeleteProject(string projectId)
         {
             await _kotori.DeleteProjectAsync(_instance, projectId);
@@ -117,8 +111,6 @@ namespace KotoriServer.Controllers
         /// <param name="projectId">Project identifier.</param>
         [Route("projects/{projectId}/project-keys")]
         [HttpGet]
-        [ProducesResponseType(typeof(Tokens.ComplexCountResult<ProjectKeyResult>), 200)]
-        [ProducesResponseType(404)]
         public async Task<Tokens.ComplexCountResult<ProjectKeyResult>> GetProjectKeys(string projectId)
         {
             var projectKeys = await _kotori.GetProjectKeysAsync(_instance, projectId);
@@ -148,8 +140,6 @@ namespace KotoriServer.Controllers
         /// <param name="key">Key.</param>
         [Route("projects/{projectId}/project-keys/{key}")]
         [HttpDelete]
-        [ProducesResponseType(typeof(string), 200)]
-        [ProducesResponseType(typeof(string), 404)]
         public async Task<IActionResult> DeleteProjectKey(string projectId, [Required]string key)
         {
             await _kotori.DeleteProjectKeyAsync(_instance, projectId, key);
