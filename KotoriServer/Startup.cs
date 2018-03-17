@@ -80,26 +80,9 @@ namespace KotoriServer
                     Name = "projectKey",
                     In = "header"
                 });
-
-                //c.CustomSchemaIds((type) =>
-                //{
-                //    if (type == typeof(InstanceResult))
-                //        return "Instance";
-
-                //    if (type == typeof(KotoriCore.Domains.SimpleProject))
-                //        return "Project";
-
-                //    if (type == typeof(KotoriCore.Domains.ProjectKey))
-                //        return "ProjectKey";
-
-                //    return type.FullName;
-                //}
-                //);
                 
                 c.OperationFilter<SecurityRequirementsOperationFilter>();
                 c.OperationFilter<InternalServerErrorOperationFilter>();
-
-                //c.IncludeXmlComments(filePath);
             });
 
             services.AddAuthorization(options => options.AddPolicy("master", policy => policy.Requirements.Add(new MasterRequirement())));
@@ -163,14 +146,6 @@ namespace KotoriServer
                 routes.MapRoute("error", "error", new { controller = "Site", action = "Error" });
             }
             );
-
-            //app.UseSwagger();
-
-            //app.UseSwaggerUI(c =>
-            //{
-            //    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Kotori");
-            //    c.ShowRequestHeaders();
-            //});
         }
     }
 }
